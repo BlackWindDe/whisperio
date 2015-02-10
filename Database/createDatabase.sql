@@ -1,5 +1,5 @@
 /*-------------------------------------------------------*/
-/*  Script to create the database used by Whisper.io   . */
+/*  Script to create the database used by Whisper.io.    */
 /*-------------------------------------------------------*/
 
 CREATE USER 'whisperio'@'localhost' IDENTIFIED BY 'whisperio';
