@@ -26,6 +26,18 @@ VALUES (6, "remi.serein@whisper.io", "Remi", "SEREIN");
 /* --- Projects --- */
 INSERT INTO Projects(ID, Name, KeyName, Description, CreationDate)
 VALUES (1, "Whisper.io", "WIO", "Agile Planning tool developped with Java EE Technologie.", "2014-05-20");
+INSERT INTO Projects(ID, Name, KeyName, Description, CreationDate)
+VALUES (2, "Microsoft Windows", "MSW", "OS Developped by Microsoft.", "2014-05-21");
+INSERT INTO Projects(ID, Name, KeyName, Description, CreationDate)
+VALUES (3, "Ubuntu", "UBU", "Open Source OS", "2014-05-22");
+INSERT INTO Projects(ID, Name, KeyName, Description, CreationDate)
+VALUES (4, "Mac OS", "MAC", "OS developped by Apple.", "2014-05-23");
+INSERT INTO Projects(ID, Name, KeyName, Description, CreationDate)
+VALUES (5, "Netbeans", "NBS", "IDE for Java technologies.", "2014-05-24");
+INSERT INTO Projects(ID, Name, KeyName, Description, CreationDate)
+VALUES (6, "Eclipse", "ECE", "IDE for Java technologies.", "2014-05-25");
+INSERT INTO Projects(ID, Name, KeyName, Description, CreationDate)
+VALUES (7, "Github", "GHB", "Social Coding", "2014-05-26");
 
 /* --- Releases --- */
 INSERT INTO Releases(ID, Name, StartDate, EndDate, ProjectID, IsActive)
