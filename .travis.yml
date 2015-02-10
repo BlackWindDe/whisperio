@@ -7,7 +7,7 @@ os:
   - linux
   
 install:
-  - mysql -uroot < ./database/createDatabase.sql 
-  - mysql agilebooster -uroot < ./database/createTables.sql 
+  - mysql -uroot < ./Database/createDatabase.sql 
+  - mysql agilebooster -uroot < ./Database/createTables.sql 
   
 script: mvn test
