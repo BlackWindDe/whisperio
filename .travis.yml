@@ -8,6 +8,6 @@ os:
   
 install:
   - mysql -uroot < ./Database/createDatabase.sql 
-  - mysql agilebooster -uroot < ./Database/createTables.sql 
+  - mysql whisperio -uroot < ./Database/createTables.sql 
   
 script: mvn test
