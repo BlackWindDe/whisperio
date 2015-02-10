@@ -42,7 +42,7 @@ Create Table Projects
 ID               INT NOT NULL AUTO_INCREMENT,
 Name             VARCHAR(50) NOT NULL,
 KeyName          VARCHAR(3) NOT NULL,
-Description      VARCHAR(300) NOT NULL,
+Description      TEXT NOT NULL,
 CreationDate     DATE NOT NULL,
 CONSTRAINT Projects_ID_PK PRIMARY KEY (ID),
 CONSTRAINT Projects_KeyName_UQ UNIQUE (KeyName)
