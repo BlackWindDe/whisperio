@@ -1,5 +1,5 @@
 /*-------------------------------------------------------------*/
-/* Script to initialize test environment used by Agile-Booster */
+/* Script to initialize test environment used by Whisper.io    */
 /*-------------------------------------------------------------*/
 
 /* --- Clean the existing values --- */
@@ -11,21 +11,21 @@ DELETE FROM Users;
 
 /* --- Users ---*/
 INSERT INTO Users(ID, Mail, Forename, LastName) 
-VALUES (1, "john.doe@agilebooster.com", "John", "DOE");
+VALUES (1, "john.doe@whisper.io", "John", "DOE");
 INSERT INTO Users(ID, Mail, Forename, LastName) 
-VALUES (2, "alex.cool@agilebooster.com", "Alex", "COOL");
+VALUES (2, "alex.cool@whisper.io", "Alex", "COOL");
 INSERT INTO Users(ID, Mail, Forename, LastName) 
-VALUES (3, "john.smith@agilebooster.com", "John", "SMITH");
+VALUES (3, "john.smith@whisper.io", "John", "SMITH");
 INSERT INTO Users(ID, Mail, Forename, LastName) 
-VALUES (4, "alain.rolland@agilebooster.com", "Alain", "ROLLAND");
+VALUES (4, "alain.rolland@whisper.io", "Alain", "ROLLAND");
 INSERT INTO Users(ID, Mail, Forename, LastName) 
-VALUES (5, "sebastien.loeb@agilebooster.com", "Sebastien", "LOEB");
+VALUES (5, "sebastien.loeb@whisper.io", "Sebastien", "LOEB");
 INSERT INTO Users(ID, Mail, Forename, LastName) 
-VALUES (6, "remi.serein@agilebooster.com", "Remi", "SEREIN");
+VALUES (6, "remi.serein@whisper.io", "Remi", "SEREIN");
 
 /* --- Projects --- */
 INSERT INTO Projects(ID, Name, KeyName, Description, CreationDate)
-VALUES (1, "AgileBooster", "ABR", "Agile Planning tool developped with Java EE Technologie.", "2014-05-20");
+VALUES (1, "Whisper.io", "WIO", "Agile Planning tool developped with Java EE Technologie.", "2014-05-20");
 
 /* --- Releases --- */
 INSERT INTO Releases(ID, Name, StartDate, EndDate, ProjectID, IsActive)

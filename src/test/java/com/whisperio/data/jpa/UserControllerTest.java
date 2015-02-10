@@ -34,7 +34,7 @@ public class UserControllerTest {
     @Test
     public void testCreate() {
         System.out.println("UserController:Create");
-        User user = new User("testCreate@agilebooster.com", "Forename", "Last Name");
+        User user = new User("testCreate@whisper.io", "Forename", "Last Name");
         UserController instance = new UserController();
         User userResult = instance.create(user);
         assertNotNull(userResult.getId());
@@ -51,9 +51,9 @@ public class UserControllerTest {
     public void testEdit() {
         System.out.println("UserController:Edit");
         UserController instance = new UserController();
-        User oldUser = new User("testEditOld@agilebooster.com", "Forename", "Last Name");
+        User oldUser = new User("testEditOld@whisper.io", "Forename", "Last Name");
         oldUser = instance.create(oldUser);
-        User newUser = new User("testEditNew@agilebooster.com", "New Forename", "New Last Name");
+        User newUser = new User("testEditNew@whisper.io", "New Forename", "New Last Name");
         newUser.setId(oldUser.getId());
         User editResult = instance.edit(newUser);
         assertEquals(newUser.getMail(), editResult.getMail());
@@ -68,11 +68,11 @@ public class UserControllerTest {
     @Test
     public void testDestroy() {
         System.out.println("UserController:Destroy");
-        User newUser = new User("testDestroy@agilebooster.com", "Forename", "Last Name");
+        User newUser = new User("testDestroy@whisper.io", "Forename", "Last Name");
         UserController instance = new UserController();
         newUser = instance.create(newUser);
         assertTrue(instance.destroy(newUser));
-        assertNull(instance.getUserByMail("testDestroy@agilebooster.com"));
+        assertNull(instance.getUserByMail("testDestroy@whisper.io"));
     }
 
     /**
@@ -82,9 +82,9 @@ public class UserControllerTest {
     public void testGetUsers() {
         System.out.println("UserController:GetUsers");
         UserController instance = new UserController();
-        User user1 = new User("testGetUsers1@agilebooster.com", "Forename", "Last Name");
-        User user2 = new User("testGetUsers2@agilebooster.com", "Forename", "Last Name");
-        User user3 = new User("testGetUsers3@agilebooster.com", "Forename", "Last Name");
+        User user1 = new User("testGetUsers1@whisper.io", "Forename", "Last Name");
+        User user2 = new User("testGetUsers2@whisper.io", "Forename", "Last Name");
+        User user3 = new User("testGetUsers3@whisper.io", "Forename", "Last Name");
         user1 = instance.create(user1);
         user2 = instance.create(user2);
         user3 = instance.create(user3);
@@ -103,7 +103,7 @@ public class UserControllerTest {
     @Test
     public void testGetUserByMail() {
         System.out.println("UserController:GetUserByMail");
-        User user = new User("testGetUserByMail@agilebooster.com", "Forename", "Last Name");
+        User user = new User("testGetUserByMail@whisper.io", "Forename", "Last Name");
         UserController instance = new UserController();
         instance.create(user);
 
@@ -115,7 +115,7 @@ public class UserControllerTest {
         instance.destroy(userResult);
 
         //Check wrong case.
-        userResult = instance.getUserByMail("FalseCase@agilebooster.com");
+        userResult = instance.getUserByMail("FalseCase@whisper.io");
         assertNull(userResult);
     }
 }

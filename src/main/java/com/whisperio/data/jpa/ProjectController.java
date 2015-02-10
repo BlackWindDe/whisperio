@@ -108,7 +108,7 @@ public class ProjectController {
      *
      * @return List of all projects.
      */
-    public List<Project> getProjects() {
+    public List<Project> getAllProjects() {
         EntityManager em = null;
         List<Project> projects = null;
         try {

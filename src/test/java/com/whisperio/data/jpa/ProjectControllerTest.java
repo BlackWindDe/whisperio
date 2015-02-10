@@ -102,7 +102,7 @@ public class ProjectControllerTest {
         project1 = instance.create(project1);
         project2 = instance.create(project2);
         project3 = instance.create(project3);
-        List result = instance.getProjects();
+        List result = instance.getAllProjects();
         assertTrue(result.contains(project1));
         assertTrue(result.contains(project2));
         assertTrue(result.contains(project3));
