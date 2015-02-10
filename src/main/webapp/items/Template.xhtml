@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <link rel="stylesheet" href="css/bootstrap.css"></link>
+        <link rel="stylesheet" href="css/style.css"></link>
+        <title><ui:insert name="title">Default title</ui:insert></title>
+    </h:head>
+    <h:body>
+        <h:form> 
+            <!-- Menubar -->
+            <ui:include src="/items/Menubar.xhtml" />
+
+            <!-- Message Bar (Message & Growl) -->
+            <p:messages id="message" showDetail="true" autoUpdate="true" severity="error" closable="true"/>
+            <p:growl id="growl" showDetail="true" autoUpdate="true" severity="info, warn" />
+
+            <!-- Pre-Render Events -->
+            <ui:insert name="PreRenderEvents">
+                <f:event listener="#{sessionBean.checkSession()}" type="preRenderView"></f:event>
+            </ui:insert>
+
+            <ui:insert name="contentPanel">Default content panel</ui:insert>
+        </h:form>
+    </h:body>
+</html>
+

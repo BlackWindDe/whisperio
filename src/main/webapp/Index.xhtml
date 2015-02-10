@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/items/Template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <!-- Title -->
+    <ui:define name="title">
+        Whisper.io : Connection
+    </ui:define>
+
+    <!-- Pre-Render Events -->
+    <ui:define name="PreRenderEvents">
+        <f:event listener="#{indexBean.autologin()}" type="preRenderView"></f:event>
+    </ui:define>
+
+    <!-- Content Panel -->
+    <ui:define name="contentPanel">
+        <h2>Please sign in</h2>
+        <p:inputText id="username" value="#{indexBean.mail}"/>
+        <p:commandButton value="Sign In" styleClass="ui-priority-primary" actionListener="#{indexBean.connect()}" update="growl" />
+    </ui:define>
+</ui:composition>
+
