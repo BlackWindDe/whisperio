@@ -1,0 +1,13 @@
+language: java
+
+jdk:
+  - oraclejdk7
+
+os:
+  - linux
+  
+install:
+  - mysql -uroot < ./database/createDatabase.sql 
+  - mysql agilebooster -uroot < ./database/createTables.sql 
+  
+script: mvn test
