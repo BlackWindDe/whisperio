@@ -7,7 +7,15 @@
       xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <link rel="stylesheet" href="css/bootstrap.css"></link>
-        <link rel="stylesheet" href="css/style.css"></link>
+        <link rel="stylesheet" href="css/main.css"></link>
+
+        <!-- Declaration of additional CSS files -->
+        <ui:insert name="extraCSSLink"></ui:insert>
+
+        <!-- Declaration of additional JS files -->
+        <ui:insert name="extraJSLink"></ui:insert>
+
+        <!-- Page Title -->
         <title><ui:insert name="title">Default title</ui:insert></title>
     </h:head>
     <h:body>
@@ -24,6 +32,7 @@
                 <f:event listener="#{sessionBean.checkSession()}" type="preRenderView"></f:event>
             </ui:insert>
 
+            <!-- Page Content -->
             <ui:insert name="contentPanel">Default content panel</ui:insert>
         </h:form>
     </h:body>

@@ -20,9 +20,51 @@
 
     <!-- Content Panel -->
     <ui:define name="contentPanel">
+        <img src="/images/beta.png" title="We are on beta!" class="beta ng-scope"/>
+        <div class="wrapper ng-scope">
+            <div class="login-main">
+                <div class="login-container">
+                    <img src="/svg/logo.svg" alt="TAIGA" class="logo-svg"/>
+                    <h1 class="logo">Whisper</h1>
+                    <h2 class="tagline">LOVE YOUR PROJECT</h2>
+                    <div tg-login="tg-login" class="login-form-container">
+                        <form class="login-form ng-pristine ng-valid">
+                            <fieldset>
+                                <input name="username" data-required="true" placeholder="Username or Email (case sensitive)" type="text"/>
+                            </fieldset>
+                            <fieldset class="login-password">
+                                <input name="password" data-required="true" placeholder="Password (case sensitive)" type="password"/>
+                                <!-- This should be hidden when focus on pass-->
+                                <a href="#" tg-nav="forgot-password" title="Did you forgot your password?" class="forgot-pass">Forgot it?</a>
+                            </fieldset>
+                            <fieldset>
+                                <button type="submit" class="hidden"></button><a href="" title="Sign in" class="button button-login button-gray submit-button">Sign in</a>
+                            </fieldset>
+                            <fieldset tg-github-login-button="tg-github-login-button">
+                                <a class="button button-github" href="" title="Enter with your github account">
+                                    <span class="icon icon-github"></span>
+                                    <span>Login with Github</span>
+                                </a>
+                            </fieldset>
+                        </form>
+                        <tg-public-register-message class="ng-isolate-scope">
+                            <p class="login-text">
+                                <span>Not registered yet?</span>
+                                <a href="#" tg-nav="register" title="Register"> create your free account here</a>
+                            </p>
+                        </tg-public-register-message>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+
+    <!--
+    <ui:define name="contentPanel">
         <h2>Please sign in</h2>
         <p:inputText id="username" value="#{indexBean.mail}"/>
         <p:commandButton value="Sign In" styleClass="ui-priority-primary" actionListener="#{indexBean.connect()}" update="growl" />
     </ui:define>
+    -->
 </ui:composition>
 
