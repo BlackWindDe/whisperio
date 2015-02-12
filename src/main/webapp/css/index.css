@@ -15,6 +15,13 @@
     src: url(../fonts/ricasso.otf);
 }
 
+body{
+    background-image: url(../images/bg-login.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center; 
+}
+
 #login-block{
     margin-left: auto;
     margin-right: auto;
