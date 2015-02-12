@@ -1,0 +1,40 @@
+/**
+ * (C) Copyright 2014 Whisper.io.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Maxime ESCOURBIAC
+ */
+
+@font-face {
+    font-family: Ricasso;
+    src: url(../fonts/ricasso.otf);
+}
+
+#login-block{
+    margin-left: auto;
+    margin-right: auto;
+    width: 450px;
+    text-align: center;
+}
+
+#login-block h1 {
+    font-family: Ricasso;
+    color: white;
+}
+
+#login-block h2 {
+    color: white;
+}
+
+.fieldsetBlock{
+    width: 100%;
+}
+
+#login-block fieldset{
+    margin-bottom: 5px;
+}

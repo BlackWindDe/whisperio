@@ -11,5 +11,8 @@
  */
 
 body{
-    background-color: #269abc;
+    background-image: url(../images/bg-login.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center; 
 }
