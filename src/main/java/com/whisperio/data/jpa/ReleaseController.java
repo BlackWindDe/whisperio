@@ -127,13 +127,42 @@ public class ReleaseController {
     }
 
     /**
-     * Update statistics attributes of the release.
+     * Edit release attributes of the release.
      *
      * @param release Release to update.
-     * @return Release with updated statistics.
+     * @return Release updated.
+     *
+     * Only attribute editable in the project will be taken in account in this
+     * method.
      */
-    public Release updateStatistics(Release release) {
-        return release;
+    public Release edit(Release release) {
+        EntityManager em = null;
+        Release persistantRelease;
+        try {
+            em = getEntityManager();
+            em.getTransaction().begin();
+            persistantRelease = em.find(Release.class, release.getId());
+
+            //Editing release values.
+            persistantRelease.setName(release.getName());
+            persistantRelease.setEndDate(release.getEndDate());
+            persistantRelease.setIsActive(release.isActive());
+            persistantRelease.setNumberOfSprint(release.getNumberOfSprint());
+            persistantRelease.setEstimatedNumberOfSprintToEmpty(release.getEstimatedNumberOfSprintToEmpty());
+            persistantRelease.setEstimatedRemainingPointEndOfRelease(release.getEstimatedRemainingPointEndOfRelease());
+
+            //Merge & Commit.
+            em.merge(persistantRelease);
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            Logger.getLogger(ReleaseController.class.getName()).log(Level.SEVERE, null, ex);
+            persistantRelease = null;
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+        return persistantRelease;
     }
 
     /**

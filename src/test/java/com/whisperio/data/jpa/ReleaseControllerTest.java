@@ -116,7 +116,7 @@ public class ReleaseControllerTest {
         BigDecimal estimatedRemainingPointEndOfRelease = new BigDecimal("45.5");
         release.setEstimatedNumberOfSprintToEmpty(estimatedNumberOfSprintToEmpty);
         release.setEstimatedRemainingPointEndOfRelease(estimatedRemainingPointEndOfRelease);
-        release = releaseController.updateStatistics(release);
+        release = releaseController.edit(release);
         assertEquals(estimatedNumberOfSprintToEmpty, release.getEstimatedNumberOfSprintToEmpty());
         assertEquals(estimatedRemainingPointEndOfRelease, release.getEstimatedRemainingPointEndOfRelease());
 
