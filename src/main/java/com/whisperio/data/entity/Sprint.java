@@ -51,6 +51,11 @@ public class Sprint implements Serializable {
 
     @Basic(optional = false)
     @NotNull
+    @Column(name = "SprintNumber")
+    private int sprintNumber;
+
+    @Basic(optional = false)
+    @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "Name")
     private String name;
@@ -89,13 +94,15 @@ public class Sprint implements Serializable {
      * Sprint constructor.
      *
      * @param name Sprint name.
+     * @param sprintNumber Sprint Number;
      * @param startDate Sprint start date.
      * @param endDate Sprint end date.
      * @param isActive Boolean for determine if the sprint is active.
      * @param release Sprint release.
      */
-    public Sprint(String name, Date startDate, Date endDate, boolean isActive, Release release) {
+    public Sprint(String name, int sprintNumber, Date startDate, Date endDate, boolean isActive, Release release) {
         this.name = name;
+        this.sprintNumber = sprintNumber;
         this.startDate = startDate;
         this.endDate = endDate;
         this.isActive = isActive;
@@ -119,6 +126,24 @@ public class Sprint implements Serializable {
      */
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    /**
+     * Sprint Number.
+     *
+     * @return Sprint Number.
+     */
+    public int getSprintNumber() {
+        return sprintNumber;
+    }
+
+    /**
+     * Sprint Number.
+     *
+     * @param sprintNumber Sprint Number.
+     */
+    public void setSprintNumber(int sprintNumber) {
+        this.sprintNumber = sprintNumber;
     }
 
     /**

@@ -61,11 +61,11 @@ public class BacklogItemControllerTest {
         project = projectController.create(project);
 
         releaseController = new ReleaseController();
-        release = new Release("Release Test Backlog Item", date, date, true, project);
+        release = new Release("Release Test Backlog Item", 1, date, date, 0, true, project);
         release = releaseController.create(release);
 
         sprintController = new SprintController();
-        sprint = new Sprint("Sprint Test Backlog Item", date, date, true, release);
+        sprint = new Sprint("Sprint Test Backlog Item", 1, date, date, true, release);
         sprint = sprintController.create(sprint);
     }
 

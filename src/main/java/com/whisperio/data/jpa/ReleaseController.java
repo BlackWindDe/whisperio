@@ -127,6 +127,16 @@ public class ReleaseController {
     }
 
     /**
+     * Update statistics attributes of the release.
+     *
+     * @param release Release to update.
+     * @return Release with updated statistics.
+     */
+    public Release updateStatistics(Release release) {
+        return release;
+    }
+
+    /**
      * Refresh a release.
      *
      * @param release Release to refresh.

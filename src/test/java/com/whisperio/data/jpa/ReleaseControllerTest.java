@@ -12,6 +12,7 @@ package com.whisperio.data.jpa;
 
 import com.whisperio.data.entity.Project;
 import com.whisperio.data.entity.Release;
+import java.math.BigDecimal;
 import java.util.Date;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -79,20 +80,45 @@ public class ReleaseControllerTest {
         ReleaseController releaseController = new ReleaseController();
         Date creationDate = new Date();
         Date endDate = new Date();
-        Release release = new Release("Test Create Release", creationDate, endDate, true, project1);
+        Release release = new Release("Test Create Release", 1, creationDate, endDate, 3, true, project1);
         Release releaseResult = releaseController.create(release);
 
         //Check Release properties.
         assertNotNull(releaseResult.getId());
         assertEquals(release.getName(), releaseResult.getName());
+        assertEquals(release.getReleaseNumber(), releaseResult.getReleaseNumber());
         assertEquals(release.getStartDate(), releaseResult.getStartDate());
         assertEquals(release.getEndDate(), releaseResult.getEndDate());
+        assertEquals(release.getNumberOfSprint(), releaseResult.getNumberOfSprint());
         assertEquals(release.isActive(), releaseResult.isActive());
         assertEquals(release.getProject(), releaseResult.getProject());
 
         //Check project properties.
         project1 = projectController.refresh(project1);
         assertTrue(project1.getReleases().contains(releaseResult));
+
+        releaseController.destroy(release);
+    }
+
+    /**
+     * Test of updateStatistics method, of class ReleaseController.
+     */
+    @Test
+    public void testUpdateStatistics() {
+        System.out.println("ReleaseController:UpdateStatistics");
+        ReleaseController releaseController = new ReleaseController();
+        Date creationDate = new Date();
+        Date endDate = new Date();
+        Release release = new Release("Test Update Stats Release", 1, creationDate, endDate, 3, true, project1);
+        release = releaseController.create(release);
+
+        int estimatedNumberOfSprintToEmpty = 10;
+        BigDecimal estimatedRemainingPointEndOfRelease = new BigDecimal("45.5");
+        release.setEstimatedNumberOfSprintToEmpty(estimatedNumberOfSprintToEmpty);
+        release.setEstimatedRemainingPointEndOfRelease(estimatedRemainingPointEndOfRelease);
+        release = releaseController.updateStatistics(release);
+        assertEquals(estimatedNumberOfSprintToEmpty, release.getEstimatedNumberOfSprintToEmpty());
+        assertEquals(estimatedRemainingPointEndOfRelease, release.getEstimatedRemainingPointEndOfRelease());
 
         releaseController.destroy(release);
     }
@@ -106,7 +132,7 @@ public class ReleaseControllerTest {
         ReleaseController releaseController = new ReleaseController();
         Date creationDate = new Date();
         Date endDate = new Date();
-        Release release = releaseController.create(new Release("Test Destroy Release", creationDate, endDate, true, project1));
+        Release release = releaseController.create(new Release("Test Destroy Release", 1, creationDate, endDate, 0, true, project1));
         assertTrue(releaseController.destroy(release));
     }
 }

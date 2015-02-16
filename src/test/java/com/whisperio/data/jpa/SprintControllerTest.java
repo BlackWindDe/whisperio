@@ -52,7 +52,7 @@ public class SprintControllerTest {
         project = projectController.create(project);
 
         releaseController = new ReleaseController();
-        release = new Release("Release Test Sprint", date, date, true, project);
+        release = new Release("Release Test Sprint", 1, date, date, 0, true, project);
         release = releaseController.create(release);
     }
 
@@ -83,12 +83,13 @@ public class SprintControllerTest {
         SprintController sprintController = new SprintController();
         Date creationDate = new Date();
         Date stopDate = new Date();
-        Sprint sprint = new Sprint("Test Create Sprint", creationDate, stopDate, true, release);
+        Sprint sprint = new Sprint("Test Create Sprint", 1, creationDate, stopDate, true, release);
         Sprint sprintResult = sprintController.create(sprint);
 
         //Check Sprint properties.
         assertNotNull(sprintResult.getId());
         assertEquals(sprint.getName(), sprintResult.getName());
+        assertEquals(sprint.getSprintNumber(), sprintResult.getSprintNumber());
         assertEquals(sprint.getStartDate(), sprintResult.getStartDate());
         assertEquals(sprint.getEndDate(), sprintResult.getEndDate());
         assertEquals(sprint.isActive(), sprintResult.isActive());
@@ -110,7 +111,7 @@ public class SprintControllerTest {
         SprintController sprintController = new SprintController();
         Date creationDate = new Date();
         Date stopDate = new Date();
-        Sprint sprint = sprintController.create(new Sprint("Test Destroy Sprint", creationDate, stopDate, true, release));
+        Sprint sprint = sprintController.create(new Sprint("Test Destroy Sprint", 1, creationDate, stopDate, true, release));
         assertTrue(sprintController.destroy(sprint));
     }
 }

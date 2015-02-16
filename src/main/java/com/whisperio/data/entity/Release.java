@@ -11,6 +11,7 @@
 package com.whisperio.data.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -51,6 +52,11 @@ public class Release implements Serializable {
 
     @Basic(optional = false)
     @NotNull
+    @Column(name = "ReleaseNumber")
+    private int releaseNumber;
+
+    @Basic(optional = false)
+    @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "Name")
     private String name;
@@ -72,6 +78,18 @@ public class Release implements Serializable {
     @Column(name = "IsActive")
     private boolean isActive;
 
+    @Basic(optional = false)
+    @Column(name = "NumberOfSprint")
+    private int numberOfSprint;
+
+    @Basic(optional = false)
+    @Column(name = "EstimatedNumberOfSprintToEmpty")
+    private int estimatedNumberOfSprintToEmpty;
+
+    @Basic(optional = false)
+    @Column(name = "EstimatedRemainingPointEndOfRelease")
+    private BigDecimal estimatedRemainingPointEndOfRelease;
+
     @JoinColumn(name = "ProjectID", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Project project;
@@ -92,16 +110,20 @@ public class Release implements Serializable {
      * Release constructor.
      *
      * @param name Release name.
+     * @param releaseNumber Release number.
      * @param startDate Release start date.
      * @param endDate Release end date.
+     * @param numberOfSprint Number of sprints of the Release.
      * @param isActive Boolean for determine if the release is active.
      * @param project Release project.
      */
-    public Release(String name, Date startDate, Date endDate, boolean isActive, Project project) {
+    public Release(String name, int releaseNumber, Date startDate, Date endDate, int numberOfSprint, boolean isActive, Project project) {
         this.name = name;
+        this.releaseNumber = releaseNumber;
         this.startDate = startDate;
         this.endDate = endDate;
         this.isActive = isActive;
+        this.numberOfSprint = numberOfSprint;
         this.project = project;
         this.sprints = new ArrayList<>();
         this.backlogItems = new ArrayList<>();
@@ -123,6 +145,24 @@ public class Release implements Serializable {
      */
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    /**
+     * Release number.
+     *
+     * @return Release number.
+     */
+    public int getReleaseNumber() {
+        return releaseNumber;
+    }
+
+    /**
+     * Release number.
+     *
+     * @param releaseNumber Release number.
+     */
+    public void setReleaseNumber(int releaseNumber) {
+        this.releaseNumber = releaseNumber;
     }
 
     /**
@@ -195,6 +235,63 @@ public class Release implements Serializable {
      */
     public void setIsActive(boolean isActive) {
         this.isActive = isActive;
+    }
+
+    /**
+     * Number of sprints of the Release.
+     *
+     * @return Number of sprints of the Release.
+     */
+    public int getNumberOfSprint() {
+        return numberOfSprint;
+    }
+
+    /**
+     * Number of sprints of the Release.
+     *
+     * @param numberOfSprint Number of sprints of the Release.
+     */
+    public void setNumberOfSprint(int numberOfSprint) {
+        this.numberOfSprint = numberOfSprint;
+    }
+
+    /**
+     * Estimation of number of sprints to empty the release product backlog.
+     *
+     * @return Estimation of number of sprints to empty the release product
+     * backlog.
+     */
+    public int getEstimatedNumberOfSprintToEmpty() {
+        return estimatedNumberOfSprintToEmpty;
+    }
+
+    /**
+     * Estimation of number of sprints to empty the release product backlog.
+     *
+     * @param estimatedNumberOfSprintToEmpty Estimation of number of sprints to
+     * empty the release product backlog.
+     */
+    public void setEstimatedNumberOfSprintToEmpty(int estimatedNumberOfSprintToEmpty) {
+        this.estimatedNumberOfSprintToEmpty = estimatedNumberOfSprintToEmpty;
+    }
+
+    /**
+     * Estimation of remaining story point at the end of the release.
+     *
+     * @return Estimation of remaining story point at the end of the release.
+     */
+    public BigDecimal getEstimatedRemainingPointEndOfRelease() {
+        return estimatedRemainingPointEndOfRelease;
+    }
+
+    /**
+     * Estimation of remaining story point at the end of the release.
+     *
+     * @param estimatedRemainingPointEndOfRelease Estimation of remaining story
+     * point at the end of the release.
+     */
+    public void setEstimatedRemainingPointEndOfRelease(BigDecimal estimatedRemainingPointEndOfRelease) {
+        this.estimatedRemainingPointEndOfRelease = estimatedRemainingPointEndOfRelease;
     }
 
     /**
