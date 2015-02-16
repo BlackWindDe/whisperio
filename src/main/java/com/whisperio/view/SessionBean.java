@@ -10,10 +10,13 @@
  */
 package com.whisperio.view;
 
+import com.whisperio.data.entity.Project;
 import com.whisperio.data.entity.User;
+import com.whisperio.data.jpa.ProjectController;
 import com.whisperio.data.jpa.UserController;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
@@ -30,13 +33,16 @@ import javax.faces.context.FacesContext;
 public class SessionBean implements Serializable {
 
     private final UserController userController;
+    private final ProjectController projectController;
     private User connectedUser;
+    private Project selectedProject;
 
     /**
      * Creates a new instance of SessionBean
      */
     public SessionBean() {
         userController = new UserController();
+        projectController = new ProjectController();
     }
 
     /**
@@ -84,6 +90,15 @@ public class SessionBean implements Serializable {
         }
     }
 
+    /**
+     * Get projects accessible by the connected user.
+     *
+     * @return Projects accessible by the connected user.
+     */
+    public List<Project> getAccessibleProjectByConnectedUser() {
+        return projectController.getAllProjects();
+    }
+
     //Getter & Setter for Bean properties.
     public User getConnectedUser() {
         return connectedUser;
@@ -92,4 +107,13 @@ public class SessionBean implements Serializable {
     public void setConnectedUser(User user) {
         this.connectedUser = user;
     }
+
+    public Project getSelectedProject() {
+        return selectedProject;
+    }
+
+    public void setSelectedProject(Project selectedProject) {
+        this.selectedProject = selectedProject;
+    }
+
 }

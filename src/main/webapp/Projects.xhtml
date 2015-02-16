@@ -3,7 +3,14 @@
 <ui:composition template="/items/Template.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:c="http://java.sun.com/jsp/jstl/core">
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html">
+
+    <!-- CSS -->
+    <ui:define name="extraCSSLink">
+        <link rel="stylesheet" href="css/projects.css"></link>    
+    </ui:define>
 
     <!-- Title -->
     <ui:define name="title">
@@ -12,21 +19,44 @@
 
     <!-- Content Panel -->
     <ui:define name="contentPanel">
-        <div class="ui-grid ui-grid-responsive">
-            <div class="container-fluid">
-                <div class="row">
-                    <div id="contentPanel" class="col-md-4">
-                        <p>Projet1</p>
-                    </div>
-                    <div id="actionPanel"  class="col-md-4">
-                        <p>Projet2</p>
-                    </div>
-                    <div id="contentPanel" class="col-md-4">
-                        <p>Projet3</p>
-                    </div>
-                </div>
+
+        <!-- Create a new project button -->
+        <p:button value="Create a new project!" onclick="PF('createProjectDialog').show();
+                return false;" styleClass="btn btn-success createProjectButton"/>
+
+        <!-- Ring displaying the project accessible by the connected user -->
+        <p:ring value="#{sessionBean.accessibleProjectByConnectedUser}" styleClass="ring" var="project">
+            <div class="project">
+                <h2>#{project.name}</h2>
+                <p:scrollPanel styleClass="description">
+                    #{project.description}
+                </p:scrollPanel>
+                <p:commandButton value="Go!" actionListener="#{projectsBean.goToProject(project.keyName)}" ajax="false"  styleClass="btn btn-xs btn-primary goButton"/>
             </div>
-        </div>
+        </p:ring>
+
+
+        <!-- Dialog box for creating a new project -->
+        <p:dialog header="Create a new project" widgetVar="createProjectDialog" modal="true">
+            <h:panelGrid id="grid" columns="2">
+
+
+                <h:outputLabel for="name" value="Name: " styleClass="newProjectLabel"/>                    
+                <p:inputText id="name" value="#{projectsBean.name}" styleClass="newProjectInput" placeholder="Project's name" label="Name">
+                </p:inputText>
+
+                <h:outputLabel for="keyName" value="Key Name: " styleClass="newProjectLabel"/>                    
+                <p:inputText id="keyName" value="#{projectsBean.keyName}" styleClass="newProjectInput" placeholder="Project's key name" label="Key Name"/>
+
+                <h:outputLabel for="description" value="Description: " styleClass="newProjectLabel"/>                    
+                <p:inputTextarea id="description" value="#{projectsBean.description}" styleClass="newProjectInput" 
+                                 placeholder="Project's description" label="Description" 
+                                 rows="6" cols="33" />
+
+            </h:panelGrid>
+            <p:commandButton value="Create" actionListener="#{projectsBean.createProject()}" ajax="false" styleClass="ui-priority-primary newProjectCreateButton" />
+        </p:dialog>
+
     </ui:define>
 </ui:composition>
 
