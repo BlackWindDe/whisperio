@@ -50,24 +50,32 @@ CONSTRAINT Projects_KeyName_UQ UNIQUE (KeyName)
 
 Create Table Releases
 (
-ID           INT NOT NULL AUTO_INCREMENT,
-Name         VARCHAR(50) NOT NULL,
-StartDate    DATE NOT NULL,
-EndDate      DATE NOT NULL,
-ProjectID    INT NOT NULL,
-IsActive     BOOL NOT NULL Default False,
+ID                                  INT NOT NULL AUTO_INCREMENT,
+Name                                VARCHAR(50) NOT NULL,
+ReleaseNumber                       INT NOT NULL,
+StartDate                           DATE NOT NULL,
+EndDate                             DATE NOT NULL,
+NumberOfSprint                      INT,
+ProjectID                           INT NOT NULL,
+IsActive                            BOOL NOT NULL Default False,
+/* Statistics */
+EstimatedNumberOfSprintToEmpty      INT,
+EstimatedRemainingPointEndOfRelease DECIMAL(10,1),
 CONSTRAINT Releases_ID_PK PRIMARY KEY (ID),
 CONSTRAINT Projects_Releases_FK FOREIGN KEY( ProjectID ) REFERENCES Projects ( ID )
 );
 
 Create Table Sprints
 (
-ID           INT NOT NULL AUTO_INCREMENT,
-Name         VARCHAR(50) NOT NULL,
-StartDate    DATE NOT NULL,
-EndDate      DATE NOT NULL,
-ReleaseID    INT NOT NULL,
-IsActive     BOOL NOT NULL Default False,
+ID                               INT NOT NULL AUTO_INCREMENT,
+Name                             VARCHAR(50) NOT NULL,
+SprintNumber                     INT NOT NULL,
+StartDate                        DATE NOT NULL,
+EndDate                          DATE NOT NULL,
+ReleaseID                        INT NOT NULL,
+IsActive                         BOOL NOT NULL Default False,
+/* Statistics */
+ReleaseRemainingPointEndOfSprint DECIMAL(10,1),
 CONSTRAINT Sprints_ID_PK PRIMARY KEY (ID),
 CONSTRAINT Releases_Sprints_FK FOREIGN KEY( ReleaseID ) REFERENCES Releases ( ID )
 );
