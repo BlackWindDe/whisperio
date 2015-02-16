@@ -29,8 +29,7 @@ import org.junit.Test;
  */
 public class ReleaseControllerTest {
 
-    private static Project project1;
-    private static Project project2;
+    private static Project project;
     private static ProjectController projectController;
 
     /**
@@ -44,13 +43,10 @@ public class ReleaseControllerTest {
      */
     @BeforeClass
     public static void initContext() {
-
         projectController = new ProjectController();
         Date date = new Date();
-        project1 = new Project("Test Release 1", "TR1", "Project Release 1 test.", date);
-        project1 = projectController.create(project1);
-        project2 = new Project("Test Release 2", "TR2", "Project Release 2 test.", date);
-        project2 = projectController.create(project2);
+        project = new Project("Test Release 1", "TR1", "Project Release 1 test.", date);
+        project = projectController.create(project);
     }
 
     /**
@@ -58,17 +54,15 @@ public class ReleaseControllerTest {
      */
     @AfterClass
     public static void destroyContext() {
-        projectController.destroy(project1);
-        projectController.destroy(project2);
+        projectController.destroy(project);
     }
 
     /**
      * Clean the users after each test.
      */
     @After
-    public void cleanUsers() {
-        project1 = projectController.refresh(project1);
-        project2 = projectController.refresh(project2);
+    public void refresh() {
+        project = projectController.refresh(project);
     }
 
     /**
@@ -78,26 +72,30 @@ public class ReleaseControllerTest {
     public void testCreate() {
         System.out.println("ReleaseController:Create");
         ReleaseController releaseController = new ReleaseController();
-        Date creationDate = new Date();
+        String name = "Test Create Release";
+        int releaseNumber = 1;
+        int numberOfSprint = 3;
+        boolean isActive = true;
+        Date startDate = new Date();
         Date endDate = new Date();
-        Release release = new Release("Test Create Release", 1, creationDate, endDate, 3, true, project1);
+        Release release = new Release(name, releaseNumber, startDate, endDate, numberOfSprint, isActive, project);
         Release releaseResult = releaseController.create(release);
 
         //Check Release properties.
         assertNotNull(releaseResult.getId());
-        assertEquals(release.getName(), releaseResult.getName());
-        assertEquals(release.getReleaseNumber(), releaseResult.getReleaseNumber());
-        assertEquals(release.getStartDate(), releaseResult.getStartDate());
-        assertEquals(release.getEndDate(), releaseResult.getEndDate());
-        assertEquals(release.getNumberOfSprint(), releaseResult.getNumberOfSprint());
-        assertEquals(release.isActive(), releaseResult.isActive());
-        assertEquals(release.getProject(), releaseResult.getProject());
+        assertEquals(name, releaseResult.getName());
+        assertEquals(releaseNumber, releaseResult.getReleaseNumber());
+        assertEquals(startDate, releaseResult.getStartDate());
+        assertEquals(endDate, releaseResult.getEndDate());
+        assertEquals(numberOfSprint, releaseResult.getNumberOfSprint());
+        assertEquals(isActive, releaseResult.isActive());
+        assertEquals(project, releaseResult.getProject());
 
         //Check project properties.
-        project1 = projectController.refresh(project1);
-        assertTrue(project1.getReleases().contains(releaseResult));
+        project = projectController.refresh(project);
+        assertTrue(project.getReleases().contains(releaseResult));
 
-        releaseController.destroy(release);
+        releaseController.destroy(releaseResult);
     }
 
     /**
@@ -107,16 +105,30 @@ public class ReleaseControllerTest {
     public void testUpdateStatistics() {
         System.out.println("ReleaseController:UpdateStatistics");
         ReleaseController releaseController = new ReleaseController();
-        Date creationDate = new Date();
+        String name = "Test Update Stats Release";
+        int releaseNumber = 1;
+        int numberOfSprint = 3;
+        boolean isActive = true;
+        Date startDate = new Date();
         Date endDate = new Date();
-        Release release = new Release("Test Update Stats Release", 1, creationDate, endDate, 3, true, project1);
+        Release release = new Release(name, releaseNumber, startDate, endDate, numberOfSprint, isActive, project);
         release = releaseController.create(release);
 
+        numberOfSprint = 5;
+        isActive = false;
+        endDate = new Date(0);
         int estimatedNumberOfSprintToEmpty = 10;
         BigDecimal estimatedRemainingPointEndOfRelease = new BigDecimal("45.5");
+        release.setNumberOfSprint(numberOfSprint);
+        release.setIsActive(isActive);
+        release.setEndDate(endDate);
         release.setEstimatedNumberOfSprintToEmpty(estimatedNumberOfSprintToEmpty);
         release.setEstimatedRemainingPointEndOfRelease(estimatedRemainingPointEndOfRelease);
         release = releaseController.edit(release);
+        assertEquals(name, release.getName());
+        assertEquals(endDate, release.getEndDate());
+        assertEquals(numberOfSprint, release.getNumberOfSprint());
+        assertEquals(isActive, release.isActive());
         assertEquals(estimatedNumberOfSprintToEmpty, release.getEstimatedNumberOfSprintToEmpty());
         assertEquals(estimatedRemainingPointEndOfRelease, release.getEstimatedRemainingPointEndOfRelease());
 
@@ -132,7 +144,7 @@ public class ReleaseControllerTest {
         ReleaseController releaseController = new ReleaseController();
         Date creationDate = new Date();
         Date endDate = new Date();
-        Release release = releaseController.create(new Release("Test Destroy Release", 1, creationDate, endDate, 0, true, project1));
+        Release release = releaseController.create(new Release("Test Destroy Release", 1, creationDate, endDate, 0, true, project));
         assertTrue(releaseController.destroy(release));
     }
 }

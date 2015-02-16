@@ -81,10 +81,10 @@ public class BacklogItemControllerTest {
     }
 
     /**
-     * Clean the users after each test.
+     * refresh data after each test.
      */
     @After
-    public void cleanData() {
+    public void refresh() {
         creator = userController.refresh(creator);
         sprint = sprintController.refresh(sprint);
         release = releaseController.refresh(release);
@@ -100,20 +100,22 @@ public class BacklogItemControllerTest {
         BacklogItemController backlogItemController = new BacklogItemController();
         Date creationDate = new Date();
         Date lastUpdateDate = new Date();
-        BacklogItem backlogItem = new BacklogItem("Test Create BI", "Test Create BI Description",
-                creationDate, lastUpdateDate, project, release, sprint, creator);
+        String title = "Test Create BI";
+        String description = "Test Create BI Description";
+        BacklogItem backlogItem = new BacklogItem(title, description, creationDate,
+                lastUpdateDate, project, release, sprint, creator);
         BacklogItem backlogItemResult = backlogItemController.create(backlogItem);
 
         //Check Sprint properties.
         assertNotNull(backlogItemResult.getId());
-        assertEquals(backlogItem.getTitle(), backlogItemResult.getTitle());
-        assertEquals(backlogItem.getDescription(), backlogItemResult.getDescription());
-        assertEquals(backlogItem.getCreationDate(), backlogItemResult.getCreationDate());
-        assertEquals(backlogItem.getLastUpdateDate(), backlogItemResult.getLastUpdateDate());
-        assertEquals(backlogItem.getProject(), backlogItemResult.getProject());
-        assertEquals(backlogItem.getRelease(), backlogItemResult.getRelease());
-        assertEquals(backlogItem.getSprint(), backlogItemResult.getSprint());
-        assertEquals(backlogItem.getCreator(), backlogItemResult.getCreator());
+        assertEquals(title, backlogItemResult.getTitle());
+        assertEquals(description, backlogItemResult.getDescription());
+        assertEquals(creationDate, backlogItemResult.getCreationDate());
+        assertEquals(lastUpdateDate, backlogItemResult.getLastUpdateDate());
+        assertEquals(project, backlogItemResult.getProject());
+        assertEquals(release, backlogItemResult.getRelease());
+        assertEquals(sprint, backlogItemResult.getSprint());
+        assertEquals(creator, backlogItemResult.getCreator());
 
         //Check project properties.
         project = projectController.refresh(project);
@@ -143,7 +145,9 @@ public class BacklogItemControllerTest {
         BacklogItemController backlogItemController = new BacklogItemController();
         Date creationDate = new Date();
         Date lastUpdateDate = new Date();
-        BacklogItem backlogItem = new BacklogItem("Test Destroy BI", "Test Destroy BI Description",
+        String title = "Test Destroy BI";
+        String description = "Test Destroy BI Description";
+        BacklogItem backlogItem = new BacklogItem(title, description,
                 creationDate, lastUpdateDate, project, release, sprint, creator);
         backlogItem = backlogItemController.create(backlogItem);
         assertTrue(backlogItemController.destroy(backlogItem));

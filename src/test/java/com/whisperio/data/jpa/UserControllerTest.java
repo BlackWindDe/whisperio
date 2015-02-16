@@ -34,13 +34,16 @@ public class UserControllerTest {
     @Test
     public void testCreate() {
         System.out.println("UserController:Create");
-        User user = new User("testCreate@whisper.io", "Forename", "Last Name");
+        String mail = "testCreate@whisper.io";
+        String forename = "Forename";
+        String lastName = "Last Name";
+        User user = new User(mail, forename, lastName);
         UserController instance = new UserController();
         User userResult = instance.create(user);
         assertNotNull(userResult.getId());
-        assertEquals(user.getMail(), userResult.getMail());
-        assertEquals(user.getForename(), userResult.getForename());
-        assertEquals(user.getLastName(), userResult.getLastName());
+        assertEquals(mail, userResult.getMail());
+        assertEquals(forename, userResult.getForename());
+        assertEquals(lastName, userResult.getLastName());
         instance.destroy(user);
     }
 

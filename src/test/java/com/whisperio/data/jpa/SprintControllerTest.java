@@ -66,10 +66,10 @@ public class SprintControllerTest {
     }
 
     /**
-     * Clean the users after each test.
+     * Refresh data after each test.
      */
     @After
-    public void cleanUsers() {
+    public void refresh() {
         project = projectController.refresh(project);
         release = releaseController.refresh(release);
     }
@@ -81,19 +81,22 @@ public class SprintControllerTest {
     public void testCreate() {
         System.out.println("SprintController:Create");
         SprintController sprintController = new SprintController();
-        Date creationDate = new Date();
-        Date stopDate = new Date();
-        Sprint sprint = new Sprint("Test Create Sprint", 1, creationDate, stopDate, true, release);
+        Date startDate = new Date();
+        Date endDate = new Date();
+        String name = "Test Create Sprint";
+        int sprintNumber = 1;
+        boolean isActive = true;
+        Sprint sprint = new Sprint(name, sprintNumber, startDate, endDate, isActive, release);
         Sprint sprintResult = sprintController.create(sprint);
 
         //Check Sprint properties.
         assertNotNull(sprintResult.getId());
-        assertEquals(sprint.getName(), sprintResult.getName());
-        assertEquals(sprint.getSprintNumber(), sprintResult.getSprintNumber());
-        assertEquals(sprint.getStartDate(), sprintResult.getStartDate());
-        assertEquals(sprint.getEndDate(), sprintResult.getEndDate());
-        assertEquals(sprint.isActive(), sprintResult.isActive());
-        assertEquals(sprint.getRelease(), sprintResult.getRelease());
+        assertEquals(name, sprintResult.getName());
+        assertEquals(sprintNumber, sprintResult.getSprintNumber());
+        assertEquals(startDate, sprintResult.getStartDate());
+        assertEquals(endDate, sprintResult.getEndDate());
+        assertEquals(isActive, sprintResult.isActive());
+        assertEquals(release, sprintResult.getRelease());
 
         //Check release properties.
         release = releaseController.refresh(release);

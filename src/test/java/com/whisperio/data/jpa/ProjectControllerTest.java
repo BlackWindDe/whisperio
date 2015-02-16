@@ -1,23 +1,19 @@
 /**
  * (C) Copyright 2014 Whisper.io.
  *
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
+ * All rights reserved. This program and the accompanying materials are made
+ * available under the terms of the Eclipse Public License v1.0 which
+ * accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
- * Contributors:
- *     Maxime ESCOURBIAC
+ * Contributors: Maxime ESCOURBIAC
  */
 package com.whisperio.data.jpa;
 
 import com.whisperio.data.entity.Project;
 import java.util.Date;
 import java.util.List;
-import org.junit.After;
-import org.junit.AfterClass;
 import static org.junit.Assert.*;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -34,45 +30,27 @@ public class ProjectControllerTest {
     }
 
     /**
-     * Init the test environment.
-     */
-    @BeforeClass
-    public static void initContext() {
-    }
-
-    /**
-     * Destroy the test environment.
-     */
-    @AfterClass
-    public static void destroyContext() {
-    }
-
-    /**
-     * Clean the users after each test.
-     */
-    @After
-    public void cleanData() {
-    }
-
-    /**
      * Test of create method, of class ProjectController.
      */
     @Test
     public void testCreate() {
         System.out.println("ProjectController:Create");
         ProjectController projectController = new ProjectController();
+        String name = "Test Create";
+        String keyName = "TCE";
+        String description = "Project creation test.";
         Date creationDate = new Date();
-        Project project = new Project("Test Create", "TCE", "Project creation test.", creationDate);
+        Project project = new Project(name, keyName, description, creationDate);
         Project projectResult = projectController.create(project);
 
         //Check Project properties.
         assertNotNull(projectResult.getId());
-        assertEquals(project.getName(), projectResult.getName());
-        assertEquals(project.getKeyName(), projectResult.getKeyName());
-        assertEquals(project.getDescription(), projectResult.getDescription());
-        assertEquals(project.getCreationDate(), projectResult.getCreationDate());
+        assertEquals(name, projectResult.getName());
+        assertEquals(keyName, projectResult.getKeyName());
+        assertEquals(description, projectResult.getDescription());
+        assertEquals(creationDate, projectResult.getCreationDate());
 
-        projectController.destroy(project);
+        projectController.destroy(projectResult);
     }
 
     /**
@@ -83,7 +61,10 @@ public class ProjectControllerTest {
         System.out.println("ProjectController:Destroy");
         ProjectController projectController = new ProjectController();
         Date creationDate = new Date();
-        Project project = new Project("Test Destroy", "TDY", "Project destroy test.", creationDate);
+        String name = "Test Destroy";
+        String keyName = "TDY";
+        String description = "Project destroy test.";
+        Project project = new Project(name, keyName, description, creationDate);
         project = projectController.create(project);
         assertTrue(projectController.destroy(project));
     }
@@ -118,16 +99,19 @@ public class ProjectControllerTest {
     public void testGetProjectByKeyName() {
         System.out.println("ProjectController:GetProjectByKeyName");
         Date creationDate = new Date();
-        Project project = new Project("Test Get Project By KeyName", "TGK", "Project Get Project By KeyName.", creationDate);
+        String name = "Test Get Project By KeyName";
+        String keyName = "TGK";
+        String description = "Project Get Project By KeyName.";
+        Project project = new Project(name, keyName, description, creationDate);
         ProjectController instance = new ProjectController();
         instance.create(project);
 
         //Check true case.
-        Project projectResult = instance.getProjectByKeyName(project.getKeyName());
-        assertEquals(project.getName(), projectResult.getName());
-        assertEquals(project.getKeyName(), projectResult.getKeyName());
-        assertEquals(project.getDescription(), projectResult.getDescription());
-        assertEquals(project.getCreationDate(), projectResult.getCreationDate());
+        Project projectResult = instance.getProjectByKeyName(keyName);
+        assertEquals(name, projectResult.getName());
+        assertEquals(keyName, projectResult.getKeyName());
+        assertEquals(description, projectResult.getDescription());
+        assertEquals(creationDate, projectResult.getCreationDate());
         instance.destroy(projectResult);
 
         //Check wrong case.
