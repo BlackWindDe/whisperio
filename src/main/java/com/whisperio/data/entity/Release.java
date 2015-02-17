@@ -24,6 +24,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -41,6 +43,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "Releases")
 @XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Releases.getProjectActiveRelease", query = "SELECT r FROM Release r Where r.project.id=:projectID and r.isActive=true")})
 public class Release implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -81,14 +85,6 @@ public class Release implements Serializable {
     @Basic(optional = false)
     @Column(name = "NumberOfSprint")
     private int numberOfSprint;
-
-    @Basic(optional = false)
-    @Column(name = "EstimatedNumberOfSprintToEmpty")
-    private int estimatedNumberOfSprintToEmpty;
-
-    @Basic(optional = false)
-    @Column(name = "EstimatedRemainingPointEndOfRelease")
-    private BigDecimal estimatedRemainingPointEndOfRelease;
 
     @JoinColumn(name = "ProjectID", referencedColumnName = "ID")
     @ManyToOne(optional = false)
@@ -253,45 +249,6 @@ public class Release implements Serializable {
      */
     public void setNumberOfSprint(int numberOfSprint) {
         this.numberOfSprint = numberOfSprint;
-    }
-
-    /**
-     * Estimation of number of sprints to empty the release product backlog.
-     *
-     * @return Estimation of number of sprints to empty the release product
-     * backlog.
-     */
-    public int getEstimatedNumberOfSprintToEmpty() {
-        return estimatedNumberOfSprintToEmpty;
-    }
-
-    /**
-     * Estimation of number of sprints to empty the release product backlog.
-     *
-     * @param estimatedNumberOfSprintToEmpty Estimation of number of sprints to
-     * empty the release product backlog.
-     */
-    public void setEstimatedNumberOfSprintToEmpty(int estimatedNumberOfSprintToEmpty) {
-        this.estimatedNumberOfSprintToEmpty = estimatedNumberOfSprintToEmpty;
-    }
-
-    /**
-     * Estimation of remaining story point at the end of the release.
-     *
-     * @return Estimation of remaining story point at the end of the release.
-     */
-    public BigDecimal getEstimatedRemainingPointEndOfRelease() {
-        return estimatedRemainingPointEndOfRelease;
-    }
-
-    /**
-     * Estimation of remaining story point at the end of the release.
-     *
-     * @param estimatedRemainingPointEndOfRelease Estimation of remaining story
-     * point at the end of the release.
-     */
-    public void setEstimatedRemainingPointEndOfRelease(BigDecimal estimatedRemainingPointEndOfRelease) {
-        this.estimatedRemainingPointEndOfRelease = estimatedRemainingPointEndOfRelease;
     }
 
     /**

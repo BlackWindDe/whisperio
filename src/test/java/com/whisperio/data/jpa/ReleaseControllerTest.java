@@ -122,15 +122,11 @@ public class ReleaseControllerTest {
         release.setNumberOfSprint(numberOfSprint);
         release.setIsActive(isActive);
         release.setEndDate(endDate);
-        release.setEstimatedNumberOfSprintToEmpty(estimatedNumberOfSprintToEmpty);
-        release.setEstimatedRemainingPointEndOfRelease(estimatedRemainingPointEndOfRelease);
         release = releaseController.edit(release);
         assertEquals(name, release.getName());
         assertEquals(endDate, release.getEndDate());
         assertEquals(numberOfSprint, release.getNumberOfSprint());
         assertEquals(isActive, release.isActive());
-        assertEquals(estimatedNumberOfSprintToEmpty, release.getEstimatedNumberOfSprintToEmpty());
-        assertEquals(estimatedRemainingPointEndOfRelease, release.getEstimatedRemainingPointEndOfRelease());
 
         releaseController.destroy(release);
     }

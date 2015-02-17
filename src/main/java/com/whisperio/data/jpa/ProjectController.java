@@ -140,7 +140,7 @@ public class ProjectController {
         } catch (NoResultException ex) {
             project = null;
         } catch (Exception ex) {
-            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProjectController.class.getName()).log(Level.SEVERE, null, ex);
             project = null;
         } finally {
             if (em != null) {

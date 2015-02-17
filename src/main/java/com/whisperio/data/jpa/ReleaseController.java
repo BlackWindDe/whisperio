@@ -148,8 +148,6 @@ public class ReleaseController {
             persistantRelease.setEndDate(release.getEndDate());
             persistantRelease.setIsActive(release.isActive());
             persistantRelease.setNumberOfSprint(release.getNumberOfSprint());
-            persistantRelease.setEstimatedNumberOfSprintToEmpty(release.getEstimatedNumberOfSprintToEmpty());
-            persistantRelease.setEstimatedRemainingPointEndOfRelease(release.getEstimatedRemainingPointEndOfRelease());
 
             //Merge & Commit.
             em.merge(persistantRelease);
@@ -163,6 +161,30 @@ public class ReleaseController {
             }
         }
         return persistantRelease;
+    }
+
+    /**
+     * Get active release of a project.
+     *
+     * @param project Project of the active release.
+     * @return Active release of a project.
+     */
+    public Release getProjectActiveRelease(Project project) {
+        EntityManager em = null;
+        Release release = null;
+        try {
+            em = getEntityManager();
+            release = (Release) em.createNamedQuery(("Releases.getProjectActiveRelease"))
+                    .setParameter("projectID", project.getId()).getSingleResult();
+        } catch (Exception ex) {
+            Logger.getLogger(ReleaseController.class.getName()).log(Level.SEVERE, null, ex);
+            release = null;
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+        return release;
     }
 
     /**

@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/items/Template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <!-- CSS -->
+    <ui:define name="extraCSSLink">
+    </ui:define>
+
+    <!-- Title -->
+    <ui:define name="title">
+        Whisper.io : Project
+    </ui:define>
+
+    <!-- Content Panel -->
+    <ui:define name="contentPanel">
+        <p:chart type="line" model="#{projectBean.releaseBurndownChart}" style="height:300px;"/>
+    </ui:define>
+
+</ui:composition>

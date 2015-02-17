@@ -11,6 +11,7 @@
 package com.whisperio.data.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -76,6 +77,10 @@ public class Sprint implements Serializable {
     @NotNull
     @Column(name = "IsActive")
     private boolean isActive;
+
+    @Basic(optional = false)
+    @Column(name = "ReleaseRemainingPointEndOfSprint")
+    private BigDecimal releaseRemainingPointEndOfSprint;
 
     @JoinColumn(name = "ReleaseID", referencedColumnName = "ID")
     @ManyToOne(optional = false)
@@ -262,6 +267,25 @@ public class Sprint implements Serializable {
      */
     public void setBacklogItems(List<BacklogItem> backlogItems) {
         this.backlogItems = backlogItems;
+    }
+
+    /**
+     * Release remaining point at the end of the sprint.
+     *
+     * @return Release remaining point at the end of the sprint.
+     */
+    public BigDecimal getReleaseRemainingPointEndOfSprint() {
+        return releaseRemainingPointEndOfSprint;
+    }
+
+    /**
+     * Release remaining point at the end of the sprint.
+     *
+     * @param releaseRemainingPointEndOfSprint Release remaining point at the
+     * end of the sprint.
+     */
+    public void setReleaseRemainingPointEndOfSprint(BigDecimal releaseRemainingPointEndOfSprint) {
+        this.releaseRemainingPointEndOfSprint = releaseRemainingPointEndOfSprint;
     }
 
     @Override
