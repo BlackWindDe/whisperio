@@ -20,8 +20,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -37,11 +35,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "BacklogItems")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "BacklogItems.getBacklogItemsByProject", query = "SELECT b FROM BacklogItem b WHERE b.project.id = :projectID"),
-    @NamedQuery(name = "BacklogItems.getBacklogItemsByRelease", query = "SELECT b FROM BacklogItem b WHERE b.release.id = :releaseID"),
-    @NamedQuery(name = "BacklogItems.getBacklogItemsBySprint", query = "SELECT b FROM BacklogItem b WHERE b.sprint.id = :sprintID")
-})
 public class BacklogItem implements Serializable {
 
     private static final long serialVersionUID = 1L;

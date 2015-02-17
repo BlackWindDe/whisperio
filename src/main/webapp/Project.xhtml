@@ -7,6 +7,7 @@
 
     <!-- CSS -->
     <ui:define name="extraCSSLink">
+        <link rel="stylesheet" href="css/project.css"></link>
     </ui:define>
 
     <!-- Title -->
@@ -16,7 +17,41 @@
 
     <!-- Content Panel -->
     <ui:define name="contentPanel">
-        <p:chart type="line" model="#{projectBean.releaseBurndownChart}" style="height:300px;"/>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8 info release">
+                    Current Release Info : Number, Name, Start Date, End Date, Number of Sprint
+                </div>
+                <div class="col-md-8 info sprint">
+                    Current Sprint Info : Number, Name, Start Date, End Date
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5 reportBlock">
+                    <p:chart type="line" model="#{projectBean.releaseBurndownChart}" class="report"/>
+                </div>
+                <div class="col-md-5 reportBlock">
+                    Sprint Burndown Chart.
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5 reportBlock">
+                    Velocity.
+                </div>
+                <div class="col-md-5 reportBlock">
+                    Business Value Chart.
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5 reportBlock">
+                    Cumulative Flow Diagram.
+                </div>
+                <div class="col-md-5 reportBlock">
+                    Issue Tracker Backlog.
+                </div>
+            </div>
+        </div>
+
     </ui:define>
 
 </ui:composition>

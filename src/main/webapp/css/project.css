@@ -1,0 +1,42 @@
+/**
+ * (C) Copyright 2014 Whisper.io.
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Maxime ESCOURBIAC
+ */
+
+body{
+    background-image: url(../images/bg-project.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center; 
+}
+
+.reportBlock{
+    height: 300px;
+    background: rgba(240, 240, 240, 0.74);
+    margin : 30px;
+}
+
+.report{
+    width: 100%;
+}
+
+.info{
+    background: rgba(240, 240, 240, 0.74);
+    margin-left: 30px;
+    margin-top: 15px;
+}
+
+.release{
+    height: 40px;
+}
+
+.sprint{
+    height: 40px;
+}

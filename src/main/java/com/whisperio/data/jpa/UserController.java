@@ -52,7 +52,7 @@ public class UserController {
      *
      * The user creation process has been simplified. The only case where this
      * method is called, the future user cannot have any interactions with
-     * existant projects.
+     * existants projects.
      */
     public User create(User user) {
         EntityManager em = null;

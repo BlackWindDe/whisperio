@@ -13,10 +13,11 @@ package com.whisperio.view;
 import com.whisperio.data.entity.Project;
 import com.whisperio.data.entity.Release;
 import com.whisperio.data.entity.Sprint;
-import com.whisperio.data.jpa.ReleaseController;
+import com.whisperio.data.jpa.ProjectController;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
@@ -38,31 +39,20 @@ public class ProjectBean implements Serializable {
     @ManagedProperty(value = "#{sessionBean}")
     private SessionBean sessionBean;
 
-    private LineChartModel releaseBurdownChart;
-
     /**
      * Creates a new instance of projectsBean
      */
     public ProjectBean() {
     }
 
-    @PostConstruct
-    public void init() {
-        createReleaseBurdownChart();
-    }
-
-    public LineChartModel getReleaseBurndownChart() {
-        return releaseBurdownChart;
-    }
-
     /**
-     * Create the release burdown chart.
+     * Generating Release Burndown Chart.
+     *
+     * @return Generated Release BurndownChart.
      */
-    private void createReleaseBurdownChart() {
-        Project selectedProject = sessionBean.getSelectedProject();
-        ReleaseController releaseController = new ReleaseController();
-        Release activeRelease = releaseController.getProjectActiveRelease(selectedProject);
-        releaseBurdownChart = new LineChartModel();
+    public LineChartModel getReleaseBurndownChart() {
+        //Init release burndown chart
+        LineChartModel releaseBurdownChart = new LineChartModel();
         releaseBurdownChart.setTitle("Release Burndown Chart");
         releaseBurdownChart.setLegendPosition("e");
         releaseBurdownChart.setShowPointLabels(true);
@@ -70,24 +60,53 @@ public class ProjectBean implements Serializable {
         Axis yAxis = releaseBurdownChart.getAxis(AxisType.Y);
         yAxis.setLabel("Story Points");
         yAxis.setMin(0);
-        yAxis.setMax(200);
+        yAxis.setMax(0);
+
+        //Retrive active release.
+        Project selectedProject = sessionBean.getSelectedProject();
+        ProjectController projectController = new ProjectController();
+        Release activeRelease = projectController.getProjectActiveRelease(selectedProject);
 
         if (activeRelease != null) {
             List<Sprint> sprints = activeRelease.getSprints();
             if (sprints != null && sprints.size() > 0) {
+
+                //Draw complete line.
                 ChartSeries completed = new ChartSeries();
-                completed.setLabel("Completed");
+                BigDecimal averageVelocity = BigDecimal.ZERO;
+                int sprintNumber = 0;
+
+                BigDecimal releaseRemainingPointEndOfSprint = BigDecimal.ZERO;
                 for (Sprint sprint : sprints) {
-                    completed.set(sprint.getSprintNumber(), sprint.getReleaseRemainingPointEndOfSprint());
+                    sprintNumber = sprint.getSprintNumber();
+                    releaseRemainingPointEndOfSprint = sprint.getReleaseRemainingPointEndOfSprint();
+                    completed.set(sprintNumber, releaseRemainingPointEndOfSprint);
+                    //Max Y
+                    yAxis.setMax(Math.max((int) yAxis.getMax(), releaseRemainingPointEndOfSprint.intValue()) + 10);
+                    //Compute average velocity.
+                    averageVelocity = averageVelocity.add(sprint.getVelocity().divide(new BigDecimal(sprints.size()), MathContext.DECIMAL128));
                 }
+                completed.setLabel("Completed");
                 releaseBurdownChart.addSeries(completed);
 
-                ChartSeries estimation = new ChartSeries();
-                estimation.setLabel("Estimation");
-                //To do : Generate estimation chart.
-                releaseBurdownChart.addSeries(estimation);
+                //Draw estimation line
+                if (averageVelocity.compareTo(BigDecimal.ZERO) > 0) {
+                    ChartSeries estimation = new ChartSeries();
+                    estimation.setLabel("Estimation");
+                    while (releaseRemainingPointEndOfSprint.compareTo(BigDecimal.ZERO) >= 0) {
+                        estimation.set(sprintNumber, releaseRemainingPointEndOfSprint);
+                        ++sprintNumber;
+                        releaseRemainingPointEndOfSprint = releaseRemainingPointEndOfSprint.add(averageVelocity.negate());
+                    }
+
+                    if (releaseRemainingPointEndOfSprint.compareTo(BigDecimal.ZERO) != 0) {
+                        estimation.set(sprintNumber, BigDecimal.ZERO);
+                    }
+                    releaseBurdownChart.addSeries(estimation);
+                }
             }
         }
+        return releaseBurdownChart;
     }
 
     /**

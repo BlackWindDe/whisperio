@@ -11,7 +11,6 @@
 package com.whisperio.data.entity;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,9 +23,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -43,8 +41,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "Releases")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Releases.getProjectActiveRelease", query = "SELECT r FROM Release r Where r.project.id=:projectID and r.isActive=true")})
 public class Release implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -91,6 +87,7 @@ public class Release implements Serializable {
     private Project project;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "release")
+    @OrderBy("sprintNumber asc")
     private List<Sprint> sprints;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "release")

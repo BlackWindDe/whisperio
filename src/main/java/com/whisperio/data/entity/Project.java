@@ -24,6 +24,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -42,7 +43,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Projects.findAll", query = "SELECT p FROM Project p"),
-    @NamedQuery(name = "Projects.findByKeyName", query = "SELECT p FROM Project p WHERE p.keyName = :keyName")})
+    @NamedQuery(name = "Projects.findByKeyName", query = "SELECT p FROM Project p WHERE p.keyName = :keyName"),
+    @NamedQuery(name = "Releases.getProjectActiveRelease", query = "SELECT r FROM Release r Where r.project.id=:projectID and r.isActive=true")})
 public class Project implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -76,6 +78,7 @@ public class Project implements Serializable {
     private Date creationDate;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "project")
+    @OrderBy("releaseNumber asc")
     private List<Release> releases;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "project")

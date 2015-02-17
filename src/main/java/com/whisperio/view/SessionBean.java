@@ -71,7 +71,7 @@ public class SessionBean implements Serializable {
     public void logout() {
         connectedUser = null;
         try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/whisperio/Index.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/Whisperio/Index.xhtml");
         } catch (IOException ex) {
             Logger.getLogger(SessionBean.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -83,7 +83,7 @@ public class SessionBean implements Serializable {
     public void checkSession() {
         if (connectedUser == null) {
             try {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("/whisperio/Index.xhtml");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/Whisperio/Index.xhtml");
             } catch (IOException ex) {
                 Logger.getLogger(SessionBean.class.getName()).log(Level.SEVERE, null, ex);
             }

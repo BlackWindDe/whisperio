@@ -73,13 +73,51 @@ public class SprintController {
             em.getTransaction().commit();
         } catch (Exception ex) {
             sprint = null;
-            Logger.getLogger(ReleaseController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SprintController.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (em != null) {
                 em.close();
             }
         }
         return sprint;
+    }
+
+    /**
+     * Edit sprint attributes of the Sprint.
+     *
+     * @param sprint Sprint to update.
+     * @return Sprint updated.
+     *
+     * Only attribute editable in the project will be taken in account in this
+     * method.
+     */
+    public Sprint edit(Sprint sprint) {
+        EntityManager em = null;
+        Sprint persistantSprint;
+        try {
+            em = getEntityManager();
+            em.getTransaction().begin();
+            persistantSprint = em.find(Sprint.class, sprint.getId());
+
+            //Editing sprint values.
+            persistantSprint.setName(sprint.getName());
+            persistantSprint.setEndDate(sprint.getEndDate());
+            persistantSprint.setIsActive(sprint.isActive());
+            persistantSprint.setVelocity(sprint.getVelocity());
+            persistantSprint.setReleaseRemainingPointEndOfSprint(sprint.getReleaseRemainingPointEndOfSprint());
+
+            //Merge & Commit.
+            em.merge(persistantSprint);
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            Logger.getLogger(SprintController.class.getName()).log(Level.SEVERE, null, ex);
+            persistantSprint = null;
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+        return persistantSprint;
     }
 
     /**
@@ -115,7 +153,7 @@ public class SprintController {
             em.remove(em.merge(sprint));
             em.getTransaction().commit();
         } catch (Exception ex) {
-            Logger.getLogger(ProjectController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Sprint.class.getName()).log(Level.SEVERE, null, ex);
             success = false;
         } finally {
             if (em != null) {

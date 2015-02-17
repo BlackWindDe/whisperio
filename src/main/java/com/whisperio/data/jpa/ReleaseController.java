@@ -88,7 +88,7 @@ public class ReleaseController {
      * @param release Release to destroy.
      * @return True if the deletion was sucessfuly executed.
      *
-     * ToDo: Delete Sprints.
+     * ToDo: Delete Sprints on cascade.
      */
     public boolean destroy(Release release) {
         EntityManager em = null;
@@ -116,7 +116,7 @@ public class ReleaseController {
             em.remove(em.merge(release));
             em.getTransaction().commit();
         } catch (Exception ex) {
-            Logger.getLogger(ProjectController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReleaseController.class.getName()).log(Level.SEVERE, null, ex);
             success = false;
         } finally {
             if (em != null) {
@@ -161,30 +161,6 @@ public class ReleaseController {
             }
         }
         return persistantRelease;
-    }
-
-    /**
-     * Get active release of a project.
-     *
-     * @param project Project of the active release.
-     * @return Active release of a project.
-     */
-    public Release getProjectActiveRelease(Project project) {
-        EntityManager em = null;
-        Release release = null;
-        try {
-            em = getEntityManager();
-            release = (Release) em.createNamedQuery(("Releases.getProjectActiveRelease"))
-                    .setParameter("projectID", project.getId()).getSingleResult();
-        } catch (Exception ex) {
-            Logger.getLogger(ReleaseController.class.getName()).log(Level.SEVERE, null, ex);
-            release = null;
-        } finally {
-            if (em != null) {
-                em.close();
-            }
-        }
-        return release;
     }
 
     /**

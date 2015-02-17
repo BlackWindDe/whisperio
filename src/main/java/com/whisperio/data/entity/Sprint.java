@@ -79,6 +79,10 @@ public class Sprint implements Serializable {
     private boolean isActive;
 
     @Basic(optional = false)
+    @Column(name = "Velocity")
+    private BigDecimal velocity;
+
+    @Basic(optional = false)
     @Column(name = "ReleaseRemainingPointEndOfSprint")
     private BigDecimal releaseRemainingPointEndOfSprint;
 
@@ -267,6 +271,24 @@ public class Sprint implements Serializable {
      */
     public void setBacklogItems(List<BacklogItem> backlogItems) {
         this.backlogItems = backlogItems;
+    }
+
+    /**
+     * Velocity of the Sprint.
+     *
+     * @return Velocity of the Sprint.
+     */
+    public BigDecimal getVelocity() {
+        return velocity;
+    }
+
+    /**
+     * Velocity of the Sprint.
+     *
+     * @param velocity Velocity of the Sprint.
+     */
+    public void setVelocity(BigDecimal velocity) {
+        this.velocity = velocity;
     }
 
     /**

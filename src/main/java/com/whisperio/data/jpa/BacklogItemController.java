@@ -49,7 +49,7 @@ public class BacklogItemController {
     /**
      * Create the backlog item in database.
      *
-     * @param backlogItem Sprint to create.
+     * @param backlogItem Backlog Item to create.
      * @return Backlog Item created with id value returned.
      *
      */
@@ -91,7 +91,7 @@ public class BacklogItemController {
             em.getTransaction().commit();
         } catch (Exception ex) {
             backlogItem = null;
-            Logger.getLogger(ReleaseController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(BacklogItemController.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             if (em != null) {
                 em.close();
@@ -143,7 +143,7 @@ public class BacklogItemController {
             em.remove(em.merge(backlogItem));
             em.getTransaction().commit();
         } catch (Exception ex) {
-            Logger.getLogger(ProjectController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(BacklogItemController.class.getName()).log(Level.SEVERE, null, ex);
             success = false;
         } finally {
             if (em != null) {
