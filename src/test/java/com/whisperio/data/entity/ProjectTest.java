@@ -74,7 +74,7 @@ public class ProjectTest {
         project.addRelease(release3);
         project.addRelease(release4);
         releaseResult = project.getActiveRelease();
-        assertEquals(release2.getId(), releaseResult.getId());
+        assertEquals(release2, releaseResult);
     }
 
 }

@@ -71,6 +71,7 @@ StartDate                        DATE NOT NULL,
 EndDate                          DATE NOT NULL,
 ReleaseID                        INT NOT NULL,
 IsActive                         BOOL NOT NULL Default False,
+IsClosed                         BOOL NOT NULL Default False,
 /* Statistics */
 Velocity                         DECIMAL(10,1),
 ReleaseRemainingPointEndOfSprint DECIMAL(10,1),

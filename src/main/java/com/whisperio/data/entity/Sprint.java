@@ -79,6 +79,11 @@ public class Sprint implements Serializable {
     private boolean isActive;
 
     @Basic(optional = false)
+    @NotNull
+    @Column(name = "IsClosed")
+    private boolean isClosed;
+
+    @Basic(optional = false)
     @Column(name = "Velocity")
     private BigDecimal velocity;
 
@@ -107,14 +112,16 @@ public class Sprint implements Serializable {
      * @param startDate Sprint start date.
      * @param endDate Sprint end date.
      * @param isActive Boolean for determine if the sprint is active.
+     * @param isClosed Boolean for determine if the sprint is closed.
      * @param release Sprint release.
      */
-    public Sprint(String name, int sprintNumber, Date startDate, Date endDate, boolean isActive, Release release) {
+    public Sprint(String name, int sprintNumber, Date startDate, Date endDate, boolean isActive, boolean isClosed, Release release) {
         this.name = name;
         this.sprintNumber = sprintNumber;
         this.startDate = startDate;
         this.endDate = endDate;
         this.isActive = isActive;
+        this.isClosed = isClosed;
         this.release = release;
         this.backlogItems = new ArrayList<>();
     }
@@ -225,6 +232,24 @@ public class Sprint implements Serializable {
      */
     public void setIsActive(boolean isActive) {
         this.isActive = isActive;
+    }
+
+    /**
+     * Boolean for determine if the sprint is closed.
+     *
+     * @return Boolean for determine if the sprint is closed.
+     */
+    public boolean isClosed() {
+        return isClosed;
+    }
+
+    /**
+     * Boolean for determine if the sprint is closed.
+     *
+     * @param isClosed Boolean for determine if the sprint is closed.
+     */
+    public void setIsClosed(boolean isClosed) {
+        this.isClosed = isClosed;
     }
 
     /**

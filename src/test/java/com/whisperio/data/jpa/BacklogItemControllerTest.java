@@ -65,7 +65,7 @@ public class BacklogItemControllerTest {
         release = releaseController.create(release);
 
         sprintController = new SprintController();
-        sprint = new Sprint("Sprint Test Backlog Item", 1, date, date, true, release);
+        sprint = new Sprint("Sprint Test Backlog Item", 1, date, date, true, false, release);
         sprint = sprintController.create(sprint);
     }
 

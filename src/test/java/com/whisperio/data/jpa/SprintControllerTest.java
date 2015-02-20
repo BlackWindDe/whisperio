@@ -86,7 +86,8 @@ public class SprintControllerTest {
         String name = "Test Create Sprint";
         int sprintNumber = 1;
         boolean isActive = true;
-        Sprint sprint = new Sprint(name, sprintNumber, startDate, endDate, isActive, release);
+        boolean isClosed = true;
+        Sprint sprint = new Sprint(name, sprintNumber, startDate, endDate, isActive, isClosed, release);
         Sprint sprintResult = sprintController.create(sprint);
 
         //Check Sprint properties.
@@ -96,6 +97,7 @@ public class SprintControllerTest {
         assertEquals(startDate, sprintResult.getStartDate());
         assertEquals(endDate, sprintResult.getEndDate());
         assertEquals(isActive, sprintResult.isActive());
+        assertEquals(isClosed, sprintResult.isClosed());
         assertEquals(release, sprintResult.getRelease());
 
         //Check release properties.
@@ -114,7 +116,7 @@ public class SprintControllerTest {
         SprintController sprintController = new SprintController();
         Date creationDate = new Date();
         Date stopDate = new Date();
-        Sprint sprint = sprintController.create(new Sprint("Test Destroy Sprint", 1, creationDate, stopDate, true, release));
+        Sprint sprint = sprintController.create(new Sprint("Test Destroy Sprint", 1, creationDate, stopDate, true, true, release));
         assertTrue(sprintController.destroy(sprint));
     }
 }
