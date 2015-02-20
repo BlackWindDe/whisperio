@@ -13,7 +13,6 @@ package com.whisperio.view;
 import com.whisperio.data.entity.Project;
 import com.whisperio.data.entity.Release;
 import com.whisperio.data.entity.Sprint;
-import com.whisperio.data.jpa.ProjectController;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -64,8 +63,7 @@ public class ProjectBean implements Serializable {
 
         //Retrive active release.
         Project selectedProject = sessionBean.getSelectedProject();
-        ProjectController projectController = new ProjectController();
-        Release activeRelease = projectController.getProjectActiveRelease(selectedProject);
+        Release activeRelease = selectedProject.getActiveRelease();
 
         if (activeRelease != null) {
             List<Sprint> sprints = activeRelease.getSprints();

@@ -11,7 +11,6 @@
 package com.whisperio.data.jpa;
 
 import com.whisperio.data.entity.Project;
-import com.whisperio.data.entity.Release;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -150,33 +149,6 @@ public class ProjectController {
             }
         }
         return project;
-    }
-
-    /**
-     * Get active release of a project.
-     *
-     * @param project Project of the active release.
-     * @return Active release of a project.
-     */
-    public Release getProjectActiveRelease(Project project) {
-        EntityManager em = null;
-        Release release = null;
-        try {
-            em = getEntityManager();
-            release = (Release) em.createNamedQuery(("Releases.getProjectActiveRelease"))
-                    .setParameter("projectID", project.getId()).getSingleResult();
-        } catch (NoResultException ex) {
-            Logger.getLogger(ProjectController.class.getName()).log(Level.WARNING, null, ex);
-            release = null;
-        } catch (Exception ex) {
-            Logger.getLogger(ProjectController.class.getName()).log(Level.SEVERE, null, ex);
-            release = null;
-        } finally {
-            if (em != null) {
-                em.close();
-            }
-        }
-        return release;
     }
 
     /**
