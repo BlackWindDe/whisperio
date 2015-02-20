@@ -14,6 +14,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -88,6 +91,8 @@ public class Project implements Serializable {
      * Default constructor.
      */
     public Project() {
+        this.releases = new ArrayList<>();
+        this.backlogItems = new ArrayList<>();
     }
 
     /**
@@ -251,6 +256,27 @@ public class Project implements Serializable {
      */
     public void setBacklogItems(List<BacklogItem> backlogItems) {
         this.backlogItems = backlogItems;
+    }
+
+    /**
+     * Get active release of the project.
+     *
+     * @return The active result;
+     */
+    public Release getActiveRelease() {
+        Release activeRelease;
+        List<Release> activeReleases = releases.parallelStream().filter(
+                r -> r.isActive()).collect(Collectors.toList());
+        if (activeReleases.isEmpty()) {
+            activeRelease = null;
+        } else if (activeReleases.size() > 1) {
+            activeRelease = null;
+            Logger.getLogger(Project.class.getName())
+                    .log(Level.SEVERE, null, "The project ID:" + id + " has more than one active release.");
+        } else {
+            activeRelease = activeReleases.get(0);
+        }
+        return activeRelease;
     }
 
     @Override
