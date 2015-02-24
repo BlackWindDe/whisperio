@@ -128,48 +128,70 @@ public class ProjectControllerTest {
         System.out.println("ProjectController:GetProjectActiveRelease");
 
         ProjectController projectController = new ProjectController();
+        ReleaseController releaseController = new ReleaseController();
+
+        Project project1 = new Project("Test Get Active Release 1", "TA1", "Project Get Active Release 1 test.", new Date());
+        Project project2 = new Project("Test Get Active Release 2", "TA2", "Project Get Active Release 2 test.", new Date());
+        Project project3 = new Project("Test Get Active Release 3", "TA3", "Project Get Active Release 3 test.", new Date());
+        Project project4 = new Project("Test Get Active Release 4", "TA4", "Project Get Active Release 4 test.", new Date());
+        project1 = projectController.create(project1);
+        project2 = projectController.create(project2);
+        project3 = projectController.create(project3);
+        project4 = projectController.create(project4);
 
         //Configure Release.
-        Release release1 = new Release();
-        release1.setId(1);
-        release1.setIsActive(true);
-        Release release2 = new Release();
-        release2.setId(2);
-        release2.setIsActive(true);
-        Release release3 = new Release();
-        release3.setId(3);
-        release3.setIsActive(false);
-        Release release4 = new Release();
-        release4.setId(4);
-        release4.setIsActive(false);
+        Release release1 = new Release("Test Get Active Release1", 1, new Date(), new Date(), 5, true, project3);
+        release1 = releaseController.create(release1);
+        Release release2 = new Release("Test Get Active Release2", 2, new Date(), new Date(), 5, true, project3);
+        release2 = releaseController.create(release2);
+        Release release3 = new Release("Test Get Active Release3", 3, new Date(), new Date(), 5, false, project2);
+        release3 = releaseController.create(release3);
+        Release release4 = new Release("Test Get Active Release4", 4, new Date(), new Date(), 5, false, project2);
+        release4 = releaseController.create(release4);
+        Release release5 = new Release("Test Get Active Release5", 5, new Date(), new Date(), 5, false, project3);
+        release5 = releaseController.create(release5);
+        Release release6 = new Release("Test Get Active Release6", 6, new Date(), new Date(), 5, true, project4);
+        release6 = releaseController.create(release6);
+        Release release7 = new Release("Test Get Active Release7", 7, new Date(), new Date(), 5, false, project4);
+        release7 = releaseController.create(release7);
+        Release release8 = new Release("Test Get Active Release8", 8, new Date(), new Date(), 5, false, project4);
+        release8 = releaseController.create(release8);
+
+        project1 = projectController.refresh(project1);
+        project2 = projectController.refresh(project2);
+        project3 = projectController.refresh(project3);
+        project4 = projectController.refresh(project4);
 
         //Project with 0 release.
-        Project project = new Project();
-        Release releaseResult = projectController.getProjectActiveRelease(project);
+        Release releaseResult = projectController.getProjectActiveRelease(project1);
         assertNull(releaseResult);
 
         //Project with 0 active release.
-        project = new Project();
-        project.addRelease(release3);
-        project.addRelease(release4);
-        releaseResult = projectController.getProjectActiveRelease(project);
+        releaseResult = projectController.getProjectActiveRelease(project2);
         assertNull(releaseResult);
 
         //Project with more than 1 active release.
-        project = new Project();
-        project.addRelease(release1);
-        project.addRelease(release2);
-        project.addRelease(release3);
-        project.addRelease(release4);
-        releaseResult = projectController.getProjectActiveRelease(project);
+        releaseResult = projectController.getProjectActiveRelease(project3);
         assertNull(releaseResult);
 
         //Good project.
-        project = new Project();
-        project.addRelease(release2);
-        project.addRelease(release3);
-        project.addRelease(release4);
-        releaseResult = projectController.getProjectActiveRelease(project);
-        assertEquals(release2, releaseResult);
+        releaseResult = projectController.getProjectActiveRelease(project4);
+        assertEquals(release6, releaseResult);
+
+        //Destroy releases.
+        releaseController.destroy(release1);
+        releaseController.destroy(release2);
+        releaseController.destroy(release3);
+        releaseController.destroy(release4);
+        releaseController.destroy(release5);
+        releaseController.destroy(release6);
+        releaseController.destroy(release7);
+        releaseController.destroy(release8);
+
+        //Destroy project
+        projectController.destroy(projectController.refresh(project1));
+        projectController.destroy(projectController.refresh(project2));
+        projectController.destroy(projectController.refresh(project3));
+        projectController.destroy(projectController.refresh(project4));
     }
 }

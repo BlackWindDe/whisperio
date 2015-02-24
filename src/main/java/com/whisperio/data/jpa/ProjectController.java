@@ -15,10 +15,10 @@ import com.whisperio.data.entity.Release;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.Persistence;
 
 /**
@@ -140,7 +140,7 @@ public class ProjectController {
             em = getEntityManager();
             project = (Project) em.createNamedQuery(("Projects.findByKeyName")).setParameter("keyName", keyName).getSingleResult();
         } catch (NoResultException ex) {
-            Logger.getLogger(ProjectController.class.getName()).log(Level.WARNING, null, ex);
+            Logger.getLogger(ProjectController.class.getName()).log(Level.WARNING, "Project not found: {0}", keyName);
             project = null;
         } catch (Exception ex) {
             Logger.getLogger(ProjectController.class.getName()).log(Level.SEVERE, null, ex);
@@ -160,22 +160,29 @@ public class ProjectController {
      * @return The active result;
      */
     public Release getProjectActiveRelease(Project project) {
-        Release activeRelease = null;
-        if (project != null) {
-            List<Release> activeReleases = project.getReleases().parallelStream().filter(
-                    r -> r.isActive()).collect(Collectors.toList());
-            if (activeReleases.isEmpty()) {
-                activeRelease = null;
-            } else if (activeReleases.size() > 1) {
-                activeRelease = null;
-                Logger.getLogger(Project.class.getName())
-                        .log(Level.SEVERE, null, "The project ID:" + project.getId()
-                                + " has more than one active release.");
-            } else {
-                activeRelease = activeReleases.get(0);
+        EntityManager em = null;
+        Release release = null;
+        try {
+            em = getEntityManager();
+            release = (Release) em.createNamedQuery(("Releases.getProjectActiveRelease"))
+                    .setParameter("projectID", project.getId()).getSingleResult();
+        } catch (NoResultException ex) {
+            Logger.getLogger(ProjectController.class.getName()).
+                    log(Level.WARNING, "No active release for project: {0}", project.getId());
+            release = null;
+        } catch (NonUniqueResultException ex) {
+            Logger.getLogger(ProjectController.class.getName())
+                    .log(Level.SEVERE, "Multiple active release for project: {0}", project.getId());
+            release = null;
+        } catch (Exception ex) {
+            Logger.getLogger(ProjectController.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            release = null;
+        } finally {
+            if (em != null) {
+                em.close();
             }
         }
-        return activeRelease;
+        return release;
     }
 
     /**
