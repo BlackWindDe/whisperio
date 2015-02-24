@@ -101,7 +101,7 @@ public class SessionBean implements Serializable {
 
     //Getter & Setter for Bean properties.
     public User getConnectedUser() {
-        return connectedUser;
+        return connectedUser == null ? null : userController.refresh(connectedUser);
     }
 
     public void setConnectedUser(User user) {
@@ -109,7 +109,7 @@ public class SessionBean implements Serializable {
     }
 
     public Project getSelectedProject() {
-        return selectedProject;
+        return selectedProject == null ? null : projectController.refresh(selectedProject);
     }
 
     public void setSelectedProject(Project selectedProject) {

@@ -14,13 +14,14 @@ import com.whisperio.data.entity.BacklogItem;
 import com.whisperio.data.entity.Project;
 import com.whisperio.data.entity.Release;
 import com.whisperio.data.entity.Sprint;
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
-import javax.persistence.NonUniqueResultException;
 import javax.persistence.Persistence;
 
 /**
@@ -192,6 +193,24 @@ public class ReleaseController {
             }
         }
         return closedSprints;
+    }
+
+    /**
+     * Compute the average velocity of a release.
+     *
+     * @param release Release velocity to compute
+     * @return The average velocity of the release.
+     */
+    public BigDecimal getReleaseAverageVelocity(Release release) {
+        List<Sprint> closedSprints = getReleaseClosedSprints(release);
+        BigDecimal averageVelocity = BigDecimal.ZERO;
+        if (closedSprints != null) {
+            for (Sprint closedSprint : closedSprints) {
+                averageVelocity = averageVelocity.add(closedSprint.getVelocity());
+            }
+            averageVelocity = averageVelocity.divide(new BigDecimal(closedSprints.size()), MathContext.DECIMAL128);
+        }
+        return averageVelocity;
     }
 
     /**

@@ -13,6 +13,7 @@ package com.whisperio.data.jpa;
 import com.whisperio.data.entity.Project;
 import com.whisperio.data.entity.Release;
 import com.whisperio.data.entity.Sprint;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import org.junit.After;
@@ -168,6 +169,37 @@ public class ReleaseControllerTest {
         assertTrue(closedSprints.contains(sprint2));
         assertTrue(!closedSprints.contains(sprint3));
         assertTrue(!closedSprints.contains(sprint4));
+
+        sprintController.destroy(sprint1);
+        sprintController.destroy(sprint2);
+        sprintController.destroy(sprint3);
+        sprintController.destroy(sprint4);
+        releaseController.destroy(release);
+    }
+
+    /**
+     * Test of getReleaseAverageVelocity method, of class ReleaseController.
+     */
+    @Test
+    public void testGetReleaseAverageVelocity() {
+        System.out.println("ReleaseController:GetReleaseAverageVelocity");
+        ReleaseController releaseController = new ReleaseController();
+        SprintController sprintController = new SprintController();
+
+        Release release = releaseController.create(new Release("Test Average Velocity", 1, new Date(), new Date(), 10, true, project));
+        Sprint sprint1 = new Sprint("Test Average Velocity1", 1, new Date(), new Date(), false, true, release);
+        sprint1.setVelocity(new BigDecimal(10));
+        Sprint sprint2 = new Sprint("Test Average Velocity2", 1, new Date(), new Date(), false, true, release);
+        sprint2.setVelocity(new BigDecimal(20));
+        Sprint sprint3 = new Sprint("Test Average Velocity3", 1, new Date(), new Date(), true, false, release);
+        Sprint sprint4 = new Sprint("Test Average Velocity4", 1, new Date(), new Date(), false, false, release);
+        sprint1 = sprintController.create(sprint1);
+        sprint2 = sprintController.create(sprint2);
+        sprint3 = sprintController.create(sprint3);
+        sprint4 = sprintController.create(sprint4);
+
+        BigDecimal releaseAverageVelocity = releaseController.getReleaseAverageVelocity(release);
+        assertEquals(new BigDecimal(15), releaseAverageVelocity);
 
         sprintController.destroy(sprint1);
         sprintController.destroy(sprint2);

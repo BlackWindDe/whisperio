@@ -74,6 +74,7 @@ public class ProjectBean implements Serializable {
      * @return Generated Release BurndownChart.
      */
     public LineChartModel getReleaseBurndownChart() {
+
         //Init release burndown chart
         LineChartModel releaseBurdownChart = new LineChartModel();
         releaseBurdownChart.setTitle("Release Burndown Chart");
@@ -87,40 +88,40 @@ public class ProjectBean implements Serializable {
 
         //Retrive active release.
         ProjectController projectController = new ProjectController();
+        ReleaseController releaseController = new ReleaseController();
         Release activeRelease = projectController.getProjectActiveRelease(sessionBean.getSelectedProject());
 
         if (activeRelease != null) {
-            List<Sprint> sprints = activeRelease.getSprints();
-            if (sprints != null && sprints.size() > 0) {
+            List<Sprint> closedSprints = releaseController.getReleaseClosedSprints(activeRelease);
+            if (closedSprints != null) {
 
                 //Draw complete line.
-                ChartSeries completed = new ChartSeries();
-                BigDecimal averageVelocity = BigDecimal.ZERO;
                 int sprintNumber = 0;
-
                 BigDecimal releaseRemainingPointEndOfSprint = BigDecimal.ZERO;
-                for (Sprint sprint : sprints) {
-                    sprintNumber = sprint.getSprintNumber();
-                    releaseRemainingPointEndOfSprint = sprint.getReleaseRemainingPointEndOfSprint();
-                    completed.set(sprintNumber, releaseRemainingPointEndOfSprint);
-                    //Max Y
-                    yAxis.setMax(Math.max((int) yAxis.getMax(), releaseRemainingPointEndOfSprint.intValue()) + 10);
-                    //Compute average velocity.
-                    averageVelocity = averageVelocity.add(sprint.getVelocity().divide(new BigDecimal(sprints.size()), MathContext.DECIMAL128));
-                }
+                ChartSeries completed = new ChartSeries();
                 completed.setLabel("Completed");
+
+                for (Sprint closedSprint : closedSprints) {
+                    //Update stats.
+                    sprintNumber = closedSprint.getSprintNumber();
+                    releaseRemainingPointEndOfSprint = closedSprint.getReleaseRemainingPointEndOfSprint();
+                    yAxis.setMax(Math.max((int) yAxis.getMax(), releaseRemainingPointEndOfSprint.intValue()) + 10);
+                    //Draw point.
+                    completed.set(sprintNumber, releaseRemainingPointEndOfSprint);
+                }
                 releaseBurdownChart.addSeries(completed);
 
                 //Draw estimation line
+                BigDecimal averageVelocity = releaseController.getReleaseAverageVelocity(activeRelease);
                 if (averageVelocity.compareTo(BigDecimal.ZERO) > 0) {
                     ChartSeries estimation = new ChartSeries();
                     estimation.setLabel("Estimation");
+                    //Loop to estimate release remaining work.
                     while (releaseRemainingPointEndOfSprint.compareTo(BigDecimal.ZERO) >= 0) {
-                        estimation.set(sprintNumber, releaseRemainingPointEndOfSprint);
-                        ++sprintNumber;
+                        estimation.set(sprintNumber++, releaseRemainingPointEndOfSprint);
                         releaseRemainingPointEndOfSprint = releaseRemainingPointEndOfSprint.add(averageVelocity.negate());
                     }
-
+                    //Finalize the estimation graph.
                     if (releaseRemainingPointEndOfSprint.compareTo(BigDecimal.ZERO) != 0) {
                         estimation.set(sprintNumber, BigDecimal.ZERO);
                     }
