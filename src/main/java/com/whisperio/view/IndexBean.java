@@ -52,7 +52,7 @@ public class IndexBean implements Serializable {
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Connection failed", "The user " + mail + " is not existing."));
             }
         } catch (Exception ex) {
-            Logger.getLogger(IndexBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(IndexBean.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Exception", ex.getMessage()));
         }
     }
@@ -66,7 +66,7 @@ public class IndexBean implements Serializable {
             try {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("/whisperio/Projects.xhtml");
             } catch (IOException ex) {
-                Logger.getLogger(IndexBean.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(IndexBean.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             }
         }
     }

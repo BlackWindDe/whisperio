@@ -91,7 +91,7 @@ public class BacklogItemController {
             em.getTransaction().commit();
         } catch (Exception ex) {
             backlogItem = null;
-            Logger.getLogger(BacklogItemController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(BacklogItemController.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
         } finally {
             if (em != null) {
                 em.close();
@@ -143,7 +143,7 @@ public class BacklogItemController {
             em.remove(em.merge(backlogItem));
             em.getTransaction().commit();
         } catch (Exception ex) {
-            Logger.getLogger(BacklogItemController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(BacklogItemController.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             success = false;
         } finally {
             if (em != null) {

@@ -73,7 +73,7 @@ public class SprintController {
             em.getTransaction().commit();
         } catch (Exception ex) {
             sprint = null;
-            Logger.getLogger(SprintController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SprintController.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
         } finally {
             if (em != null) {
                 em.close();
@@ -110,7 +110,7 @@ public class SprintController {
             em.merge(persistantSprint);
             em.getTransaction().commit();
         } catch (Exception ex) {
-            Logger.getLogger(SprintController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SprintController.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             persistantSprint = null;
         } finally {
             if (em != null) {
@@ -153,7 +153,7 @@ public class SprintController {
             em.remove(em.merge(sprint));
             em.getTransaction().commit();
         } catch (Exception ex) {
-            Logger.getLogger(Sprint.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Sprint.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             success = false;
         } finally {
             if (em != null) {

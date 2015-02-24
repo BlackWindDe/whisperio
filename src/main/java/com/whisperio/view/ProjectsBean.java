@@ -67,7 +67,7 @@ public class ProjectsBean implements Serializable {
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "The project " + keyName + " is not existing."));
             }
         } catch (Exception ex) {
-            Logger.getLogger(ProjectsBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProjectsBean.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Exception", ex.getMessage()));
         }
     }

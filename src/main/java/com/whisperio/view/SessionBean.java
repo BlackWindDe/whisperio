@@ -60,7 +60,7 @@ public class SessionBean implements Serializable {
                 connectionSuccessful = true;
             }
         } catch (Exception ex) {
-            Logger.getLogger(SessionBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SessionBean.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
         }
         return connectionSuccessful;
     }
@@ -73,7 +73,7 @@ public class SessionBean implements Serializable {
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect("/Whisperio/Index.xhtml");
         } catch (IOException ex) {
-            Logger.getLogger(SessionBean.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SessionBean.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
         }
     }
 
@@ -85,7 +85,7 @@ public class SessionBean implements Serializable {
             try {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("/Whisperio/Index.xhtml");
             } catch (IOException ex) {
-                Logger.getLogger(SessionBean.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(SessionBean.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             }
         }
     }

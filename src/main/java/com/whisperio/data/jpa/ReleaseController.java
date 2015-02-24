@@ -73,7 +73,7 @@ public class ReleaseController {
             em.getTransaction().commit();
         } catch (Exception ex) {
             release = null;
-            Logger.getLogger(ReleaseController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReleaseController.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
         } finally {
             if (em != null) {
                 em.close();
@@ -116,7 +116,7 @@ public class ReleaseController {
             em.remove(em.merge(release));
             em.getTransaction().commit();
         } catch (Exception ex) {
-            Logger.getLogger(ReleaseController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReleaseController.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             success = false;
         } finally {
             if (em != null) {
@@ -153,7 +153,7 @@ public class ReleaseController {
             em.merge(persistantRelease);
             em.getTransaction().commit();
         } catch (Exception ex) {
-            Logger.getLogger(ReleaseController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReleaseController.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             persistantRelease = null;
         } finally {
             if (em != null) {

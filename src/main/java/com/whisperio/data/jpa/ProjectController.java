@@ -66,7 +66,7 @@ public class ProjectController {
             em.getTransaction().commit();
         } catch (Exception ex) {
             project = null;
-            Logger.getLogger(ProjectController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProjectController.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
         } finally {
             if (em != null) {
                 em.close();
@@ -95,7 +95,7 @@ public class ProjectController {
             em.remove(em.merge(project));
             em.getTransaction().commit();
         } catch (Exception ex) {
-            Logger.getLogger(ProjectController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProjectController.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             success = false;
         } finally {
             if (em != null) {
@@ -117,7 +117,7 @@ public class ProjectController {
             em = getEntityManager();
             projects = em.createNamedQuery(("Projects.findAll")).getResultList();
         } catch (Exception ex) {
-            Logger.getLogger(ProjectController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProjectController.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             projects = null;
         } finally {
             if (em != null) {
@@ -143,7 +143,7 @@ public class ProjectController {
             Logger.getLogger(ProjectController.class.getName()).log(Level.WARNING, "Project not found: {0}", keyName);
             project = null;
         } catch (Exception ex) {
-            Logger.getLogger(ProjectController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProjectController.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             project = null;
         } finally {
             if (em != null) {

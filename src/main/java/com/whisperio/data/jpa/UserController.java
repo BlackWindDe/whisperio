@@ -63,7 +63,7 @@ public class UserController {
             em.flush();
             em.getTransaction().commit();
         } catch (Exception ex) {
-            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             user = null;
         } finally {
             if (em != null) {
@@ -97,7 +97,7 @@ public class UserController {
             em.flush();
             em.getTransaction().commit();
         } catch (Exception ex) {
-            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             persistantUser = null;
         } finally {
             if (em != null) {
@@ -125,7 +125,7 @@ public class UserController {
             em.remove(em.merge(user));
             em.getTransaction().commit();
         } catch (Exception ex) {
-            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             success = false;
         } finally {
             if (em != null) {
@@ -147,7 +147,7 @@ public class UserController {
             em = getEntityManager();
             users = em.createNamedQuery(("Users.findAll")).getResultList();
         } catch (Exception ex) {
-            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             users = null;
         } finally {
             if (em != null) {
@@ -172,7 +172,7 @@ public class UserController {
         } catch (NoResultException ex) {
             user = null;
         } catch (Exception ex) {
-            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
             user = null;
         } finally {
             if (em != null) {
