@@ -13,6 +13,7 @@ package com.whisperio.view;
 import com.whisperio.data.entity.Release;
 import com.whisperio.data.entity.Sprint;
 import com.whisperio.data.jpa.ProjectController;
+import com.whisperio.data.jpa.ReleaseController;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -42,6 +43,29 @@ public class ProjectBean implements Serializable {
      * Creates a new instance of projectsBean
      */
     public ProjectBean() {
+    }
+
+    /**
+     * Test if the project got an active release.
+     *
+     * @return True if the project has an active release.
+     */
+    public boolean hasActiveRelease() {
+        ProjectController projectController = new ProjectController();
+        return (projectController.getProjectActiveRelease(sessionBean.getSelectedProject()) != null);
+    }
+
+    /**
+     * Test if the active release got closed sprints.
+     *
+     * @return True if the active release got closed sprints
+     */
+    public boolean hasClosedSprint() {
+        ProjectController projectController = new ProjectController();
+        ReleaseController releaseController = new ReleaseController();
+        Release projectActiveRelease = projectController.getProjectActiveRelease(sessionBean.getSelectedProject());
+        return (projectActiveRelease == null
+                ? false : !releaseController.getReleaseClosedSprints(projectActiveRelease).isEmpty());
     }
 
     /**

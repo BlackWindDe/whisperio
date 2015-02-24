@@ -3,7 +3,8 @@
 <ui:composition template="/items/Template.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <!-- CSS -->
     <ui:define name="extraCSSLink">
@@ -28,7 +29,17 @@
             </div>
             <div class="row">
                 <div class="col-md-5 reportBlock">
-                    <p:chart type="line" model="#{projectBean.releaseBurndownChart}" styleClass="report"/>
+                    <c:choose>
+                        <c:when test="#{!projectBean.hasActiveRelease()}">
+                            The project does not have any active release.
+                        </c:when>
+                        <c:when test="#{!projectBean.hasClosedSprint()}">
+                            The project does not have any closed sprint.
+                        </c:when>
+                        <c:otherwise>
+                            <p:chart type="line" model="#{projectBean.releaseBurndownChart}" styleClass="report"/>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
                 <div class="col-md-5 reportBlock">
                     Sprint Burndown Chart.

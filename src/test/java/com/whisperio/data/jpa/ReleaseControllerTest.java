@@ -12,8 +12,9 @@ package com.whisperio.data.jpa;
 
 import com.whisperio.data.entity.Project;
 import com.whisperio.data.entity.Release;
-import java.math.BigDecimal;
+import com.whisperio.data.entity.Sprint;
 import java.util.Date;
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
@@ -117,8 +118,6 @@ public class ReleaseControllerTest {
         numberOfSprint = 5;
         isActive = false;
         endDate = new Date(0);
-        int estimatedNumberOfSprintToEmpty = 10;
-        BigDecimal estimatedRemainingPointEndOfRelease = new BigDecimal("45.5");
         release.setNumberOfSprint(numberOfSprint);
         release.setIsActive(isActive);
         release.setEndDate(endDate);
@@ -142,5 +141,38 @@ public class ReleaseControllerTest {
         Date endDate = new Date();
         Release release = releaseController.create(new Release("Test Destroy Release", 1, creationDate, endDate, 0, true, project));
         assertTrue(releaseController.destroy(release));
+    }
+
+    /**
+     * Test of getReleaseClosedSprints method, of class ReleaseController.
+     */
+    @Test
+    public void testGetReleaseClosedSprints() {
+        System.out.println("ReleaseController:GetReleaseClosedSprints");
+        ReleaseController releaseController = new ReleaseController();
+        SprintController sprintController = new SprintController();
+
+        Release release = releaseController.create(new Release("Test Get Closed Sprints", 1, new Date(), new Date(), 10, true, project));
+        Sprint sprint1 = new Sprint("Test Get Close Sprint1", 1, new Date(), new Date(), false, true, release);
+        Sprint sprint2 = new Sprint("Test Get Close Sprint2", 1, new Date(), new Date(), false, true, release);
+        Sprint sprint3 = new Sprint("Test Get Close Sprint3", 1, new Date(), new Date(), true, false, release);
+        Sprint sprint4 = new Sprint("Test Get Close Sprint4", 1, new Date(), new Date(), false, false, release);
+        sprint1 = sprintController.create(sprint1);
+        sprint2 = sprintController.create(sprint2);
+        sprint3 = sprintController.create(sprint3);
+        sprint4 = sprintController.create(sprint4);
+
+        List<Sprint> closedSprints = releaseController.getReleaseClosedSprints(release);
+        assertEquals(2, closedSprints.size());
+        assertTrue(closedSprints.contains(sprint1));
+        assertTrue(closedSprints.contains(sprint2));
+        assertTrue(!closedSprints.contains(sprint3));
+        assertTrue(!closedSprints.contains(sprint4));
+
+        sprintController.destroy(sprint1);
+        sprintController.destroy(sprint2);
+        sprintController.destroy(sprint3);
+        sprintController.destroy(sprint4);
+        releaseController.destroy(release);
     }
 }

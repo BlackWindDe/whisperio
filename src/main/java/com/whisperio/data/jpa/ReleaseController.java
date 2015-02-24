@@ -13,11 +13,14 @@ package com.whisperio.data.jpa;
 import com.whisperio.data.entity.BacklogItem;
 import com.whisperio.data.entity.Project;
 import com.whisperio.data.entity.Release;
+import com.whisperio.data.entity.Sprint;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.Persistence;
 
 /**
@@ -161,6 +164,34 @@ public class ReleaseController {
             }
         }
         return persistantRelease;
+    }
+
+    /**
+     * Get closed sprints of the release.
+     *
+     * @param release Release to get.
+     * @return The active result;
+     */
+    public List<Sprint> getReleaseClosedSprints(Release release) {
+        EntityManager em = null;
+        List<Sprint> closedSprints = null;
+        try {
+            em = getEntityManager();
+            closedSprints = (List<Sprint>) em.createNamedQuery(("Sprints.getReleaseClosedSprint"))
+                    .setParameter("releaseID", release.getId()).getResultList();
+        } catch (NoResultException ex) {
+            Logger.getLogger(ReleaseController.class.getName()).
+                    log(Level.WARNING, "No closed sprints for release: {0}", release.getId());
+            closedSprints = null;
+        } catch (Exception ex) {
+            Logger.getLogger(ReleaseController.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            closedSprints = null;
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+        return closedSprints;
     }
 
     /**

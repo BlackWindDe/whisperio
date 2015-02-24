@@ -156,7 +156,7 @@ public class ProjectController {
     /**
      * Get active release of the project.
      *
-     * @param project
+     * @param project project to get.
      * @return The active result;
      */
     public Release getProjectActiveRelease(Project project) {
