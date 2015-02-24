@@ -11,6 +11,7 @@
 package com.whisperio.data.jpa;
 
 import com.whisperio.data.entity.Project;
+import com.whisperio.data.entity.Release;
 import java.util.Date;
 import java.util.List;
 import static org.junit.Assert.*;
@@ -117,5 +118,58 @@ public class ProjectControllerTest {
         //Check wrong case.
         projectResult = instance.getProjectByKeyName("FCE");
         assertNull(projectResult);
+    }
+
+    /**
+     * Test of getActiveRelease method, of class Project.
+     */
+    @Test
+    public void testGetActiveRelease() {
+        System.out.println("ProjectController:GetProjectActiveRelease");
+
+        ProjectController projectController = new ProjectController();
+
+        //Configure Release.
+        Release release1 = new Release();
+        release1.setId(1);
+        release1.setIsActive(true);
+        Release release2 = new Release();
+        release2.setId(2);
+        release2.setIsActive(true);
+        Release release3 = new Release();
+        release3.setId(3);
+        release3.setIsActive(false);
+        Release release4 = new Release();
+        release4.setId(4);
+        release4.setIsActive(false);
+
+        //Project with 0 release.
+        Project project = new Project();
+        Release releaseResult = projectController.getProjectActiveRelease(project);
+        assertNull(releaseResult);
+
+        //Project with 0 active release.
+        project = new Project();
+        project.addRelease(release3);
+        project.addRelease(release4);
+        releaseResult = projectController.getProjectActiveRelease(project);
+        assertNull(releaseResult);
+
+        //Project with more than 1 active release.
+        project = new Project();
+        project.addRelease(release1);
+        project.addRelease(release2);
+        project.addRelease(release3);
+        project.addRelease(release4);
+        releaseResult = projectController.getProjectActiveRelease(project);
+        assertNull(releaseResult);
+
+        //Good project.
+        project = new Project();
+        project.addRelease(release2);
+        project.addRelease(release3);
+        project.addRelease(release4);
+        releaseResult = projectController.getProjectActiveRelease(project);
+        assertEquals(release2, releaseResult);
     }
 }

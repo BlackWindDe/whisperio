@@ -258,27 +258,6 @@ public class Project implements Serializable {
         this.backlogItems = backlogItems;
     }
 
-    /**
-     * Get active release of the project.
-     *
-     * @return The active result;
-     */
-    public Release getActiveRelease() {
-        Release activeRelease;
-        List<Release> activeReleases = releases.parallelStream().filter(
-                r -> r.isActive()).collect(Collectors.toList());
-        if (activeReleases.isEmpty()) {
-            activeRelease = null;
-        } else if (activeReleases.size() > 1) {
-            activeRelease = null;
-            Logger.getLogger(Project.class.getName())
-                    .log(Level.SEVERE, null, "The project ID:" + id + " has more than one active release.");
-        } else {
-            activeRelease = activeReleases.get(0);
-        }
-        return activeRelease;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;

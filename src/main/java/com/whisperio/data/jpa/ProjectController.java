@@ -11,9 +11,11 @@
 package com.whisperio.data.jpa;
 
 import com.whisperio.data.entity.Project;
+import com.whisperio.data.entity.Release;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
@@ -149,6 +151,31 @@ public class ProjectController {
             }
         }
         return project;
+    }
+
+    /**
+     * Get active release of the project.
+     *
+     * @param project
+     * @return The active result;
+     */
+    public Release getProjectActiveRelease(Project project) {
+        Release activeRelease = null;
+        if (project != null) {
+            List<Release> activeReleases = project.getReleases().parallelStream().filter(
+                    r -> r.isActive()).collect(Collectors.toList());
+            if (activeReleases.isEmpty()) {
+                activeRelease = null;
+            } else if (activeReleases.size() > 1) {
+                activeRelease = null;
+                Logger.getLogger(Project.class.getName())
+                        .log(Level.SEVERE, null, "The project ID:" + project.getId()
+                                + " has more than one active release.");
+            } else {
+                activeRelease = activeReleases.get(0);
+            }
+        }
+        return activeRelease;
     }
 
     /**

@@ -10,9 +10,9 @@
  */
 package com.whisperio.view;
 
-import com.whisperio.data.entity.Project;
 import com.whisperio.data.entity.Release;
 import com.whisperio.data.entity.Sprint;
+import com.whisperio.data.jpa.ProjectController;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -62,8 +62,8 @@ public class ProjectBean implements Serializable {
         yAxis.setMax(0);
 
         //Retrive active release.
-        Project selectedProject = sessionBean.getSelectedProject();
-        Release activeRelease = selectedProject.getActiveRelease();
+        ProjectController projectController = new ProjectController();
+        Release activeRelease = projectController.getProjectActiveRelease(sessionBean.getSelectedProject());
 
         if (activeRelease != null) {
             List<Sprint> sprints = activeRelease.getSprints();
