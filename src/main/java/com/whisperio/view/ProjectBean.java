@@ -10,19 +10,20 @@
  */
 package com.whisperio.view;
 
+import com.whisperio.data.entity.Project;
 import com.whisperio.data.entity.Release;
 import com.whisperio.data.entity.Sprint;
 import com.whisperio.data.jpa.ProjectController;
 import com.whisperio.data.jpa.ReleaseController;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
+import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.CategoryAxis;
 import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.LineChartModel;
@@ -130,6 +131,46 @@ public class ProjectBean implements Serializable {
             }
         }
         return releaseBurdownChart;
+    }
+
+    /**
+     * Generating Project Velocity Chart.
+     *
+     * @return Generated Project velocity chart.
+     */
+    public BarChartModel getVelocityChart() {
+
+        //Init release burndown chart
+        BarChartModel velocityChart = new BarChartModel();
+        velocityChart.setTitle("Velocity");
+        velocityChart.setLegendPosition("e");
+        velocityChart.setShowPointLabels(true);
+        velocityChart.getAxes().put(AxisType.X, new CategoryAxis(""));
+        Axis yAxis = velocityChart.getAxis(AxisType.Y);
+        yAxis.setLabel("Velocity");
+        yAxis.setMin(0);
+        yAxis.setMax(0);
+
+        //Retrive releases.
+        Project selectedProject = sessionBean.getSelectedProject();
+        List<Release> releases = selectedProject.getReleases();
+
+        //Init serie
+        ReleaseController releaseController = new ReleaseController();
+        ChartSeries releaseVelocity = new ChartSeries();
+        releaseVelocity.setLabel("Velocity");
+
+        //Draw velocity.
+        for (Release release : releases) {
+            List<Sprint> closedSprints = releaseController.getReleaseClosedSprints(release);
+            for (Sprint closedSprint : closedSprints) {
+                yAxis.setMax(Math.max((int) yAxis.getMax(), closedSprint.getVelocity().intValue()) + 10);
+                releaseVelocity.set(release.getReleaseNumber() + "." + closedSprint.getSprintNumber(),
+                        closedSprint.getVelocity());
+            }
+        }
+        velocityChart.addSeries(releaseVelocity);
+        return velocityChart;
     }
 
     /**
