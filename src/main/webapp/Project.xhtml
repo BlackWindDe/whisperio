@@ -42,7 +42,7 @@
                     </c:choose>
                 </div>
                 <div class="col-md-5 reportBlock">
-                    Sprint Burndown Chart.
+                    Sprint Burndown Chart ==> #NoEstimates...
                 </div>
             </div>
             <div class="row">
@@ -50,7 +50,7 @@
                     <p:chart type="bar" model="#{projectBean.velocityChart}" styleClass="report"/>
                 </div>
                 <div class="col-md-5 reportBlock">
-                    Business Value Chart.
+                    <p:chart type="line" model="#{projectBean.businessValueChart}" styleClass="report"/>
                 </div>
             </div>
             <div class="row">

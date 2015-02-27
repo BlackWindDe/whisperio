@@ -91,6 +91,10 @@ public class Sprint implements Serializable {
     @Column(name = "ReleaseRemainingPointEndOfSprint")
     private BigDecimal releaseRemainingPointEndOfSprint;
 
+    @Basic(optional = false)
+    @Column(name = "BusinessValueDone")
+    private BigDecimal businessValueDone;
+
     @JoinColumn(name = "ReleaseID", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Release release;
@@ -333,6 +337,24 @@ public class Sprint implements Serializable {
      */
     public void setReleaseRemainingPointEndOfSprint(BigDecimal releaseRemainingPointEndOfSprint) {
         this.releaseRemainingPointEndOfSprint = releaseRemainingPointEndOfSprint;
+    }
+
+    /**
+     * Business Value done during the Sprint.
+     *
+     * @return Business Value done during the Sprint.
+     */
+    public BigDecimal getBusinessValueDone() {
+        return businessValueDone;
+    }
+
+    /**
+     * Business Value done during the Sprint.
+     *
+     * @param businessValueDone Business Value done during the Sprint.
+     */
+    public void setBusinessValueDone(BigDecimal businessValueDone) {
+        this.businessValueDone = businessValueDone;
     }
 
     @Override

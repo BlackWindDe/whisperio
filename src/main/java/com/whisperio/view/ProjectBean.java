@@ -174,6 +174,41 @@ public class ProjectBean implements Serializable {
     }
 
     /**
+     * Generating Business Value Chart.
+     *
+     * @return Business Value Chart.
+     */
+    public LineChartModel getBusinessValueChart() {
+        LineChartModel businessValueChart = new LineChartModel();
+        businessValueChart.setTitle("Business Value Chart");
+        businessValueChart.setLegendPosition("e");
+        businessValueChart.setShowPointLabels(true);
+        businessValueChart.getAxes().put(AxisType.X, new CategoryAxis("Sprint"));
+        Axis yAxis = businessValueChart.getAxis(AxisType.Y);
+        yAxis.setLabel("Business Value");
+        yAxis.setMin(0);
+        yAxis.setMax(0);
+
+        Project selectedProject = sessionBean.getSelectedProject();
+        List<Release> releases = selectedProject.getReleases();
+        ReleaseController releaseController = new ReleaseController();
+        BigDecimal businessValue = BigDecimal.ZERO;
+
+        for (Release release : releases) {
+            List<Sprint> closedSprints = releaseController.getReleaseClosedSprints(release);
+            ChartSeries businessValueSerie = new ChartSeries();
+            businessValueSerie.setLabel(release.getName());
+            for (Sprint closedSprint : closedSprints) {
+                businessValue = businessValue.add(closedSprint.getBusinessValueDone());
+                businessValueSerie.set(release.getReleaseNumber() + "." + closedSprint.getSprintNumber(), businessValue);
+            }
+            businessValueChart.addSeries(businessValueSerie);
+        }
+        yAxis.setMax(businessValue.intValue() * 1.05);
+        return businessValueChart;
+    }
+
+    /**
      * Session Bean.
      *
      * @return Session Bean.

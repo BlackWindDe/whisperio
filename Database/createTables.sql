@@ -75,6 +75,7 @@ IsClosed                         BOOL NOT NULL Default False,
 /* Statistics */
 Velocity                         DECIMAL(10,1),
 ReleaseRemainingPointEndOfSprint DECIMAL(10,1),
+BusinessValueDone                DECIMAL(10,1),
 CONSTRAINT Sprints_ID_PK PRIMARY KEY (ID),
 CONSTRAINT Releases_Sprints_FK FOREIGN KEY( ReleaseID ) REFERENCES Releases ( ID )
 );
