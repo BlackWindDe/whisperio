@@ -193,18 +193,29 @@ public class ProjectBean implements Serializable {
         List<Release> releases = selectedProject.getReleases();
         ReleaseController releaseController = new ReleaseController();
         BigDecimal businessValue = BigDecimal.ZERO;
+        String lastX = null;
+        BigDecimal lastY = null;
 
         for (Release release : releases) {
             List<Sprint> closedSprints = releaseController.getReleaseClosedSprints(release);
             ChartSeries businessValueSerie = new ChartSeries();
             businessValueSerie.setLabel(release.getName());
+
+            //Merge two release series
+            if (lastX != null && lastY != null) {
+                businessValueSerie.set(lastX, lastY);
+            }
+
             for (Sprint closedSprint : closedSprints) {
                 businessValue = businessValue.add(closedSprint.getBusinessValueDone());
-                businessValueSerie.set(release.getReleaseNumber() + "." + closedSprint.getSprintNumber(), businessValue);
+                lastX = release.getReleaseNumber() + "." + closedSprint.getSprintNumber();
+                lastY = businessValue;
+                businessValueSerie.set(lastX, lastY);
+
             }
             businessValueChart.addSeries(businessValueSerie);
         }
-        yAxis.setMax(businessValue.intValue() * 1.05);
+        yAxis.setMax(businessValue.intValue() * 1.20);
         return businessValueChart;
     }
 
