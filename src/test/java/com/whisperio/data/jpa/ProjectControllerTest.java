@@ -12,6 +12,7 @@ package com.whisperio.data.jpa;
 
 import com.whisperio.data.entity.Project;
 import com.whisperio.data.entity.Release;
+import com.whisperio.data.entity.Sprint;
 import java.util.Date;
 import java.util.List;
 import static org.junit.Assert.*;
@@ -121,7 +122,7 @@ public class ProjectControllerTest {
     }
 
     /**
-     * Test of getActiveRelease method, of class Project.
+     * Test of getActiveRelease method, of class ProjectController.
      */
     @Test
     public void testGetActiveRelease() {
@@ -193,5 +194,51 @@ public class ProjectControllerTest {
         projectController.destroy(projectController.refresh(project2));
         projectController.destroy(projectController.refresh(project3));
         projectController.destroy(projectController.refresh(project4));
+    }
+
+    /**
+     * Test of getClosedSprints method, of class ProjectController.
+     */
+    @Test
+    public void testGetClosedSprints() {
+        System.out.println("ProjectController:GetClosedSprints");
+        ProjectController projectController = new ProjectController();
+        ReleaseController releaseController = new ReleaseController();
+        SprintController sprintController = new SprintController();
+
+        Project project1 = new Project("Test Get Closed Sprints 1", "TA1", "Project Get Closed Sprints test 1.", new Date());
+        Project project2 = new Project("Test Get Closed Sprints 2", "TA2", "Project Get Closed Sprints test 2.", new Date());
+        project1 = projectController.create(project1);
+        project2 = projectController.create(project2);
+        Release release1 = new Release("Test Get Closed Sprint 1", 1, new Date(), new Date(), 5, false, project1);
+        Release release2 = new Release("Test Get Closed Sprint 2", 1, new Date(), new Date(), 5, true, project1);
+        release1 = releaseController.create(release1);
+        release2 = releaseController.create(release2);
+        Sprint sprint1 = new Sprint("Test Get Closed Sprint 1", 1, new Date(), new Date(), false, false, release1);
+        Sprint sprint2 = new Sprint("Test Get Closed Sprint 2", 2, new Date(), new Date(), false, true, release1);
+        Sprint sprint3 = new Sprint("Test Get Closed Sprint 3", 1, new Date(), new Date(), false, true, release2);
+        Sprint sprint4 = new Sprint("Test Get Closed Sprint 4", 2, new Date(), new Date(), true, false, release2);
+        sprint1 = sprintController.create(sprint1);
+        sprint2 = sprintController.create(sprint2);
+        sprint3 = sprintController.create(sprint3);
+        sprint4 = sprintController.create(sprint4);
+
+        //Good Project.
+        List<Sprint> projectClosedSprints = projectController.getProjectClosedSprints(project1);
+        assertEquals(2, projectClosedSprints.size());
+        assertTrue(projectClosedSprints.contains(sprint2));
+        assertTrue(projectClosedSprints.contains(sprint3));
+
+        //Project with no closed sprints.
+        assertTrue(projectController.getProjectClosedSprints(project2).isEmpty());
+
+        sprintController.destroy(sprint1);
+        sprintController.destroy(sprint2);
+        sprintController.destroy(sprint3);
+        sprintController.destroy(sprint4);
+        releaseController.destroy(release1);
+        releaseController.destroy(release2);
+        projectController.destroy(project1);
+        projectController.destroy(project2);
     }
 }

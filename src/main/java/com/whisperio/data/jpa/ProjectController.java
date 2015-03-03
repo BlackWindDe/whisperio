@@ -12,6 +12,7 @@ package com.whisperio.data.jpa;
 
 import com.whisperio.data.entity.Project;
 import com.whisperio.data.entity.Release;
+import com.whisperio.data.entity.Sprint;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -183,6 +184,30 @@ public class ProjectController {
             }
         }
         return release;
+    }
+
+    /**
+     * Get closed sprints of the project.
+     *
+     * @param project project to get.
+     * @return The active result;
+     */
+    public List<Sprint> getProjectClosedSprints(Project project) {
+        EntityManager em = null;
+        List<Sprint> sprints = null;
+        try {
+            em = getEntityManager();
+            sprints = (List<Sprint>) em.createNamedQuery(("Sprints.getProjectClosedSprints"))
+                    .setParameter("projectID", project.getId()).getResultList();
+        } catch (Exception ex) {
+            Logger.getLogger(ProjectController.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            sprints = null;
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+        return sprints;
     }
 
     /**
