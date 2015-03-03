@@ -158,7 +158,7 @@ public class ProjectController {
      * Get active release of the project.
      *
      * @param project project to get.
-     * @return The active result;
+     * @return The project active release.
      */
     public Release getProjectActiveRelease(Project project) {
         EntityManager em = null;
@@ -190,7 +190,7 @@ public class ProjectController {
      * Get closed sprints of the project.
      *
      * @param project project to get.
-     * @return The active result;
+     * @return The closed sprints lists of the project.
      */
     public List<Sprint> getProjectClosedSprints(Project project) {
         EntityManager em = null;

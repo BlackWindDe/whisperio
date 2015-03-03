@@ -61,12 +61,33 @@ public class ProjectBean implements Serializable {
      *
      * @return True if the active release got closed sprints
      */
-    public boolean hasClosedSprint() {
+    public boolean hasActiveReleaseClosedSprint() {
         ProjectController projectController = new ProjectController();
         ReleaseController releaseController = new ReleaseController();
         Release projectActiveRelease = projectController.getProjectActiveRelease(sessionBean.getSelectedProject());
         return (projectActiveRelease == null
                 ? false : !releaseController.getReleaseClosedSprints(projectActiveRelease).isEmpty());
+    }
+
+    /**
+     * Test if the selected project got closed sprints.
+     *
+     * @return True if the selected project got closed sprints
+     */
+    public boolean hasClosedSprint() {
+        ProjectController projectController = new ProjectController();
+        List<Sprint> closedSprints = projectController.getProjectClosedSprints(sessionBean.getSelectedProject());
+        return (!closedSprints.isEmpty());
+    }
+
+    /**
+     * Get the current release of the selected project.
+     *
+     * @return The current release of the selected project.
+     */
+    public Release getSelectedProjectCurrentRelease() {
+        ProjectController projectController = new ProjectController();
+        return projectController.getProjectActiveRelease(sessionBean.getSelectedProject());
     }
 
     /**
@@ -145,7 +166,7 @@ public class ProjectBean implements Serializable {
         velocityChart.setTitle("Velocity");
         velocityChart.setLegendPosition("e");
         velocityChart.setShowPointLabels(true);
-        velocityChart.getAxes().put(AxisType.X, new CategoryAxis(""));
+        velocityChart.getAxes().put(AxisType.X, new CategoryAxis("Sprint"));
         Axis yAxis = velocityChart.getAxis(AxisType.Y);
         yAxis.setLabel("Velocity");
         yAxis.setMin(0);
