@@ -11,10 +11,15 @@
 package com.whisperio.data.jpa;
 
 import com.whisperio.data.entity.BacklogItem;
+import com.whisperio.data.entity.BacklogItemType;
+import com.whisperio.data.entity.ProductBacklogBox;
 import com.whisperio.data.entity.Project;
 import com.whisperio.data.entity.Release;
 import com.whisperio.data.entity.Sprint;
+import com.whisperio.data.entity.StoryBusinessValue;
+import com.whisperio.data.entity.StoryEstimation;
 import com.whisperio.data.entity.User;
+import java.math.BigDecimal;
 import java.util.Date;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -35,10 +40,14 @@ public class BacklogItemControllerTest {
     private static Project project;
     private static Release release;
     private static Sprint sprint;
+    private static StoryBusinessValue businessValue;
+    private static StoryEstimation estimation;
     private static UserController userController;
     private static ProjectController projectController;
     private static ReleaseController releaseController;
     private static SprintController sprintController;
+    private static StoryBusinessValueController storyBusinessValueController;
+    private static StoryEstimationController storyEstimationController;
 
     /**
      * Default constructor.
@@ -67,6 +76,14 @@ public class BacklogItemControllerTest {
         sprintController = new SprintController();
         sprint = new Sprint("Sprint Test Backlog Item", 1, date, date, true, false, release);
         sprint = sprintController.create(sprint);
+
+        storyEstimationController = new StoryEstimationController();
+        estimation = new StoryEstimation("0", BigDecimal.ZERO);
+        estimation = storyEstimationController.create(estimation);
+
+        storyBusinessValueController = new StoryBusinessValueController();
+        businessValue = new StoryBusinessValue("0", BigDecimal.ZERO);
+        businessValue = storyBusinessValueController.create(businessValue);
     }
 
     /**
@@ -78,6 +95,8 @@ public class BacklogItemControllerTest {
         releaseController.destroy(release);
         projectController.destroy(project);
         userController.destroy(creator);
+        storyEstimationController.destroy(estimation);
+        storyBusinessValueController.destroy(businessValue);
     }
 
     /**
@@ -102,14 +121,21 @@ public class BacklogItemControllerTest {
         Date lastUpdateDate = new Date();
         String title = "Test Create BI";
         String description = "Test Create BI Description";
-        BacklogItem backlogItem = new BacklogItem(title, description, creationDate,
-                lastUpdateDate, project, release, sprint, creator);
+        BacklogItemType type = BacklogItemType.USER_STORY;
+        ProductBacklogBox box = ProductBacklogBox.STARTBOX;
+        BacklogItem backlogItem = new BacklogItem(title, description, type, box,
+                estimation, businessValue, creationDate, lastUpdateDate, project,
+                release, sprint, creator);
         BacklogItem backlogItemResult = backlogItemController.create(backlogItem);
 
         //Check Sprint properties.
         assertNotNull(backlogItemResult.getId());
         assertEquals(title, backlogItemResult.getTitle());
         assertEquals(description, backlogItemResult.getDescription());
+        assertEquals(type, backlogItemResult.getBacklogItemType());
+        assertEquals(box, backlogItemResult.getProductBacklogBox());
+        assertEquals(estimation, backlogItemResult.getEstimation());
+        assertEquals(businessValue, backlogItemResult.getBusinessValue());
         assertEquals(creationDate, backlogItemResult.getCreationDate());
         assertEquals(lastUpdateDate, backlogItemResult.getLastUpdateDate());
         assertEquals(project, backlogItemResult.getProject());
@@ -147,8 +173,11 @@ public class BacklogItemControllerTest {
         Date lastUpdateDate = new Date();
         String title = "Test Destroy BI";
         String description = "Test Destroy BI Description";
-        BacklogItem backlogItem = new BacklogItem(title, description,
-                creationDate, lastUpdateDate, project, release, sprint, creator);
+        BacklogItemType type = BacklogItemType.USER_STORY;
+        ProductBacklogBox box = ProductBacklogBox.STARTBOX;
+        BacklogItem backlogItem = new BacklogItem(title, description, type, box,
+                estimation, businessValue, creationDate, lastUpdateDate, project,
+                release, sprint, creator);
         backlogItem = backlogItemController.create(backlogItem);
         assertTrue(backlogItemController.destroy(backlogItem));
     }

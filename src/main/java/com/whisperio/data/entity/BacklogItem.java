@@ -15,6 +15,8 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -54,6 +56,24 @@ public class BacklogItem implements Serializable {
     @NotNull
     @Column(name = "Description")
     private String description;
+
+    @Basic(optional = false)
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "BacklogItemType")
+    private BacklogItemType backlogItemType;
+
+    @Basic(optional = false)
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "ProductBacklogBox")
+    private ProductBacklogBox productBacklogBox;
+
+    @JoinColumn(name = "EstimationID", referencedColumnName = "ID")
+    @ManyToOne
+    private StoryEstimation estimation;
+
+    @JoinColumn(name = "BusinessValueID", referencedColumnName = "ID")
+    @ManyToOne
+    private StoryBusinessValue businessValue;
 
     @Basic(optional = false)
     @NotNull
@@ -96,6 +116,10 @@ public class BacklogItem implements Serializable {
      *
      * @param title BacklogItem title.
      * @param description BacklogItem description.
+     * @param backlogItemType BacklogItem Type.
+     * @param productBacklogBox BacklogItem product backlog box.
+     * @param estimation BacklogItem estimation.
+     * @param businessValue BacklogItem business value.
      * @param creationDate BacklogItem creation date.
      * @param lastUpdateDate BacklogItem last update date.
      * @param project BacklogItem project.
@@ -103,9 +127,16 @@ public class BacklogItem implements Serializable {
      * @param sprint BacklogItem sprint.
      * @param creator BacklogItem creator.
      */
-    public BacklogItem(String title, String description, Date creationDate, Date lastUpdateDate, Project project, Release release, Sprint sprint, User creator) {
+    public BacklogItem(String title, String description, BacklogItemType backlogItemType,
+            ProductBacklogBox productBacklogBox, StoryEstimation estimation,
+            StoryBusinessValue businessValue, Date creationDate, Date lastUpdateDate,
+            Project project, Release release, Sprint sprint, User creator) {
         this.title = title;
         this.description = description;
+        this.backlogItemType = backlogItemType;
+        this.productBacklogBox = productBacklogBox;
+        this.estimation = estimation;
+        this.businessValue = businessValue;
         this.creationDate = creationDate;
         this.lastUpdateDate = lastUpdateDate;
         this.project = project;
@@ -274,6 +305,78 @@ public class BacklogItem implements Serializable {
      */
     public void setSprint(Sprint sprint) {
         this.sprint = sprint;
+    }
+
+    /**
+     * BacklogItem Type.
+     *
+     * @return BacklogItem Type.
+     */
+    public BacklogItemType getBacklogItemType() {
+        return backlogItemType;
+    }
+
+    /**
+     * BacklogItem Type.
+     *
+     * @param backlogItemType BacklogItem Type.
+     */
+    public void setBacklogItemType(BacklogItemType backlogItemType) {
+        this.backlogItemType = backlogItemType;
+    }
+
+    /**
+     * BacklogItem product backlog box.
+     *
+     * @return BacklogItem product backlog box.
+     */
+    public ProductBacklogBox getProductBacklogBox() {
+        return productBacklogBox;
+    }
+
+    /**
+     * BacklogItem product backlog box.
+     *
+     * @param productBacklogBox BacklogItem product backlog box.
+     */
+    public void setProductBacklogBox(ProductBacklogBox productBacklogBox) {
+        this.productBacklogBox = productBacklogBox;
+    }
+
+    /**
+     * BacklogItem estimation.
+     *
+     * @return BacklogItem estimation.
+     */
+    public StoryEstimation getEstimation() {
+        return estimation;
+    }
+
+    /**
+     * BacklogItem estimation.
+     *
+     * @param estimation BacklogItem estimation.
+     */
+    public void setEstimation(StoryEstimation estimation) {
+        this.estimation = estimation;
+    }
+
+    /**
+     * BacklogItem business value.
+     *
+     * @return BacklogItem business value.
+     */
+    public StoryBusinessValue getBusinessValue() {
+        return businessValue;
+    }
+
+    /**
+     * BacklogItem business value.
+     *
+     * @param businessValue BacklogItem business value.
+     */
+    public void setBusinessValue(StoryBusinessValue businessValue) {
+        this.businessValue = businessValue;
     }
 
     @Override

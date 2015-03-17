@@ -32,14 +32,14 @@ DROP TABLE IF EXISTS StoryBusinessValue;
 /* ----- Data Referentials ----- */
 Create Table StoryEstimation(
 ID       INT NOT NULL AUTO_INCREMENT,
-Name     VARCHAR(50) NOT NULL,
+Name     VARCHAR(10) NOT NULL,
 Value    DECIMAL(10,1),
 CONSTRAINT StoryEstimation_ID_PK PRIMARY KEY (ID)
 );
 
 Create Table StoryBusinessValue(
 ID       INT NOT NULL AUTO_INCREMENT,
-Name     VARCHAR(50) NOT NULL,
+Name     VARCHAR(10) NOT NULL,
 Value    DECIMAL(10,1),
 CONSTRAINT StoryBusinessValue_ID_PK PRIMARY KEY (ID)
 );
