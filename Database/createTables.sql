@@ -21,9 +21,28 @@ DROP TABLE IF EXISTS Projects;
 /* ----- Users ----- */
 DROP TABLE IF EXISTS Users;
 
+/* ----- Data Referentials ----- */
+DROP TABLE IF EXISTS StoryEstimation;
+DROP TABLE IF EXISTS StoryBusinessValue;
+
 /*--------------------------------------------*/
 /* Main tables                                */
 /*--------------------------------------------*/
+
+/* ----- Data Referentials ----- */
+Create Table StoryEstimation(
+ID       INT NOT NULL AUTO_INCREMENT,
+Name     VARCHAR(50) NOT NULL,
+Value    DECIMAL(10,1),
+CONSTRAINT StoryEstimation_ID_PK PRIMARY KEY (ID)
+);
+
+Create Table StoryBusinessValue(
+ID       INT NOT NULL AUTO_INCREMENT,
+Name     VARCHAR(50) NOT NULL,
+Value    DECIMAL(10,1),
+CONSTRAINT StoryBusinessValue_ID_PK PRIMARY KEY (ID)
+);
 
 /* ----- Users ----- */
 Create Table Users
@@ -83,16 +102,22 @@ CONSTRAINT Releases_Sprints_FK FOREIGN KEY( ReleaseID ) REFERENCES Releases ( ID
 /* ----- Product Management ----- */
 Create Table BacklogItems
 (
-ID              INT NOT NULL AUTO_INCREMENT,
-Title           VARCHAR(100) NOT NULL,
-Description     TEXT NOT NULL,
-CreationDate    DATETIME NOT NULL,
-LastUpdateDate  DATETIME NOT NULL,
-CreatorID       INT NOT NULL,
-ProjectID       INT NOT NULL,
-ReleaseID       INT,
-SprintID        INT,
+ID                INT NOT NULL AUTO_INCREMENT,
+Title             VARCHAR(100) NOT NULL,
+Description       TEXT NOT NULL,
+BacklogItemType   INT NOT NULL,
+ProductBacklogBox INT NOT NULL,
+EstimationID      INT NOT NULL,
+BusinessValueID   INT NOT NULL,
+CreationDate      DATETIME NOT NULL,
+LastUpdateDate    DATETIME NOT NULL,
+CreatorID         INT NOT NULL,
+ProjectID         INT NOT NULL,
+ReleaseID         INT,
+SprintID          INT,
 CONSTRAINT BacklogItems_ID_PK PRIMARY KEY (ID),
+CONSTRAINT StoryEstimation_BacklogItems_FK FOREIGN KEY( EstimationID ) REFERENCES StoryEstimation ( ID ),
+CONSTRAINT StoryBusinessValue_BacklogItems_FK FOREIGN KEY( BusinessValueID ) REFERENCES StoryBusinessValue ( ID ),
 CONSTRAINT Users_BacklogItems_FK FOREIGN KEY( CreatorID ) REFERENCES Users ( ID ),
 CONSTRAINT Projects_BacklogItems_FK FOREIGN KEY( ProjectID ) REFERENCES Projects ( ID ),
 CONSTRAINT Releases_BacklogItems_FK FOREIGN KEY( ReleaseID ) REFERENCES Releases ( ID ),
