@@ -111,7 +111,7 @@ public class BacklogItemControllerTest {
     }
 
     /**
-     * Test of create method, of class SprintController.
+     * Test of create method, of class BacklogItemController.
      */
     @Test
     public void testCreate() {

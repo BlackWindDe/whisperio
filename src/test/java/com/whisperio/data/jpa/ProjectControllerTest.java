@@ -75,7 +75,7 @@ public class ProjectControllerTest {
      * Test of getProjects method, of class ProjectController.
      */
     @Test
-    public void testGetProject() {
+    public void testGetProjects() {
         System.out.println("ProjectController:GetProjects");
         ProjectController instance = new ProjectController();
         Date creationDate = new Date();
