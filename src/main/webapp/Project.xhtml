@@ -44,7 +44,7 @@
                             The project does not have any active release.
                         </c:when>
                         <c:when test="#{!projectBean.hasActiveReleaseClosedSprint()}">
-                            The project does not have any closed sprint.
+                            The release does not have any closed sprint.
                         </c:when>
                         <c:otherwise>
                             <p:chart type="line" model="#{projectBean.releaseBurndownChart}"/>
