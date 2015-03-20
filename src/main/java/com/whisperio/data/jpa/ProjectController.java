@@ -10,6 +10,8 @@
  */
 package com.whisperio.data.jpa;
 
+import com.whisperio.data.entity.BacklogItem;
+import com.whisperio.data.entity.ProductBacklogBox;
 import com.whisperio.data.entity.Project;
 import com.whisperio.data.entity.Release;
 import com.whisperio.data.entity.Sprint;
@@ -208,6 +210,91 @@ public class ProjectController {
             }
         }
         return sprints;
+    }
+
+    /**
+     * Get all the items contained in the sandbox.
+     *
+     * @param project Project to get.
+     * @return The items contained in the sandbox.
+     */
+    public List<BacklogItem> getSandboxItems(Project project) {
+        return getProductBacklogBoxItems(project, ProductBacklogBox.SANDBOX);
+    }
+
+    /**
+     * Get all the items contained in the icebox.
+     *
+     * @param project Project to get.
+     * @return The items contained in the icebox.
+     */
+    public List<BacklogItem> getIceboxItems(Project project) {
+        return getProductBacklogBoxItems(project, ProductBacklogBox.ICEBOX);
+    }
+
+    /**
+     * Get all the items contained in the culturebox.
+     *
+     * @param project Project to get.
+     * @return The items contained in the culturebox.
+     */
+    public List<BacklogItem> getCultureboxItems(Project project) {
+        return getProductBacklogBoxItems(project, ProductBacklogBox.CULTUREBOX);
+    }
+
+    /**
+     * Get all the items contained in the startbox.
+     *
+     * @param project Project to get.
+     * @return The items contained in the startbox.
+     */
+    public List<BacklogItem> getStartboxItems(Project project) {
+        return getProductBacklogBoxItems(project, ProductBacklogBox.STARTBOX);
+    }
+
+    /**
+     * Get all the items contained in the sprintbox.
+     *
+     * @param project Project to get.
+     * @return The items contained in the sprintbox.
+     */
+    public List<BacklogItem> getSprintboxItems(Project project) {
+        return getProductBacklogBoxItems(project, ProductBacklogBox.SPRINTBOX);
+    }
+
+    /**
+     * Get all the items contained in the harvestbox.
+     *
+     * @param project Project to get.
+     * @return The items contained in the harvestbox.
+     */
+    public List<BacklogItem> getHarvestboxItems(Project project) {
+        return getProductBacklogBoxItems(project, ProductBacklogBox.HARVESTBOX);
+    }
+
+    /**
+     * Get all the items contained in a product backlog box.
+     *
+     * @param project Project to get.
+     * @param box Product backlog box to get.
+     * @return The items contained in the product backlog box.
+     */
+    private List<BacklogItem> getProductBacklogBoxItems(Project project, ProductBacklogBox box) {
+        EntityManager em = null;
+        List<BacklogItem> backlogItems = null;
+        try {
+            em = getEntityManager();
+            backlogItems = (List<BacklogItem>) em.createNamedQuery(("BacklogItems.getProductBacklogBoxItems"))
+                    .setParameter("projectID", project.getId()).setParameter("boxID", box).getResultList();
+        } catch (Exception ex) {
+            Logger.getLogger(ProjectController.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            backlogItems = null;
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+        return backlogItems;
     }
 
     /**

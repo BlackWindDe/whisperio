@@ -11,7 +11,7 @@
 package com.whisperio.data.entity;
 
 /**
- * Story Types (User, Technical, Bug Resolution etc...).
+ * Story Types. Be Careful, the order is very important!!!
  *
  * @author Maxime ESCOURBIAC
  */
@@ -20,40 +20,40 @@ public enum BacklogItemType {
     /**
      * Items used in the sandbox or the icebox.
      */
-    IDEA,
-    
+    IDEA, //0
+
     /**
      * The highest level of Backlog Item.
      */
-    FEATURE,
+    FEATURE, //1
 
     /**
      * Big Story.
      */
-    EPIC,
-    
+    EPIC, //2
+
     /**
      * Functional Story. (Visibility + added value)
      */
-    USER_STORY,
+    USER_STORY, //3
 
     /**
      * Technical Story (Added Value)
      */
-    TECHNICAL_STORY,
+    TECHNICAL_STORY, //4
 
     /**
      * Story promoted from the issue tracker.
      */
-    BUG_RESOLUTION,
+    BUG_RESOLUTION, //5
 
     /**
      * Technical Debt (Test, Documentation missing etc...)
      */
-    TECHNICAL_DEBT,
+    TECHNICAL_DEBT, //6
 
     /**
      * Backlog Items used for studying some subjects.
      */
-    SPIKE
+    SPIKE //7
 }

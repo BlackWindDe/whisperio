@@ -10,6 +10,9 @@
  */
 package com.whisperio.data.jpa;
 
+import com.whisperio.data.entity.BacklogItem;
+import com.whisperio.data.entity.BacklogItemType;
+import com.whisperio.data.entity.ProductBacklogBox;
 import com.whisperio.data.entity.Project;
 import com.whisperio.data.entity.Release;
 import com.whisperio.data.entity.Sprint;
@@ -241,4 +244,163 @@ public class ProjectControllerTest {
         projectController.destroy(project1);
         projectController.destroy(project2);
     }
+
+    /**
+     * Test of GetProductBacklogBoxItems method, of class ProjectController.
+     */
+//    @Test
+//    public void testGetProductBacklogBoxItems() {
+//        System.out.println("ProjectController:GetProductBacklogBoxItems");
+//        Date date = new Date();
+//        String name = "Test Get ProductBacklog Box Items";
+//        String keyName = "TGI";
+//        String description = "Test Get ProductBacklog Box Items.";
+//        Project project = new Project(name, keyName, description, date);
+//        ProjectController instance = new ProjectController();
+//        instance.create(project);
+//
+//        //Create PBI.
+//        BacklogItemController backlogItemController = new BacklogItemController();
+//        BacklogItem sandbox1 = new BacklogItem("SB1", "SB1", BacklogItemType.IDEA, ProductBacklogBox.ICEBOX,
+//                null, null, date, date, project, null, null, null);
+//        BacklogItem sandbox2 = new BacklogItem("SB1", "SB1", BacklogItemType.IDEA, ProductBacklogBox.ICEBOX,
+//                null, null, date, date, project, null, null, null);
+//        BacklogItem icebox1 = new BacklogItem("IB1", "IB1", BacklogItemType.IDEA, ProductBacklogBox.ICEBOX,
+//                null, null, date, date, project, null, null, null);
+//        BacklogItem icebox2 = new BacklogItem("IB1", "IB1", BacklogItemType.IDEA, ProductBacklogBox.ICEBOX,
+//                null, null, date, date, project, null, null, null);
+//        BacklogItem culturebox1 = new BacklogItem("CB1", "CB1", BacklogItemType.IDEA, ProductBacklogBox.ICEBOX,
+//                null, null, date, date, project, null, null, null);
+//        BacklogItem culturebox2 = new BacklogItem("CB1", "CB1", BacklogItemType.IDEA, ProductBacklogBox.ICEBOX,
+//                null, null, date, date, project, null, null, null);
+//        BacklogItem startbox1 = new BacklogItem("StB1", "StB1", BacklogItemType.IDEA, ProductBacklogBox.ICEBOX,
+//                null, null, date, date, project, null, null, null);
+//        BacklogItem startbox2 = new BacklogItem("StB1", "StB1", BacklogItemType.IDEA, ProductBacklogBox.ICEBOX,
+//                null, null, date, date, project, null, null, null);
+//        BacklogItem sprintbox1 = new BacklogItem("SpB1", "SpB1", BacklogItemType.IDEA, ProductBacklogBox.ICEBOX,
+//                null, null, date, date, project, null, null, null);
+//        BacklogItem sprintbox2 = new BacklogItem("SpB1", "SpB1", BacklogItemType.IDEA, ProductBacklogBox.ICEBOX,
+//                null, null, date, date, project, null, null, null);
+//        BacklogItem harvestbox1 = new BacklogItem("HB1", "HB1", BacklogItemType.IDEA, ProductBacklogBox.ICEBOX,
+//                null, null, date, date, project, null, null, null);
+//        BacklogItem harvestbox2 = new BacklogItem("HB1", "HB1", BacklogItemType.IDEA, ProductBacklogBox.ICEBOX,
+//                null, null, date, date, project, null, null, null);
+//
+//        sandbox1 = backlogItemController.create(sandbox1);
+//        sandbox2 = backlogItemController.create(sandbox2);
+//        icebox1 = backlogItemController.create(icebox1);
+//        icebox2 = backlogItemController.create(icebox2);
+//        culturebox1 = backlogItemController.create(culturebox1);
+//        culturebox2 = backlogItemController.create(culturebox2);
+//        startbox1 = backlogItemController.create(startbox1);
+//        startbox2 = backlogItemController.create(startbox2);
+//        sprintbox1 = backlogItemController.create(sprintbox1);
+//        sprintbox2 = backlogItemController.create(sprintbox2);
+//        harvestbox1 = backlogItemController.create(harvestbox1);
+//        harvestbox2 = backlogItemController.create(harvestbox2);
+//
+//        //Check Sandbox.
+//        List<BacklogItem> items = instance.getSandboxItems(project);
+//        assertTrue(items.contains(sandbox1));
+//        assertTrue(items.contains(sandbox2));
+//        assertFalse(items.contains(icebox1));
+//        assertFalse(items.contains(icebox2));
+//        assertFalse(items.contains(culturebox1));
+//        assertFalse(items.contains(culturebox2));
+//        assertFalse(items.contains(startbox1));
+//        assertFalse(items.contains(startbox2));
+//        assertFalse(items.contains(sprintbox1));
+//        assertFalse(items.contains(sprintbox2));
+//        assertFalse(items.contains(harvestbox1));
+//        assertFalse(items.contains(harvestbox2));
+//
+//        //Check Icebox.
+//        items = instance.getIceboxItems(project);
+//        assertFalse(items.contains(sandbox1));
+//        assertFalse(items.contains(sandbox2));
+//        assertTrue(items.contains(icebox1));
+//        assertTrue(items.contains(icebox2));
+//        assertFalse(items.contains(culturebox1));
+//        assertFalse(items.contains(culturebox2));
+//        assertFalse(items.contains(startbox1));
+//        assertFalse(items.contains(startbox2));
+//        assertFalse(items.contains(sprintbox1));
+//        assertFalse(items.contains(sprintbox2));
+//        assertFalse(items.contains(harvestbox1));
+//        assertFalse(items.contains(harvestbox2));
+//
+//        //Check Culturebox.
+//        instance.getCultureboxItems(project);
+//        assertFalse(items.contains(sandbox1));
+//        assertFalse(items.contains(sandbox2));
+//        assertFalse(items.contains(icebox1));
+//        assertFalse(items.contains(icebox2));
+//        assertTrue(items.contains(culturebox1));
+//        assertTrue(items.contains(culturebox2));
+//        assertFalse(items.contains(startbox1));
+//        assertFalse(items.contains(startbox2));
+//        assertFalse(items.contains(sprintbox1));
+//        assertFalse(items.contains(sprintbox2));
+//        assertFalse(items.contains(harvestbox1));
+//        assertFalse(items.contains(harvestbox2));
+//
+//        //Check Startbox.
+//        instance.getStartboxItems(project);
+//        assertFalse(items.contains(sandbox1));
+//        assertFalse(items.contains(sandbox2));
+//        assertFalse(items.contains(icebox1));
+//        assertFalse(items.contains(icebox2));
+//        assertFalse(items.contains(culturebox1));
+//        assertFalse(items.contains(culturebox2));
+//        assertTrue(items.contains(startbox1));
+//        assertTrue(items.contains(startbox2));
+//        assertFalse(items.contains(sprintbox1));
+//        assertFalse(items.contains(sprintbox2));
+//        assertFalse(items.contains(harvestbox1));
+//        assertFalse(items.contains(harvestbox2));
+//
+//        //Check Sprintbox.
+//        instance.getSprintboxItems(project);
+//        assertFalse(items.contains(sandbox1));
+//        assertFalse(items.contains(sandbox2));
+//        assertFalse(items.contains(icebox1));
+//        assertFalse(items.contains(icebox2));
+//        assertFalse(items.contains(culturebox1));
+//        assertFalse(items.contains(culturebox2));
+//        assertFalse(items.contains(startbox1));
+//        assertFalse(items.contains(startbox2));
+//        assertTrue(items.contains(sprintbox1));
+//        assertTrue(items.contains(sprintbox2));
+//        assertFalse(items.contains(harvestbox1));
+//        assertFalse(items.contains(harvestbox2));
+//
+//        //Check Harvestbox.
+//        instance.getHarvestboxItems(project);
+//        assertFalse(items.contains(sandbox1));
+//        assertFalse(items.contains(sandbox2));
+//        assertFalse(items.contains(icebox1));
+//        assertFalse(items.contains(icebox2));
+//        assertFalse(items.contains(culturebox1));
+//        assertFalse(items.contains(culturebox2));
+//        assertFalse(items.contains(startbox1));
+//        assertFalse(items.contains(startbox2));
+//        assertFalse(items.contains(sprintbox1));
+//        assertFalse(items.contains(sprintbox2));
+//        assertTrue(items.contains(harvestbox1));
+//        assertTrue(items.contains(harvestbox2));
+//
+//        backlogItemController.destroy(sandbox1);
+//        backlogItemController.destroy(sandbox2);
+//        backlogItemController.destroy(icebox1);
+//        backlogItemController.destroy(icebox2);
+//        backlogItemController.destroy(culturebox1);
+//        backlogItemController.destroy(culturebox2);
+//        backlogItemController.destroy(startbox1);
+//        backlogItemController.destroy(startbox2);
+//        backlogItemController.destroy(sprintbox1);
+//        backlogItemController.destroy(sprintbox2);
+//        backlogItemController.destroy(harvestbox1);
+//        backlogItemController.destroy(harvestbox2);
+//    }
+
 }
