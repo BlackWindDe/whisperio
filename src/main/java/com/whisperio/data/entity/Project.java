@@ -45,6 +45,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Projects.findAll", query = "SELECT p FROM Project p"),
     @NamedQuery(name = "Projects.findByKeyName", query = "SELECT p FROM Project p WHERE p.keyName = :keyName"),
     @NamedQuery(name = "Releases.getProjectActiveRelease", query = "SELECT r FROM Release r Where r.project.id=:projectID and r.isActive=true"),
+    @NamedQuery(name = "Sprints.getProjectClosedSprints", query = "SELECT s FROM Sprint s Where s.release.project.id =:projectID and s.isClosed=true"),
     @NamedQuery(name = "BacklogItems.getProductBacklogBoxItems", query = "SELECT b FROM BacklogItem b Where b.project.id =:projectID and b.productBacklogBox =:boxID")})
 public class Project implements Serializable {
 
