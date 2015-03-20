@@ -8,6 +8,8 @@ DELETE FROM Sprints;
 DELETE FROM Releases;
 DELETE FROM Projects;
 DELETE FROM Users;
+DELETE FROM StoryEstimation;
+DELETE FROM StoryBusinessValue;
 
 /* ------------------------------------- */
 /* ------------------------------------- */
