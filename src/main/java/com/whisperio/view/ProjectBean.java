@@ -10,6 +10,7 @@
  */
 package com.whisperio.view;
 
+import com.whisperio.data.entity.BacklogItem;
 import com.whisperio.data.entity.Project;
 import com.whisperio.data.entity.Release;
 import com.whisperio.data.entity.Sprint;
@@ -238,6 +239,11 @@ public class ProjectBean implements Serializable {
         }
         yAxis.setMax(businessValue.intValue() * 1.20);
         return businessValueChart;
+    }
+
+    public List<BacklogItem> getSelectedBoxItems() {
+        ProjectController projectController = new ProjectController();
+        return projectController.getCultureboxItems(sessionBean.getSelectedProject());
     }
 
     /**

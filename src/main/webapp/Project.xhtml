@@ -74,5 +74,17 @@
             </p:tabView>
         </p:panel>
 
+        <!-- Product Backlog items -->
+        <p:orderList value="#{projectBean.selectedBoxItems}" controlsLocation="none" var="item" itemValue="#{item}">
+            <!--
+            <p:ajax event="select" listener="#{orderListView.onSelect}" update="msgs"/>
+            <p:ajax event="unselect" listener="#{orderListView.onUnselect}" update="msgs"/>
+            <p:ajax event="reorder" listener="#{orderListView.onReorder}" update="msgs"/>
+            -->
+            <p:column>
+                <h:outputText value="#{item.title}" />
+            </p:column>
+        </p:orderList>
+
     </ui:define>
 </ui:composition>
