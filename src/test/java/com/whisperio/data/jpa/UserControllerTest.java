@@ -35,13 +35,15 @@ public class UserControllerTest {
     public void testCreate() {
         System.out.println("UserController:Create");
         String mail = "testCreate@whisper.io";
+        String username = "Username";
         String forename = "Forename";
         String lastName = "Last Name";
-        User user = new User(mail, forename, lastName);
+        User user = new User(mail, username, forename, lastName);
         UserController instance = new UserController();
         User userResult = instance.create(user);
         assertNotNull(userResult.getId());
         assertEquals(mail, userResult.getMail());
+        assertEquals(username, userResult.getUsername());
         assertEquals(forename, userResult.getForename());
         assertEquals(lastName, userResult.getLastName());
         instance.destroy(user);
@@ -54,12 +56,13 @@ public class UserControllerTest {
     public void testEdit() {
         System.out.println("UserController:Edit");
         UserController instance = new UserController();
-        User oldUser = new User("testEditOld@whisper.io", "Forename", "Last Name");
+        User oldUser = new User("testEditOld@whisper.io", "Username", "Forename", "Last Name");
         oldUser = instance.create(oldUser);
-        User newUser = new User("testEditNew@whisper.io", "New Forename", "New Last Name");
+        User newUser = new User("testEditNew@whisper.io", "New Username", "New Forename", "New Last Name");
         newUser.setId(oldUser.getId());
         User editResult = instance.edit(newUser);
         assertEquals(newUser.getMail(), editResult.getMail());
+        assertEquals(newUser.getUsername(), editResult.getUsername());
         assertEquals(newUser.getForename(), editResult.getForename());
         assertEquals(newUser.getLastName(), editResult.getLastName());
         instance.destroy(editResult);
@@ -71,7 +74,7 @@ public class UserControllerTest {
     @Test
     public void testDestroy() {
         System.out.println("UserController:Destroy");
-        User newUser = new User("testDestroy@whisper.io", "Forename", "Last Name");
+        User newUser = new User("testDestroy@whisper.io", "Username", "Forename", "Last Name");
         UserController instance = new UserController();
         newUser = instance.create(newUser);
         assertTrue(instance.destroy(newUser));
@@ -85,9 +88,9 @@ public class UserControllerTest {
     public void testGetUsers() {
         System.out.println("UserController:GetUsers");
         UserController instance = new UserController();
-        User user1 = new User("testGetUsers1@whisper.io", "Forename", "Last Name");
-        User user2 = new User("testGetUsers2@whisper.io", "Forename", "Last Name");
-        User user3 = new User("testGetUsers3@whisper.io", "Forename", "Last Name");
+        User user1 = new User("testGetUsers1@whisper.io", "Username1", "Forename", "Last Name");
+        User user2 = new User("testGetUsers2@whisper.io", "Username2", "Forename", "Last Name");
+        User user3 = new User("testGetUsers3@whisper.io", "Username3", "Forename", "Last Name");
         user1 = instance.create(user1);
         user2 = instance.create(user2);
         user3 = instance.create(user3);
@@ -106,7 +109,7 @@ public class UserControllerTest {
     @Test
     public void testGetUserByMail() {
         System.out.println("UserController:GetUserByMail");
-        User user = new User("testGetUserByMail@whisper.io", "Forename", "Last Name");
+        User user = new User("testGetUserByMail@whisper.io", "Username", "Forename", "Last Name");
         UserController instance = new UserController();
         instance.create(user);
 

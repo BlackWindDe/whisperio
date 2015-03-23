@@ -62,7 +62,7 @@ public class BacklogItemControllerTest {
     public static void initContext() {
         Date date = new Date();
         userController = new UserController();
-        creator = new User("creator@whisper.io", "Forename", "LastName");
+        creator = new User("creator@whisper.io", "Username", "Forename", "LastName");
         creator = userController.create(creator);
 
         projectController = new ProjectController();

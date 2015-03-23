@@ -262,9 +262,9 @@ public class ProjectControllerTest {
         Project project = new Project(name, keyName, description, date);
         ProjectController instance = new ProjectController();
         instance.create(project);
-        
+
         UserController userController = new UserController();
-        User creator = new User("creator@whisper.io", "Forename", "LastName");
+        User creator = new User("creator@whisper.io", "Username", "Forename", "LastName");
         creator = userController.create(creator);
 
         StoryEstimationController storyEstimationController = new StoryEstimationController();

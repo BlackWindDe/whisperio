@@ -92,6 +92,7 @@ public class UserController {
             persistantUser = em.find(User.class, user.getId());
             persistantUser.setLastName(user.getLastName());
             persistantUser.setForename(user.getForename());
+            persistantUser.setUsername(user.getUsername());
             persistantUser.setMail(user.getMail());
             persistantUser = em.merge(persistantUser);
             em.flush();

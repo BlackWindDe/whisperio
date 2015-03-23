@@ -59,6 +59,12 @@ public class User implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
+    @Column(name = "Username")
+    private String username;
+
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
     @Column(name = "Forename")
     private String forename;
 
@@ -81,11 +87,13 @@ public class User implements Serializable {
      * User constructor.
      *
      * @param mail User mail.
+     * @param username User username.
      * @param forename User forename.
      * @param lastName User last name.
      */
-    public User(String mail, String forename, String lastName) {
+    public User(String mail, String username, String forename, String lastName) {
         this.mail = mail;
+        this.username = username;
         this.forename = forename;
         this.lastName = lastName;
         this.backlogItemsCreated = new ArrayList<>();
@@ -125,6 +133,24 @@ public class User implements Serializable {
      */
     public void setMail(String mail) {
         this.mail = mail;
+    }
+
+    /**
+     * User username.
+     *
+     * @return User username.
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * User username.
+     *
+     * @param username User username.
+     */
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     /**

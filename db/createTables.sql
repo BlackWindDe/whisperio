@@ -49,10 +49,12 @@ Create Table Users
 (
 ID          INT NOT NULL AUTO_INCREMENT,
 Mail        VARCHAR(50) NOT NULL,
+Username    VARCHAR(50) NOT NULL,
 Forename    VARCHAR(50) NOT NULL,
 LastName    VARCHAR(50) NOT NULL,
 CONSTRAINT Users_ID_PK PRIMARY KEY (ID),
-CONSTRAINT Users_Mail_UQ UNIQUE (Mail)
+CONSTRAINT Users_Mail_UQ UNIQUE (Mail),
+CONSTRAINT Users_Username_UQ UNIQUE (Username)
 );
 
 /* ----- Project Management ----- */

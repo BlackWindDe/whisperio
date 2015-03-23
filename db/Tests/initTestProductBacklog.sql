@@ -17,10 +17,10 @@ DELETE FROM StoryBusinessValue;
 /* ------------------------------------- */
 /* ------------------------------------- */
 
-INSERT INTO Users(ID, Mail, Forename, LastName) 
-VALUES (1, "a", "a", "a");
-INSERT INTO Users(ID, Mail, Forename, LastName) 
-VALUES (2, "mescourbiac@humanbooster.com", "Maxime", "Escourbiac");
+INSERT INTO Users(ID, Mail, Username, Forename, LastName) 
+VALUES (1, "a", "a", "a", "a");
+INSERT INTO Users(ID, Mail, Username, Forename, LastName) 
+VALUES (2, "mescourbiac@humanbooster.com", "mescourbiac", "Maxime", "Escourbiac");
 
 /* ------------------------------------- */
 /* ------------------------------------- */
