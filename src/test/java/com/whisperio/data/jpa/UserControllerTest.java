@@ -124,4 +124,26 @@ public class UserControllerTest {
         userResult = instance.getUserByMail("FalseCase@whisper.io");
         assertNull(userResult);
     }
+
+    /**
+     * Test of getUserByUsername method, of class UserController.
+     */
+    @Test
+    public void testGetUserByUsername() {
+        System.out.println("UserController:GetUserByUsername");
+        User user = new User("testGetUserByUsername@whisper.io", "Username", "Forename", "Last Name");
+        UserController instance = new UserController();
+        instance.create(user);
+
+        //Check true case.
+        User userResult = instance.getUserByUsername(user.getUsername());
+        assertEquals(user.getMail(), userResult.getMail());
+        assertEquals(user.getForename(), userResult.getForename());
+        assertEquals(user.getLastName(), userResult.getLastName());
+        instance.destroy(userResult);
+
+        //Check wrong case.
+        userResult = instance.getUserByUsername("FalseCase@whisper.io");
+        assertNull(userResult);
+    }
 }

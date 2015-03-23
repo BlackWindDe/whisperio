@@ -184,6 +184,31 @@ public class UserController {
     }
 
     /**
+     * Look for user by username.
+     *
+     * @param username User's username
+     * @return User corresponding to the username.
+     */
+    public User getUserByUsername(String username) {
+        EntityManager em = null;
+        User user = null;
+        try {
+            em = getEntityManager();
+            user = (User) em.createNamedQuery(("Users.findByUsername")).setParameter("username", username).getSingleResult();
+        } catch (NoResultException ex) {
+            user = null;
+        } catch (Exception ex) {
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            user = null;
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+        return user;
+    }
+
+    /**
      * Refresh an user.
      *
      * @param user User to refresh.
