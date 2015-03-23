@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Whisper.io : Login</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+
+        <h:outputScript name="js/layout.js" library="sentinel-layout" />
+        <h:outputStylesheet name="css/font-icon-layout.css" library="sentinel-layout" />
+        <h:outputStylesheet name="css/sentinel-layout.css" library="sentinel-layout" />
+        <h:outputStylesheet name="css/core-layout.css" library="sentinel-layout" />
+        <h:outputStylesheet name="css/login.css" library="whisperio" />
+    </h:head>
+
+    <h:body class="fontRegular login-background">
+        <h:form>
+            <!-- Logo -->
+            <div class="Container80 MaxWid500 Fnone MarAuto TexAlCenter PaddingTopPercent10">
+                <a href="" id="login-logo">
+                    <span class="Fs30 FontTitilliumSemiBoldItalic Fleft">
+                        <span class="softblue">WHISPER</span>
+                        <span class="hardblue">.IO</span>
+                    </span>
+                </a> 
+            </div>
+
+            <!-- Login block -->
+            <div class="Container80 MaxWid500 white-back Fnone MarAuto BordRad10" id="login-box">
+                <div class="Container100">
+                    <div class="Container100 TexAlCenter Animated05 BoxSizeBorder TabBtn left TabBtnActiveLeft" role="1">
+                        <div class="Container80 Fnone MarAuto FontBold">
+                            <i class="icon-lock"></i> Login
+                        </div>
+                    </div>
+
+                    <div class="EmptyBox5"></div>
+                    <p:messages styleClass="Container80 Fnone MarAuto" id="message" showDetail="true" autoUpdate="true" closable="true"/>
+                    <div class="EmptyBox5"></div>
+
+                    <div class="Container90 Fnone MarAuto TexAlCenter TabContent" id="TAB1">
+                        <p:inputText value="#{loginBean.mail}" placeholder="Username" styleClass="Container80 Fnone MarAuto Fs18"/>
+                        <div class="EmptyBox10"></div>
+                        <p:password value="#{loginBean.password}" placeholder="Password" styleClass="Container80 Fnone MarAuto Fs18" feedback="false"/>
+                        <div class="EmptyBox20"></div>
+                        <p:commandButton  value="Log In" styleClass="Fs16" action="#{loginBean.connect()}"></p:commandButton>             
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </h:body>
+</html>
