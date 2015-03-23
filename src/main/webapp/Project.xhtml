@@ -75,7 +75,13 @@
         </p:panel>
 
         <!-- Product Backlog items -->
-        <p:orderList value="#{projectBean.selectedBoxItems}" controlsLocation="none" var="item" itemValue="#{item}">
+        <p:commandButton value="Sandbox" action="#{projectBean.useSandbox()}" styleClass="ui-priority-primary" update="backlogItems" />
+        <p:commandButton value="Icebox" action="#{projectBean.useIcebox()}" styleClass="ui-priority-primary" update="backlogItems" />
+        <p:commandButton value="Culturebox" action="#{projectBean.useCulturebox()}" styleClass="ui-priority-primary" update="backlogItems" />
+        <p:commandButton value="Startbox" action="#{projectBean.useStartbox()}" styleClass="ui-priority-primary" update="backlogItems" />
+        <p:commandButton value="Sprintbox" action="#{projectBean.useSprintbox()}" styleClass="ui-priority-primary" update="backlogItems" />
+        <p:commandButton value="Harvestbox" action="#{projectBean.useHarvestbox()}" styleClass="ui-priority-primary" update="backlogItems" />
+        <p:orderList id="backlogItems" value="#{projectBean.selectedBoxBacklogItems}" controlsLocation="none" var="item" itemValue="#{item}">
             <!--
             <p:ajax event="select" listener="#{orderListView.onSelect}" update="msgs"/>
             <p:ajax event="unselect" listener="#{orderListView.onUnselect}" update="msgs"/>
