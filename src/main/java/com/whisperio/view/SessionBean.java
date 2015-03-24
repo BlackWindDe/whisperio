@@ -14,14 +14,9 @@ import com.whisperio.data.entity.Project;
 import com.whisperio.data.entity.User;
 import com.whisperio.data.jpa.ProjectController;
 import com.whisperio.data.jpa.UserController;
-import java.io.IOException;
 import java.io.Serializable;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 
 /**
  * JSF Managed Bean for User Session
@@ -43,40 +38,6 @@ public class SessionBean implements Serializable {
     public SessionBean() {
         userController = new UserController();
         projectController = new ProjectController();
-    }
-
-    /**
-     * Logout the user.
-     */
-    public void logout() {
-        connectedUser = null;
-        try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/Whisperio/login.xhtml");
-        } catch (IOException ex) {
-            Logger.getLogger(SessionBean.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
-        }
-    }
-
-    /**
-     * Test if the user is connected.
-     */
-    public void checkSession() {
-        if (connectedUser == null) {
-            try {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("/Whisperio/Index.xhtml");
-            } catch (IOException ex) {
-                Logger.getLogger(SessionBean.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
-            }
-        }
-    }
-
-    /**
-     * Get projects accessible by the connected user.
-     *
-     * @return Projects accessible by the connected user.
-     */
-    public List<Project> getAccessibleProjectByConnectedUser() {
-        return projectController.getAllProjects();
     }
 
     //Getter & Setter for Bean properties.

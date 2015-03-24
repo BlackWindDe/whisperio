@@ -35,13 +35,17 @@
                         </div>
                     </div>
 
+                    <!-- Message -->
                     <div class="EmptyBox5"></div>
                     <p:messages styleClass="Container80 Fnone MarAuto" id="message" showDetail="true" autoUpdate="true" closable="true"/>
                     <div class="EmptyBox5"></div>
 
                     <div class="Container90 Fnone MarAuto TexAlCenter TabContent" id="TAB1">
+                        <!-- Username -->
                         <p:inputText value="#{loginBean.username}" placeholder="Username" styleClass="Container80 Fnone MarAuto Fs18"/>
                         <div class="EmptyBox10"></div>
+                        
+                        <!-- Password -->
                         <p:password value="#{loginBean.password}" placeholder="Password" styleClass="Container80 Fnone MarAuto Fs18" feedback="false"/>
                         <div class="EmptyBox20"></div>
                         <p:commandButton  value="Log In" styleClass="Fs16" action="#{loginBean.connect()}"></p:commandButton>             
