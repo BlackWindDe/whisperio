@@ -10,6 +10,8 @@
  */
 package com.whisperio.view;
 
+import com.whisperio.data.entity.User;
+import com.whisperio.data.jpa.UserController;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.logging.Level;
@@ -29,7 +31,7 @@ import javax.faces.context.FacesContext;
 @RequestScoped
 public class LoginBean implements Serializable {
 
-    private String mail;
+    private String username;
     private String password;
 
     @ManagedProperty(value = "#{sessionBean}")
@@ -46,15 +48,17 @@ public class LoginBean implements Serializable {
      */
     public void connect() {
         FacesContext context = FacesContext.getCurrentInstance();
+        UserController userController = new UserController();
         try {
-            if (sessionBean.connect(mail)) {
+            User userChecked = userController.getUserByUsername(username);
+            if (userChecked != null) {
+                sessionBean.setConnectedUser(userChecked);
                 FacesContext.getCurrentInstance().getExternalContext().redirect("/Whisperio/dashboard.xhtml");
             } else {
-                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Connection failed", "The user " + mail + " is not existing."));
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Connection failed", "The user " + username + " is not existing."));
             }
         } catch (Exception ex) {
             Logger.getLogger(LoginBean.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Exception", ex.getMessage()));
         }
     }
 
@@ -66,34 +70,46 @@ public class LoginBean implements Serializable {
         if (sessionBean.getConnectedUser() != null) {
             try {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("/Whisperio/dashboard.xhtml");
+
             } catch (IOException ex) {
-                Logger.getLogger(LoginBean.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+                Logger.getLogger(LoginBean.class
+                        .getName()).log(Level.SEVERE, ex.getMessage(), ex);
             }
         }
     }
 
     /**
-     * Mail from the sign in form.
+     * Username from the sign in form.
      *
-     * @return Mail from the sign in form.
+     * @return Username from the sign in form.
      */
-    public String getMail() {
-        return mail;
+    public String getUsername() {
+        return username;
     }
 
     /**
-     * Mail from the sign in form.
+     * Username from the sign in form.
      *
-     * @param mail Mail from the sign in form.
+     * @param username Username from the sign in form.
      */
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
+    /**
+     * Password from the sign in form.
+     *
+     * @return Password from the sign in form.
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * Password from the sign in form.
+     *
+     * @param password Password from the sign in form.
+     */
     public void setPassword(String password) {
         this.password = password;
     }

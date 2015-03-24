@@ -46,32 +46,12 @@ public class SessionBean implements Serializable {
     }
 
     /**
-     * Connect Method.
-     *
-     * @param mail User mail.
-     * @return True, if the connection is successful.
-     */
-    public boolean connect(String mail) {
-        boolean connectionSuccessful = false;
-        try {
-            User userChecked = userController.getUserByMail(mail);
-            if (userChecked != null) {
-                connectedUser = userChecked;
-                connectionSuccessful = true;
-            }
-        } catch (Exception ex) {
-            Logger.getLogger(SessionBean.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
-        }
-        return connectionSuccessful;
-    }
-
-    /**
      * Logout the user.
      */
     public void logout() {
         connectedUser = null;
         try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/Whisperio/Index.xhtml");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/Whisperio/login.xhtml");
         } catch (IOException ex) {
             Logger.getLogger(SessionBean.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
         }
