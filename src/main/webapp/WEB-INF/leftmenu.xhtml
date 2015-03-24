@@ -4,27 +4,30 @@
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ps="http://primefaces.org/sentinel"
     xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:p="http://primefaces.org/ui">
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
-    <div id="layout-menubar" class="Unselectable fontRegular">
-        <div class="layout-menubarinner-box" id="buttonArea">
-            <a href="#" id="layout-menubar-resize" class="BordRad3" title="Menu Resize"><i class="icon-th-list-2"></i></a>
-            <a href="#" id="layout-menubar-resize2" class="BordRad3" title="Open Menu"><i class="icon-menu"></i></a>
+    <c:if test="#{sessionBean.selectedProject != null}">
+        <div id="layout-menubar" class="Unselectable fontRegular">
+
+            <!-- Resize button -->
+            <div class="layout-menubarinner-box" id="buttonArea">
+                <a href="#" id="layout-menubar-resize" class="BordRad3" title="Menu Resize"><i class="icon-th-list-2"></i></a>
+                <a href="#" id="layout-menubar-resize2" class="BordRad3" title="Open Menu"><i class="icon-menu"></i></a>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="layout-menubarinner-box" id="searchArea">
+                <i class="icon-search floatLeft gray"></i>
+                <input type="text" class="layout-menubar-search floatLeft Animated05" placeholder="Search Here"/>
+            </div>
+
+            <!-- Project Options -->
+            <ps:menu id="sm_leftmenu">
+                <p:menuitem id="sm_home" value="Home" icon="icon-home-outline" outcome="home" containerStyleClass="layout-menubar-active"/>
+                <p:menuitem id="sm_fonts" value="Obeya" icon="icon-gauge" outcome="obeya" />
+            </ps:menu>
         </div>
-
-        <div class="layout-menubarinner-box" id="searchArea">
-            <i class="icon-search floatLeft gray"></i>
-            <input type="text" class="layout-menubar-search floatLeft Animated05" placeholder="Search Here"/>
-        </div>
-
-        <ps:menu id="sm_leftmenu">
-            <p:menuitem id="sm_dashboard" value="Dashboard" icon="icon-home-outline" outcome="dashboard" containerStyleClass="layout-menubar-active"/>
-            <p:menuitem id="sm_fonts" value="Font Icons" icon="icon-book" outcome="dashboard" />
-            <p:menuitem id="sm_user" value="User Profile" icon="icon-vcard" outcome="dashboard" />
-            <p:menuitem id="sm_tasks" value="Tasks" icon="icon-tasks" outcome="dashboard" />
-            <p:menuitem id="sm_contact" value="Contact" icon="icon-phone" outcome="dashboard" />
-            <p:menuitem id="sm_doc" value="Documentation" icon="icon-graduation-cap" outcome="dashboard" />
-        </ps:menu>  
-    </div>
+    </c:if>
 
 </ui:composition>
