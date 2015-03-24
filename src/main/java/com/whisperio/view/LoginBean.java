@@ -53,7 +53,7 @@ public class LoginBean implements Serializable {
             User userChecked = userController.getUserByUsername(username);
             if (userChecked != null) {
                 sessionBean.setConnectedUser(userChecked);
-                FacesContext.getCurrentInstance().getExternalContext().redirect("/Whisperio/dashboard.xhtml");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/Whisperio/home.xhtml");
             } else {
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Connection failed", "The user " + username + " is not existing."));
             }
@@ -69,7 +69,7 @@ public class LoginBean implements Serializable {
     public void autologin() {
         if (sessionBean.getConnectedUser() != null) {
             try {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("/Whisperio/dashboard.xhtml");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/Whisperio/home.xhtml");
 
             } catch (IOException ex) {
                 Logger.getLogger(LoginBean.class
