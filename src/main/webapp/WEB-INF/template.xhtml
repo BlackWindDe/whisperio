@@ -26,6 +26,11 @@
         <h:outputStylesheet name="css/sentinel-layout.css" library="sentinel-layout" />
         <h:outputStylesheet name="css/core-layout.css" library="sentinel-layout" />
         <ui:insert name="head" />
+        
+        <!-- Pre-Render Events -->
+        <ui:insert name="PreRenderEvents">
+            <f:event listener="#{topBarBean.checkSession()}" type="preRenderView"></f:event>
+        </ui:insert>
     </h:head>
 
     <h:body>
