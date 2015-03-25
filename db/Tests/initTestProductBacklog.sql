@@ -29,8 +29,8 @@ VALUES (2, "mescourbiac@humanbooster.com", "mescourbiac", "Maxime", "Escourbiac"
 /* ------------------------------------- */
 
 /* Project */
-INSERT INTO Projects(ID, Name, KeyName, Description, CreationDate)
-VALUES (1, "Test Product Backlog", "TPB", "Test of Product Backlog.", "2015-03-20");
+INSERT INTO Projects(ID, Name, Description, CreationDate)
+VALUES (1, "Test Product Backlog", "Test of Product Backlog.", "2015-03-20");
 
 /* Releases */
 INSERT INTO Releases(ID, Name, ReleaseNumber, StartDate, EndDate, NumberOfSprint, ProjectID, IsActive)

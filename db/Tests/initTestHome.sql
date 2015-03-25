@@ -28,17 +28,17 @@ VALUES (2, "mescourbiac@humanbooster.com", "mescourbiac", "Maxime", "Escourbiac"
 /* ------------------------------------- */
 /* ------------------------------------- */
 
-INSERT INTO Projects(ID, Name, KeyName, Description, CreationDate)
-VALUES (1, "Docker", "TH1", "application container platform.", "2015-02-16");
-INSERT INTO Projects(ID, Name, KeyName, Description, CreationDate)
-VALUES (2, "Kubernetes", "TH2", "orchestration system for containers.", "2015-02-16");
-INSERT INTO Projects(ID, Name, KeyName, Description, CreationDate)
-VALUES (3, "Taiga", "TH3", "project management platform.", "2015-02-16");
-INSERT INTO Projects(ID, Name, KeyName, Description, CreationDate)
-VALUES (4, "Apache Mesos", "TH4", "cluster manager.", "2015-02-16");
-INSERT INTO Projects(ID, Name, KeyName, Description, CreationDate)
-VALUES (5, "OpenStack", "TH5", "cloud computing platform.", "2015-02-16");
-INSERT INTO Projects(ID, Name, KeyName, Description, CreationDate)
-VALUES (6, "Ansible", "TH6", "IT automation tool.", "2015-02-16");
-INSERT INTO Projects(ID, Name, KeyName, Description, CreationDate)
-VALUES (7, "ownCloud", "TH7", "cloud storage tool.", "2015-02-16");
+INSERT INTO Projects(ID, Name, Description, CreationDate)
+VALUES (1, "Docker", "application container platform.", "2015-02-16");
+INSERT INTO Projects(ID, Name, Description, CreationDate)
+VALUES (2, "Kubernetes", "orchestration system for containers.", "2015-02-16");
+INSERT INTO Projects(ID, Name, Description, CreationDate)
+VALUES (3, "Taiga", "project management platform.", "2015-02-16");
+INSERT INTO Projects(ID, Name, Description, CreationDate)
+VALUES (4, "Apache Mesos", "cluster manager.", "2015-02-16");
+INSERT INTO Projects(ID, Name, Description, CreationDate)
+VALUES (5, "OpenStack", "cloud computing platform.", "2015-02-16");
+INSERT INTO Projects(ID, Name, Description, CreationDate)
+VALUES (6, "Ansible", "IT automation tool.", "2015-02-16");
+INSERT INTO Projects(ID, Name, Description, CreationDate)
+VALUES (7, "ownCloud", "cloud storage tool.", "2015-02-16");

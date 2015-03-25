@@ -29,8 +29,8 @@ VALUES (2, "mescourbiac@humanbooster.com", "mescourbiac", "Maxime", "Escourbiac"
 /* ------------------------------------- */
 
 /* Test working Dashboard */
-INSERT INTO Projects(ID, Name, KeyName, Description, CreationDate)
-VALUES (1, "Test Dashboard", "TDB", "Test of Dashboard.", "2015-02-16");
+INSERT INTO Projects(ID, Name, Description, CreationDate)
+VALUES (1, "Test Dashboard", "Test of Dashboard.", "2015-02-16");
 INSERT INTO Releases(ID, Name, ReleaseNumber, StartDate, EndDate, NumberOfSprint, ProjectID, IsActive)
 VALUES (1, "Onboarding Release", 1, "2014-08-02", "2014-11-01", 3, 1, false);
 INSERT INTO Releases(ID, Name, ReleaseNumber, StartDate, EndDate, NumberOfSprint, ProjectID, IsActive)
@@ -59,14 +59,14 @@ INSERT INTO Sprints(ID, Name, SprintNumber, StartDate, EndDate, ReleaseID, IsAct
 VALUES (10, "Sprint10", 4, "2015-01-01", "2015-01-30", 3, true, false);
 
 /* Test No Active Release Dashboard */
-INSERT INTO Projects(ID, Name, KeyName, Description, CreationDate)
-VALUES (10, "DB : No Active Release", "DB1", "Test of Dashboard.", "2015-02-16");
+INSERT INTO Projects(ID, Name, Description, CreationDate)
+VALUES (10, "DB : No Active Release", "Test of Dashboard.", "2015-02-16");
 INSERT INTO Releases(ID, Name, ReleaseNumber, StartDate, EndDate, NumberOfSprint, ProjectID, IsActive)
 VALUES (10, "DB : No Active Release", 1, "2014-12-02", "2015-01-31",5, 10, false);
 
 /* Test No Closed Sprint Dashboard */
-INSERT INTO Projects(ID, Name, KeyName, Description, CreationDate)
-VALUES (20, "DB : No Closed Sprint", "DB2", "Test of Dashboard.", "2015-02-16");
+INSERT INTO Projects(ID, Name, Description, CreationDate)
+VALUES (20, "DB : No Closed Sprint", "Test of Dashboard.", "2015-02-16");
 INSERT INTO Releases(ID, Name, ReleaseNumber, StartDate, EndDate, NumberOfSprint, ProjectID, IsActive)
 VALUES (20, "DB : No Closed Sprint", 1, "2014-12-02", "2015-01-31",5, 20, true);
 INSERT INTO Sprints(ID, Name, SprintNumber, StartDate, EndDate, ReleaseID, IsActive, IsClosed)
