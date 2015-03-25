@@ -29,15 +29,43 @@
         </div>
 
         <!-- Welcome message block -->
-        <div class="Container40 Responsive">
-            <div class="ContainerIndent">
+        <div class="Container40 Responsive ">
+            <div class="ContainerIndent softGrayBack">
                 <p:panel>
-                    Whisper IO. <br/>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
-                    labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
-                    nisi ut aliquip ex ea commodo consequat. 
+                    <div class="Container100 MarAuto Responsive TexAlCenter">
+                        <h:graphicImage name="images/logo.png" library="whisperio" /> 
+                    </div>
+                    <div class="Fs23 TexAlCenter">Welcome to Whisper.io!</div>
+                    <div class="Fs18 TexAlCenter">Empowered your Scrum...</div>
+                    <span class="Fs14">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
+                    <div class="EmptyBox30"></div>
+
+                    <!-- Create new project button -->
+                    <div class="Container100 MarAuto Responsive TexAlCenter">
+                        <p:button value="Create a new project!" onclick="PF('createProjectModalDialog').show();
+                                return false;" styleClass="GreenButton"/>
+                    </div>
+                    <div class="EmptyBox10"></div>
                 </p:panel>
             </div>
         </div>
+
+        <!-- Dialog box for creating a new project -->
+        <p:dialog header="Create a new project" widgetVar="createProjectModalDialog" modal="true">
+            <h:panelGrid id="grid" columns="2">
+
+                <h:outputLabel for="name" value="Name: "/>                    
+                <p:inputText id="name" value="#{homeBean.name}" styleClass="newProjectInput" placeholder="Project's name" label="Name">
+                </p:inputText>
+
+                <h:outputLabel for="description" value="Description: "/>                    
+                <p:inputTextarea id="description" value="#{homeBean.description}" placeholder="Project's description" label="Description" autoResize="false" rows="6" cols="33" />
+
+            </h:panelGrid>
+            <div class="EmptyBox10"></div>
+            <div class="Container100 MarAuto Responsive TexAlCenter">
+                <p:commandButton value="Create" actionListener="#{homeBean.createProject()}" ajax="false" styleClass="GreenButton" />
+            </div>
+        </p:dialog>
     </ui:define>
 </ui:composition>

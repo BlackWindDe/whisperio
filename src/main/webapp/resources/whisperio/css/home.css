@@ -31,4 +31,8 @@
     color: #D1D3D4;
 }
 
-
+.logo-image{
+    margin-left: auto;
+    margin-right: auto;
+    width: 200px;
+}
