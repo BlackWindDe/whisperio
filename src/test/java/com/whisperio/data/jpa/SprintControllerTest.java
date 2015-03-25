@@ -48,7 +48,7 @@ public class SprintControllerTest {
 
         projectController = new ProjectController();
         Date date = new Date();
-        project = new Project("Test Sprint ", "TST", "Project Sprint test.", date);
+        project = new Project("Test Sprint ", "Project Sprint test.", date);
         project = projectController.create(project);
 
         releaseController = new ReleaseController();

@@ -47,7 +47,7 @@ public class ReleaseControllerTest {
     public static void initContext() {
         projectController = new ProjectController();
         Date date = new Date();
-        project = new Project("Test Release 1", "TR1", "Project Release 1 test.", date);
+        project = new Project("Test Release 1", "Project Release 1 test.", date);
         project = projectController.create(project);
     }
 

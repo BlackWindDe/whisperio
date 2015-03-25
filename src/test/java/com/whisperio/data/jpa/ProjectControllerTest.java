@@ -46,16 +46,14 @@ public class ProjectControllerTest {
         System.out.println("ProjectController:Create");
         ProjectController projectController = new ProjectController();
         String name = "Test Create";
-        String keyName = "TCE";
         String description = "Project creation test.";
         Date creationDate = new Date();
-        Project project = new Project(name, keyName, description, creationDate);
+        Project project = new Project(name, description, creationDate);
         Project projectResult = projectController.create(project);
 
         //Check Project properties.
         assertNotNull(projectResult.getId());
         assertEquals(name, projectResult.getName());
-        assertEquals(keyName, projectResult.getKeyName());
         assertEquals(description, projectResult.getDescription());
         assertEquals(creationDate, projectResult.getCreationDate());
 
@@ -71,9 +69,8 @@ public class ProjectControllerTest {
         ProjectController projectController = new ProjectController();
         Date creationDate = new Date();
         String name = "Test Destroy";
-        String keyName = "TDY";
         String description = "Project destroy test.";
-        Project project = new Project(name, keyName, description, creationDate);
+        Project project = new Project(name, description, creationDate);
         project = projectController.create(project);
         assertTrue(projectController.destroy(project));
     }
@@ -86,9 +83,9 @@ public class ProjectControllerTest {
         System.out.println("ProjectController:GetProjects");
         ProjectController instance = new ProjectController();
         Date creationDate = new Date();
-        Project project1 = new Project("Test Get Project 1", "TG1", "Project Get Project 1 test.", creationDate);
-        Project project2 = new Project("Test Get Project 2", "TG2", "Project Get Project 2 test.", creationDate);
-        Project project3 = new Project("Test Get Project 3", "TG3", "Project Get Project 3 test.", creationDate);
+        Project project1 = new Project("Test Get Project 1", "Project Get Project 1 test.", creationDate);
+        Project project2 = new Project("Test Get Project 2", "Project Get Project 2 test.", creationDate);
+        Project project3 = new Project("Test Get Project 3", "Project Get Project 3 test.", creationDate);
         project1 = instance.create(project1);
         project2 = instance.create(project2);
         project3 = instance.create(project3);
@@ -102,29 +99,27 @@ public class ProjectControllerTest {
     }
 
     /**
-     * Test of getProjectByKeyName method, of class ProjectController.
+     * Test of getProjectByID method, of class ProjectController.
      */
     @Test
-    public void testGetProjectByKeyName() {
-        System.out.println("ProjectController:GetProjectByKeyName");
+    public void testGetProjectByID() {
+        System.out.println("ProjectController:GetProjectByID");
         Date creationDate = new Date();
-        String name = "Test Get Project By KeyName";
-        String keyName = "TGK";
-        String description = "Project Get Project By KeyName.";
-        Project project = new Project(name, keyName, description, creationDate);
+        String name = "Test Get Project By ID";
+        String description = "Project Get Project By ID.";
+        Project project = new Project(name, description, creationDate);
         ProjectController instance = new ProjectController();
-        instance.create(project);
+        project = instance.create(project);
 
         //Check true case.
-        Project projectResult = instance.getProjectByKeyName(keyName);
+        Project projectResult = instance.getProjectByID(project.getId());
         assertEquals(name, projectResult.getName());
-        assertEquals(keyName, projectResult.getKeyName());
         assertEquals(description, projectResult.getDescription());
         assertEquals(creationDate, projectResult.getCreationDate());
         instance.destroy(projectResult);
 
         //Check wrong case.
-        projectResult = instance.getProjectByKeyName("FCE");
+        projectResult = instance.getProjectByID(0);
         assertNull(projectResult);
     }
 
@@ -138,10 +133,10 @@ public class ProjectControllerTest {
         ProjectController projectController = new ProjectController();
         ReleaseController releaseController = new ReleaseController();
 
-        Project project1 = new Project("Test Get Active Release 1", "TA1", "Project Get Active Release 1 test.", new Date());
-        Project project2 = new Project("Test Get Active Release 2", "TA2", "Project Get Active Release 2 test.", new Date());
-        Project project3 = new Project("Test Get Active Release 3", "TA3", "Project Get Active Release 3 test.", new Date());
-        Project project4 = new Project("Test Get Active Release 4", "TA4", "Project Get Active Release 4 test.", new Date());
+        Project project1 = new Project("Test Get Active Release 1", "Project Get Active Release 1 test.", new Date());
+        Project project2 = new Project("Test Get Active Release 2", "Project Get Active Release 2 test.", new Date());
+        Project project3 = new Project("Test Get Active Release 3", "Project Get Active Release 3 test.", new Date());
+        Project project4 = new Project("Test Get Active Release 4", "Project Get Active Release 4 test.", new Date());
         project1 = projectController.create(project1);
         project2 = projectController.create(project2);
         project3 = projectController.create(project3);
@@ -213,8 +208,8 @@ public class ProjectControllerTest {
         ReleaseController releaseController = new ReleaseController();
         SprintController sprintController = new SprintController();
 
-        Project project1 = new Project("Test Get Closed Sprints 1", "TA1", "Project Get Closed Sprints test 1.", new Date());
-        Project project2 = new Project("Test Get Closed Sprints 2", "TA2", "Project Get Closed Sprints test 2.", new Date());
+        Project project1 = new Project("Test Get Closed Sprints 1", "Project Get Closed Sprints test 1.", new Date());
+        Project project2 = new Project("Test Get Closed Sprints 2", "Project Get Closed Sprints test 2.", new Date());
         project1 = projectController.create(project1);
         project2 = projectController.create(project2);
         Release release1 = new Release("Test Get Closed Sprint 1", 1, new Date(), new Date(), 5, false, project1);
@@ -257,9 +252,8 @@ public class ProjectControllerTest {
         System.out.println("ProjectController:GetProductBacklogBoxItems");
         Date date = new Date();
         String name = "Test Get ProductBacklog Box Items";
-        String keyName = "TGS";
         String description = "Test Get ProductBacklog Box Items.";
-        Project project = new Project(name, keyName, description, date);
+        Project project = new Project(name, description, date);
         ProjectController instance = new ProjectController();
         instance.create(project);
 

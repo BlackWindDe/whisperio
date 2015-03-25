@@ -43,7 +43,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Projects.findAll", query = "SELECT p FROM Project p"),
-    @NamedQuery(name = "Projects.findByKeyName", query = "SELECT p FROM Project p WHERE p.keyName = :keyName"),
+    @NamedQuery(name = "Projects.findByID", query = "SELECT p FROM Project p WHERE p.id = :id"),
     @NamedQuery(name = "Releases.getProjectActiveRelease", query = "SELECT r FROM Release r Where r.project.id=:projectID and r.isActive=true"),
     @NamedQuery(name = "Sprints.getProjectClosedSprints", query = "SELECT s FROM Sprint s Where s.release.project.id =:projectID and s.isClosed=true"),
     @NamedQuery(name = "BacklogItems.getProductBacklogBoxItems", query = "SELECT b FROM BacklogItem b Where b.project.id =:projectID and b.productBacklogBox =:boxID")})
@@ -61,12 +61,6 @@ public class Project implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "Name")
     private String name;
-
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 3)
-    @Column(name = "KeyName")
-    private String keyName;
 
     @Basic(optional = false)
     @NotNull
@@ -98,13 +92,11 @@ public class Project implements Serializable {
      * Project constructor.
      *
      * @param name Project name.
-     * @param keyName Project key name.
      * @param description Project description.
      * @param creationDate Project creation date.
      */
-    public Project(String name, String keyName, String description, Date creationDate) {
+    public Project(String name, String description, Date creationDate) {
         this.name = name;
-        this.keyName = keyName;
         this.description = description;
         this.creationDate = creationDate;
         this.releases = new ArrayList<>();
@@ -145,24 +137,6 @@ public class Project implements Serializable {
      */
     public void setName(String name) {
         this.name = name;
-    }
-
-    /**
-     * Project key name.
-     *
-     * @return Project key name.
-     */
-    public String getKeyName() {
-        return keyName;
-    }
-
-    /**
-     * Project key name.
-     *
-     * @param keyName Project key name.
-     */
-    public void setKeyName(String keyName) {
-        this.keyName = keyName;
     }
 
     /**

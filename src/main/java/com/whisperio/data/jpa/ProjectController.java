@@ -131,19 +131,19 @@ public class ProjectController {
     }
 
     /**
-     * Look for project by key name.
+     * Look for project by id.
      *
-     * @param keyName Project key name.
-     * @return Project corresponding to the key name.
+     * @param id Project ID.
+     * @return Project corresponding to the ID.
      */
-    public Project getProjectByKeyName(String keyName) {
+    public Project getProjectByID(Integer id) {
         EntityManager em = null;
         Project project = null;
         try {
             em = getEntityManager();
-            project = (Project) em.createNamedQuery(("Projects.findByKeyName")).setParameter("keyName", keyName).getSingleResult();
+            project = (Project) em.createNamedQuery(("Projects.findByID")).setParameter("id", id).getSingleResult();
         } catch (NoResultException ex) {
-            Logger.getLogger(ProjectController.class.getName()).log(Level.WARNING, "Project not found: {0}", keyName);
+            Logger.getLogger(ProjectController.class.getName()).log(Level.WARNING, "Project not found: {0}", id);
             project = null;
         } catch (Exception ex) {
             Logger.getLogger(ProjectController.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);

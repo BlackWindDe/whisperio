@@ -66,7 +66,7 @@ public class BacklogItemControllerTest {
         creator = userController.create(creator);
 
         projectController = new ProjectController();
-        project = new Project("Test BacklogItem", "TBM", "Project BacklogItem test.", date);
+        project = new Project("Test BacklogItem", "Project BacklogItem test.", date);
         project = projectController.create(project);
 
         releaseController = new ReleaseController();

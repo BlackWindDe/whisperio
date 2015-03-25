@@ -15,6 +15,7 @@ import com.whisperio.data.jpa.ProjectController;
 import com.whisperio.view.item.ProjectListItem;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -81,17 +82,17 @@ public class HomeBean implements Serializable {
     /**
      * Go to project page.
      *
-     * @param keyName Project Key Name.
+     * @param id Project ID.
      */
-    public void goToProject(String keyName) {
+    public void goToProject(Integer id) {
         FacesContext context = FacesContext.getCurrentInstance();
         try {
-            Project project = projectController.getProjectByKeyName(keyName);
+            Project project = projectController.getProjectByID(id);
             if (project != null) {
                 sessionBean.setSelectedProject(project);
                 FacesContext.getCurrentInstance().getExternalContext().redirect("/Whisperio/product-backlog.xhtml");
             } else {
-                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "The project " + keyName + " is not existing."));
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "The project " + id + " is not existing."));
             }
         } catch (Exception ex) {
             Logger.getLogger(HomeBean.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
@@ -103,17 +104,17 @@ public class HomeBean implements Serializable {
      * Create a new project.
      */
     public void createProject() {
-//        FacesContext context = FacesContext.getCurrentInstance();
-//
-//        if (validateNewProject()) {
-//            Project newProject = new Project(name, keyName, description, new Date());
-//            newProject = projectController.create(newProject);
-//            if (newProject == null) {
-//                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "The project has not created."));
-//            } else {
-//                goToProject(keyName);
-//            }
-//        }
+        FacesContext context = FacesContext.getCurrentInstance();
+
+        if (validateNewProject()) {
+            Project newProject = new Project(name, description, new Date());
+            newProject = projectController.create(newProject);
+            if (newProject == null) {
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "The project has not created."));
+            } else {
+                goToProject(newProject.getId());
+            }
+        }
     }
 
     /**
@@ -121,40 +122,26 @@ public class HomeBean implements Serializable {
      *
      * @return True if the new project is valid.
      */
-//    private boolean validateNewProject() {
-//        FacesContext context = FacesContext.getCurrentInstance();
-//        boolean valid = true;
-//
-//        if (name.compareTo("") == 0) {
-//            valid = false;
-//            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Name cannot be empty"));
-//        }
-//
-//        if (name.length() > 50) {
-//            valid = false;
-//            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Name cannot exceed 50"));
-//        }
-//
-//        if (keyName.compareTo("") == 0) {
-//            valid = false;
-//            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Key Name cannot be empty"));
-//        }
-//
-//        if (keyName.length() > 3) {
-//            valid = false;
-//            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Key Name cannot exceed 3"));
-//        }
-//
-//        if (projectController.getProjectByKeyName(keyName) != null) {
-//            valid = false;
-//            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Key Name is already taken."));
-//        }
-//
-//        if (description.compareTo("") == 0) {
-//            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Description cannot be empty"));
-//        }
-//        return valid;
-//    }
+    private boolean validateNewProject() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        boolean valid = true;
+
+        if (name.compareTo("") == 0) {
+            valid = false;
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Name cannot be empty"));
+        }
+
+        if (name.length() > 50) {
+            valid = false;
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Name cannot exceed 50"));
+        }
+
+        if (description.compareTo("") == 0) {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Description cannot be empty"));
+        }
+        return valid;
+    }
+
     /**
      * Session Bean.
      *
