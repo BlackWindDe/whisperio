@@ -17,10 +17,12 @@
             <c:forEach items="#{homeBean.projectsList}" var="projectListItem">
                 <div class="Container#{projectListItem.width} white Responsive Unselectable">
                     <div class="ContainerIndent project-back Animated05">
-                        <div class="projectBlock">
-                            <span class="project-title Fs20">#{projectListItem.project.name}</span> <br/>
-                            <span class="project-description Fs12">#{projectListItem.project.description}</span>
-                        </div>    
+                        <h:commandLink actionListener="#{homeBean.goToProject(projectListItem.project.keyName)}">
+                            <div class="projectBlock">
+                                <span class="project-title Fs20">#{projectListItem.project.name}</span> <br/>
+                                <span class="project-description Fs12">#{projectListItem.project.description}</span>
+                            </div>    
+                        </h:commandLink>
                     </div>
                 </div>
             </c:forEach>

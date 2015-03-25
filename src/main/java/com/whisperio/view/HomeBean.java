@@ -16,9 +16,13 @@ import com.whisperio.view.item.ProjectListItem;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 
 /**
  * Bean used by the home page.
@@ -80,19 +84,19 @@ public class HomeBean implements Serializable {
      * @param keyName Project Key Name.
      */
     public void goToProject(String keyName) {
-//        FacesContext context = FacesContext.getCurrentInstance();
-//        try {
-//            Project project = projectController.getProjectByKeyName(keyName);
-//            if (project != null) {
-//                sessionBean.setSelectedProject(project);
-//                FacesContext.getCurrentInstance().getExternalContext().redirect("/Whisperio/obeya.xhtml");
-//            } else {
-//                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "The project " + keyName + " is not existing."));
-//            }
-//        } catch (Exception ex) {
-//            Logger.getLogger(HomeBean.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
-//            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Exception", ex.getMessage()));
-//        }
+        FacesContext context = FacesContext.getCurrentInstance();
+        try {
+            Project project = projectController.getProjectByKeyName(keyName);
+            if (project != null) {
+                sessionBean.setSelectedProject(project);
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/Whisperio/product-backlog.xhtml");
+            } else {
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "The project " + keyName + " is not existing."));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(HomeBean.class.getName()).log(Level.SEVERE, ex.getMessage(), ex);
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Exception", ex.getMessage()));
+        }
     }
 
     /**
