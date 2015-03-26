@@ -25,9 +25,9 @@ import javax.faces.bean.SessionScoped;
  *
  * @author Maxime ESCOURBIAC
  */
-@ManagedBean(name = "projectBean")
+@ManagedBean(name = "productBacklogBean")
 @SessionScoped
-public class ProjectBean implements Serializable {
+public class ProductBacklogBean implements Serializable {
 
     @ManagedProperty(value = "#{sessionBean}")
     private SessionBean sessionBean;
@@ -38,7 +38,7 @@ public class ProjectBean implements Serializable {
     /**
      * Creates a new instance of projectsBean
      */
-    public ProjectBean() {
+    public ProductBacklogBean() {
     }
 
     /**

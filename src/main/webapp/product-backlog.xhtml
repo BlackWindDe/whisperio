@@ -6,10 +6,81 @@
                 template="./WEB-INF/template.xhtml">
 
     <ui:define name="content">
-        <h:outputScript name="jquery/jquery.js" library="primefaces" target="head"/>
+        <h:outputStylesheet name="css/product-backlog.css" library="whisperio" />
+
+        <!-- Product Backlog boxes -->
+        <div class="EmptyBox20"></div>
+        <div class="Container25">
+            <div class="EmptyBox50"></div>
+        </div>
+        <div class="Container50 Responsive">
+            <div class="Container33 Responsive Unselectable">
+                <div class="ContainerIndent TexAlCenter sandboxBlock">
+                    <a href="#">
+                        <div class="productBacklogBoxBlock white">
+                            <span class="Fs21">SandBox</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="Container33 Responsive Unselectable">
+                <div class="ContainerIndent TexAlCenter iceboxBlock">
+                    <a href="#">
+                        <div class="productBacklogBoxBlock white">
+                            <span class="Fs21">IceBox</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="Container33 Responsive Unselectable">
+                <div class="ContainerIndent TexAlCenter cultureboxBlock">
+                    <a href="#">
+                        <div class="productBacklogBoxBlock white">
+                            <span class="Fs21">CultureBox</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="Container33 Responsive Unselectable">
+                <div class="ContainerIndent TexAlCenter startboxBlock">
+                    <a href="#">
+                        <div class="productBacklogBoxBlock white">
+                            <span class="Fs21">StartBox</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="Container33 Responsive Unselectable">
+                <div class="ContainerIndent TexAlCenter sprintboxBlock">
+                    <a href="#">
+                        <div class="productBacklogBoxBlock white">
+                            <span class="Fs21">SprintBox</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="Container33 Responsive Unselectable">
+                <div class="ContainerIndent TexAlCenter harvestboxBlock">
+                    <a href="#">
+                        <div class="productBacklogBoxBlock white">
+                            <span class="Fs21">HarvestBox</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="EmptyBox20"></div>
         
-        <h3 class="hardblue TexAlCenter">#{sessionBean.selectedProject.name} : Product Backlog.</h3>
-        <span class="TexAlCenter DispBlock Wid100">Soon...</span>
+        <!-- Product Backlog Items list -->
+        <div class="Container10 Responsive">
+            <div class="EmptyBox50"></div>
+        </div>
+        <div class="Container80 Responsive">
+            <div class="ContainerIndent">
+            </div>
+        </div>
+
     </ui:define>
 
 </ui:composition>
