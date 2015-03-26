@@ -3,13 +3,59 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                template="./WEB-INF/template.xhtml">
+                template="./WEB-INF/template.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <ui:define name="content">
         <h:outputScript name="jquery/jquery.js" library="primefaces" target="head"/>
-        
+
         <h3 class="hardblue TexAlCenter">#{sessionBean.selectedProject.name} : Obeya</h3>
-        <span class="TexAlCenter DispBlock Wid100">Soon...</span>
+
+        <div class="Container50">
+            <div class="ContainerIndent">
+                <p:panel>
+                    <c:choose>
+                        <c:when test="#{!obeyaBean.hasActiveRelease()}">
+                            The project does not have any active release.
+                        </c:when>
+                        <c:when test="#{!obeyaBean.hasActiveReleaseClosedSprint()}">
+                            The release does not have any closed sprint.
+                        </c:when>
+                        <c:otherwise>
+                            <p:chart type="line" model="#{obeyaBean.releaseBurndownChart}" responsive="true"/>
+                        </c:otherwise>
+                    </c:choose>
+                </p:panel>
+            </div>
+        </div>
+        <div class="Container50">
+            <div class="ContainerIndent">
+                <p:panel>
+                    <c:choose>
+                        <c:when test="#{!obeyaBean.hasClosedSprint()}">
+                            The project does not have any closed sprint.
+                        </c:when>
+                        <c:otherwise>
+                            <p:chart type="line" model="#{obeyaBean.businessValueChart}" responsive="true"/>
+                        </c:otherwise>
+                    </c:choose>
+                </p:panel>
+            </div>
+        </div>
+        <div class="Container50">
+            <div class="ContainerIndent">
+                <p:panel>
+                    <c:choose>
+                        <c:when test="#{!obeyaBean.hasClosedSprint()}">
+                            The project does not have any closed sprint.
+                        </c:when>
+                        <c:otherwise>
+                            <p:chart  type="bar" model="#{obeyaBean.velocityChart}" responsive="true"/>
+                        </c:otherwise>
+                    </c:choose>
+                </p:panel>
+            </div>
+        </div>
     </ui:define>
 
 </ui:composition>
