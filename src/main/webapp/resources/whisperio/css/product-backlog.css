@@ -20,26 +20,60 @@
     opacity:0.5; -webkit-opacity:0.5; -moz-opacity:0.5;
 }
 
+.boxSelected{
+    opacity:0.5; -webkit-opacity:0.5; -moz-opacity:0.5;
+}
+
 .sandboxBlock{
     background-color: #F8AF27;
+}
+
+.sandboxBlock .ui-commandlink{
+    text-decoration: none;
+    margin-right: 0px;
 }
 
 .iceboxBlock{
     background-color: #1B93BA;
 }
 
+.iceboxBlock .ui-commandlink{
+    text-decoration: none;
+    margin-right: 0px;
+}
+
 .cultureboxBlock{
     background-color: #239317;
+}
+
+.cultureboxBlock .ui-commandlink{
+    text-decoration: none;
+    margin-right: 0px;
 }
 
 .startboxBlock{
     background-color: #D71717;
 }
 
+.startboxBlock .ui-commandlink{
+    text-decoration: none;
+    margin-right: 0px;
+}
+
 .sprintboxBlock{
     background-color: #890035;
 }
 
+.sprintboxBlock .ui-commandlink{
+    text-decoration: none;
+    margin-right: 0px;
+}
+
 .harvestboxBlock{
     background-color: #043F00;
+}
+
+.harvestboxBlock .ui-commandlink{
+    text-decoration: none;
+    margin-right: 0px;
 }

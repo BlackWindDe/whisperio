@@ -3,10 +3,14 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
-                template="./WEB-INF/template.xhtml">
+                template="./WEB-INF/template.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <ui:define name="content">
         <h:outputStylesheet name="css/product-backlog.css" library="whisperio" />
+        <h:outputStylesheet name="css/sortable.css" library="sortable" />
+        <h:outputScript name="jquery/jquery.js" library="primefaces" target="head"/>
+        <h:outputScript name="js/sortable.js" library="sortable" target="head"/>
 
         <!-- Product Backlog boxes -->
         <div class="EmptyBox20"></div>
@@ -16,68 +20,89 @@
         <div class="Container50 Responsive">
             <div class="Container33 Responsive Unselectable">
                 <div class="ContainerIndent TexAlCenter sandboxBlock">
-                    <a href="#">
+                    <p:commandLink actionListener="#{productBacklogBean.useSandbox()}" update="backlogItems">
                         <div class="productBacklogBoxBlock white">
                             <span class="Fs21">SandBox</span>
                         </div>
-                    </a>
+                    </p:commandLink>
                 </div>
             </div>
             <div class="Container33 Responsive Unselectable">
                 <div class="ContainerIndent TexAlCenter iceboxBlock">
-                    <a href="#">
+                    <p:commandLink actionListener="#{productBacklogBean.useIcebox()}" update="backlogItems">
                         <div class="productBacklogBoxBlock white">
                             <span class="Fs21">IceBox</span>
                         </div>
-                    </a>
+                    </p:commandLink>
                 </div>
             </div>
             <div class="Container33 Responsive Unselectable">
                 <div class="ContainerIndent TexAlCenter cultureboxBlock">
-                    <a href="#">
+                    <p:commandLink actionListener="#{productBacklogBean.useCulturebox()}" update="backlogItems">
                         <div class="productBacklogBoxBlock white">
                             <span class="Fs21">CultureBox</span>
                         </div>
-                    </a>
+                    </p:commandLink>
                 </div>
             </div>
             <div class="Container33 Responsive Unselectable">
                 <div class="ContainerIndent TexAlCenter startboxBlock">
-                    <a href="#">
+                    <p:commandLink actionListener="#{productBacklogBean.useStartbox()}" update="backlogItems">
                         <div class="productBacklogBoxBlock white">
                             <span class="Fs21">StartBox</span>
                         </div>
-                    </a>
+                    </p:commandLink>
                 </div>
             </div>
             <div class="Container33 Responsive Unselectable">
                 <div class="ContainerIndent TexAlCenter sprintboxBlock">
-                    <a href="#">
+                    <p:commandLink actionListener="#{productBacklogBean.useSprintbox()}" update="backlogItems">
                         <div class="productBacklogBoxBlock white">
                             <span class="Fs21">SprintBox</span>
                         </div>
-                    </a>
+                    </p:commandLink>
                 </div>
             </div>
             <div class="Container33 Responsive Unselectable">
                 <div class="ContainerIndent TexAlCenter harvestboxBlock">
-                    <a href="#">
+                    <p:commandLink actionListener="#{productBacklogBean.useHarvestbox()}" update="backlogItems">
                         <div class="productBacklogBoxBlock white">
                             <span class="Fs21">HarvestBox</span>
                         </div>
-                    </a>
+                    </p:commandLink>
                 </div>
             </div>
         </div>
 
         <div class="EmptyBox20"></div>
-        
+
         <!-- Product Backlog Items list -->
         <div class="Container10 Responsive">
             <div class="EmptyBox50"></div>
         </div>
         <div class="Container80 Responsive">
             <div class="ContainerIndent">
+                <p:panel id="backlogItems">
+                    <ul class="sortable list">
+                        <c:forEach items="#{productBacklogBean.selectedBoxBacklogItems}" var="item">
+                            <li><h:outputText value="#{item.title}" /></li>
+                        </c:forEach>
+                    </ul>
+                    <script>
+                        $(function () {
+                            $('.sortable').sortable();
+                            $('.handles').sortable({
+                                handle: 'span'
+                            });
+                            $('.connected').sortable({
+                                connectWith: '.connected'
+                            });
+                            $('.exclude').sortable({
+                                items: ':not(.disabled)'
+                            });
+                        });
+                    </script>
+                </p:panel>
             </div>
         </div>
 
