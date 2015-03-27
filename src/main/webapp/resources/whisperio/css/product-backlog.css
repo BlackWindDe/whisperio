@@ -16,11 +16,11 @@
     line-height:30px;
 }
 
-.sandboxBlock:hover, .iceboxBlock:hover, .cultureboxBlock:hover, .startboxBlock:hover, .sprintboxBlock:hover, .harvestboxBlock:hover{
-    opacity:0.5; -webkit-opacity:0.5; -moz-opacity:0.5;
+.productBacklogBoxBlockDroppableHover{
+    background-color: #F560FF;
 }
 
-.boxSelected{
+.sandboxBlock:hover, .iceboxBlock:hover, .cultureboxBlock:hover, .startboxBlock:hover, .sprintboxBlock:hover, .harvestboxBlock:hover{
     opacity:0.5; -webkit-opacity:0.5; -moz-opacity:0.5;
 }
 
@@ -76,4 +76,13 @@
 .harvestboxBlock .ui-commandlink{
     text-decoration: none;
     margin-right: 0px;
+}
+
+.productBacklogItem{
+    background-color: #C1E1F4;
+    margin-bottom: 1px;
+}
+
+.productBacklogItem:hover{
+    background-color: #00AEEF;
 }

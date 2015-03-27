@@ -8,9 +8,7 @@
 
     <ui:define name="content">
         <h:outputStylesheet name="css/product-backlog.css" library="whisperio" />
-        <h:outputStylesheet name="css/sortable.css" library="sortable" />
         <h:outputScript name="jquery/jquery.js" library="primefaces" target="head"/>
-        <h:outputScript name="js/sortable.js" library="sortable" target="head"/>
 
         <!-- Product Backlog boxes -->
         <div class="EmptyBox20"></div>
@@ -20,54 +18,68 @@
         <div class="Container50 Responsive">
             <div class="Container33 Responsive Unselectable">
                 <div class="ContainerIndent TexAlCenter sandboxBlock">
-                    <p:commandLink actionListener="#{productBacklogBean.useSandbox()}" update="backlogItems">
-                        <div class="productBacklogBoxBlock white">
-                            <span class="Fs21">SandBox</span>
+                    <p:commandLink actionListener="#{productBacklogBean.useSandbox()}" update="productBacklogItems">
+                        <div class="productBacklogBoxBlockDroppable">
+                            <div class="productBacklogBoxBlock white">
+                                <span class="Fs21">SandBox</span>
+                            </div>
                         </div>
                     </p:commandLink>
                 </div>
             </div>
+
             <div class="Container33 Responsive Unselectable">
                 <div class="ContainerIndent TexAlCenter iceboxBlock">
-                    <p:commandLink actionListener="#{productBacklogBean.useIcebox()}" update="backlogItems">
-                        <div class="productBacklogBoxBlock white">
-                            <span class="Fs21">IceBox</span>
+                    <p:commandLink actionListener="#{productBacklogBean.useIcebox()}" update="productBacklogItems">
+                        <div class="productBacklogBoxBlockDroppable">
+                            <div class="productBacklogBoxBlock white">
+                                <span class="Fs21">IceBox</span>
+                            </div>
                         </div>
                     </p:commandLink>
                 </div>
             </div>
+
             <div class="Container33 Responsive Unselectable">
                 <div class="ContainerIndent TexAlCenter cultureboxBlock">
-                    <p:commandLink actionListener="#{productBacklogBean.useCulturebox()}" update="backlogItems">
-                        <div class="productBacklogBoxBlock white">
-                            <span class="Fs21">CultureBox</span>
+                    <p:commandLink actionListener="#{productBacklogBean.useCulturebox()}" update="productBacklogItems">
+                        <div class="productBacklogBoxBlockDroppable">
+                            <div class="productBacklogBoxBlock white">
+                                <span class="Fs21">CultureBox</span>
+                            </div>
                         </div>
                     </p:commandLink>
                 </div>
             </div>
             <div class="Container33 Responsive Unselectable">
                 <div class="ContainerIndent TexAlCenter startboxBlock">
-                    <p:commandLink actionListener="#{productBacklogBean.useStartbox()}" update="backlogItems">
-                        <div class="productBacklogBoxBlock white">
-                            <span class="Fs21">StartBox</span>
+                    <p:commandLink actionListener="#{productBacklogBean.useStartbox()}" update="productBacklogItems">
+                        <div class="productBacklogBoxBlockDroppable">
+                            <div class="productBacklogBoxBlock white">
+                                <span class="Fs21">StartBox</span>
+                            </div>
                         </div>
                     </p:commandLink>
                 </div>
             </div>
             <div class="Container33 Responsive Unselectable">
                 <div class="ContainerIndent TexAlCenter sprintboxBlock">
-                    <p:commandLink actionListener="#{productBacklogBean.useSprintbox()}" update="backlogItems">
-                        <div class="productBacklogBoxBlock white">
-                            <span class="Fs21">SprintBox</span>
+                    <p:commandLink actionListener="#{productBacklogBean.useSprintbox()}" update="productBacklogItems">
+                        <div class="productBacklogBoxBlockDroppable">
+                            <div class="productBacklogBoxBlock white">
+                                <span class="Fs21">SprintBox</span>
+                            </div>
                         </div>
                     </p:commandLink>
                 </div>
             </div>
             <div class="Container33 Responsive Unselectable">
                 <div class="ContainerIndent TexAlCenter harvestboxBlock">
-                    <p:commandLink actionListener="#{productBacklogBean.useHarvestbox()}" update="backlogItems">
-                        <div class="productBacklogBoxBlock white">
-                            <span class="Fs21">HarvestBox</span>
+                    <p:commandLink actionListener="#{productBacklogBean.useHarvestbox()}" update="productBacklogItems">
+                        <div class="productBacklogBoxBlockDroppable">
+                            <div class="productBacklogBoxBlock white">
+                                <span class="Fs21">HarvestBox</span>
+                            </div>
                         </div>
                     </p:commandLink>
                 </div>
@@ -81,29 +93,62 @@
             <div class="EmptyBox50"></div>
         </div>
         <div class="Container80 Responsive">
-            <div class="ContainerIndent">
-                <p:panel id="backlogItems">
-                    <ul class="sortable list">
-                        <c:forEach items="#{productBacklogBean.selectedBoxBacklogItems}" var="item">
-                            <li><h:outputText value="#{item.title}" /></li>
-                        </c:forEach>
-                    </ul>
-                    <script>
-                        $(function () {
-                            $('.sortable').sortable();
-                            $('.handles').sortable({
-                                handle: 'span'
-                            });
-                            $('.connected').sortable({
-                                connectWith: '.connected'
-                            });
-                            $('.exclude').sortable({
-                                items: ':not(.disabled)'
-                            });
+            <p:panel id="productBacklogItems">
+
+                <c:forEach items="#{productBacklogBean.selectedBoxBacklogItems}" var="item">
+                    <div class="Container100 Responsive productBacklogItem">
+                        <div class="Container10 Responsive">
+                            <h:outputText value="##{item.id}"/>
+                        </div>
+                        <div class="Container10 Responsive">
+                            <h:outputText value="#{item.backlogItemType}"/>
+                        </div>
+                        <div class="Container60 Responsive">
+                            <h:outputText value="#{item.title}" />
+                        </div>
+                        <div class="Container10 Responsive TexAlCenter">
+                            <h:outputText value="#{item.businessValue.name}"/>
+                        </div>
+                        <div class="Container10 Responsive TexAlCenter">
+                            <h:outputText value="#{item.estimation.name}"/>
+                        </div>
+                    </div>
+                </c:forEach>
+
+
+                <!-- Move between different boxes -->
+                <p:remoteCommand name="moveToBox" actionListener="#{productBacklogBean.moveProductBacklogItem()}" update="productBacklogItems" oncomplete="initDND()"/>
+                <script type="text/javascript">
+                    function initDND() {
+                        $('.productBacklogItem').draggable({
+                            helper: 'clone',
+                            scope: 'movetobox',
+                            zIndex: ++PrimeFaces.zindex
                         });
-                    </script>
-                </p:panel>
-            </div>
+
+                        $('.productBacklogBoxBlockDroppable').droppable({
+                            hoverClass: 'productBacklogBoxBlockDroppableHover',
+                            tolerance: 'pointer',
+                            scope: 'movetobox',
+                            drop: function (event, ui) {
+                                var property = ui.draggable.find('.ui-treenode-label').text(),
+                                        droppedColumnId = $(this).parents('th:first').attr('id'),
+                                        dropPos = $(this).hasClass('dropleft') ? 0 : 1;
+
+                                moveToBox([
+                                    {name: 'property', value: property}
+                                    , {name: 'droppedColumnId', value: droppedColumnId}
+                                    , {name: 'dropPos', value: dropPos}
+                                ]);
+                            }
+                        });
+                    }
+
+                    $(function () {
+                        initDND();
+                    });
+                </script>
+            </p:panel>
         </div>
 
     </ui:define>

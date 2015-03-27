@@ -15,10 +15,13 @@ import com.whisperio.data.entity.ProductBacklogBox;
 import com.whisperio.data.jpa.ProjectController;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 /**
  * Bean used by the product backlog page.
@@ -47,6 +50,19 @@ public class ProductBacklogBean implements Serializable {
     @PostConstruct
     public void init() {
         selectedBox = ProductBacklogBox.CULTUREBOX;
+    }
+
+    /**
+     * Move Product Backlog Item to an another box.
+     */
+    public void moveProductBacklogItem() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        String property = params.get("property");
+        String droppedColumnId = params.get("droppedColumnId");
+        String dropPos = params.get("dropPos");
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Call", "Property :" + property + "; DroppedColumnId :" + droppedColumnId + "; DropPos :" + dropPos));
+
     }
 
     /**
