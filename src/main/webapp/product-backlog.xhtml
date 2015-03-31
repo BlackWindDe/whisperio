@@ -8,7 +8,8 @@
 
     <ui:define name="content">
         <h:outputStylesheet name="css/product-backlog.css" library="whisperio" />
-        <h:outputScript name="jquery/jquery.js" library="primefaces" target="head"/>
+        <h:outputScript name="js/jquery-2.1.3.js" library="jquery" target="head"/>
+        <h:outputScript name="js/jquery-ui-1.11.14.js" library="jquery" target="head"/>
 
         <!-- Product Backlog boxes -->
         <div class="EmptyBox20"></div>
@@ -94,59 +95,65 @@
         </div>
         <div class="Container80 Responsive">
             <p:panel id="productBacklogItems">
-
-                <c:forEach items="#{productBacklogBean.selectedBoxBacklogItems}" var="item">
-                    <div class="Container100 Responsive productBacklogItem">
-                        <div class="Container10 Responsive">
-                            <h:outputText value="##{item.id}"/>
-                        </div>
-                        <div class="Container10 Responsive">
-                            <h:outputText value="#{item.backlogItemType}"/>
-                        </div>
-                        <div class="Container60 Responsive">
-                            <h:outputText value="#{item.title}" />
-                        </div>
-                        <div class="Container10 Responsive TexAlCenter">
-                            <h:outputText value="#{item.businessValue.name}"/>
-                        </div>
-                        <div class="Container10 Responsive TexAlCenter">
-                            <h:outputText value="#{item.estimation.name}"/>
-                        </div>
-                    </div>
-                </c:forEach>
-
+                <ul id="productBacklogItemList" style="padding-left: 0px;">
+                    <c:forEach items="#{productBacklogBean.selectedBoxBacklogItems}" var="item">
+                        <li class="Container100 Responsive productBacklogItem">
+                            <div class="Container10 Responsive">
+                                <h:outputText value="##{item.id}"/>
+                            </div>
+                            <div class="Container10 Responsive">
+                                <h:outputText value="#{item.backlogItemType}"/>
+                            </div>
+                            <div class="Container60 Responsive">
+                                <h:outputText value="#{item.title}" />
+                            </div>
+                            <div class="Container10 Responsive TexAlCenter">
+                                <h:outputText value="#{item.businessValue.name}"/>
+                            </div>
+                            <div class="Container10 Responsive TexAlCenter">
+                                <h:outputText value="#{item.estimation.name}"/>
+                            </div>
+                        </li>
+                    </c:forEach>
+                </ul>
 
                 <!-- Move between different boxes -->
-                <p:remoteCommand name="moveToBox" actionListener="#{productBacklogBean.moveProductBacklogItem()}" update="productBacklogItems" oncomplete="initDND()"/>
+                <p:remoteCommand name="moveToBox" actionListener="#{productBacklogBean.moveProductBacklogItem()}" update="productBacklogItems"/>
+                <p:remoteCommand name="sortProductBacklogItems" actionListener="#{productBacklogBean.sortProductBacklogItem()}" update="productBacklogItems"/>
+
                 <script type="text/javascript">
-                    function initDND() {
-                        $('.productBacklogItem').draggable({
-                            helper: 'clone',
-                            scope: 'movetobox',
-                            zIndex: ++PrimeFaces.zindex
-                        });
 
-                        $('.productBacklogBoxBlockDroppable').droppable({
-                            hoverClass: 'productBacklogBoxBlockDroppableHover',
-                            tolerance: 'pointer',
-                            scope: 'movetobox',
-                            drop: function (event, ui) {
-                                var property = ui.draggable.find('.ui-treenode-label').text(),
-                                        droppedColumnId = $(this).parents('th:first').attr('id'),
-                                        dropPos = $(this).hasClass('dropleft') ? 0 : 1;
+                    //$('.productBacklogItem').draggable({
+                    //    revert: true,
+                    //    scope: 'movetobox',
+                    //    zIndex: ++PrimeFaces.zindex
+                    //});
 
-                                moveToBox([
-                                    {name: 'property', value: property}
-                                    , {name: 'droppedColumnId', value: droppedColumnId}
-                                    , {name: 'dropPos', value: dropPos}
-                                ]);
-                            }
-                        });
-                    }
-
-                    $(function () {
-                        initDND();
+                    $("#productBacklogItemList").sortable({
+                        stop: function (event, ui) {
+                            sortProductBacklogItems();
+                        }
                     });
+                    $("#productBacklogItemList").disableSelection();
+
+
+                    //$('.productBacklogBoxBlockDroppable').droppable({
+                    //    hoverClass: 'productBacklogBoxBlockDroppableHover',
+                    //    tolerance: 'pointer',
+                    //    scope: 'movetobox',
+                    //    drop: function (event, ui) {
+                    //        var property = ui.draggable.find('.ui-treenode-label').text(),
+                    //        droppedColumnId = $(this).parents('th:first').attr('id'),
+                    //        dropPos = $(this).hasClass('dropleft') ? 0 : 1;
+                    //
+                    //        moveToBox([
+                    //            {name: 'property', value: property}
+                    //            , {name: 'droppedColumnId', value: droppedColumnId}
+                    //            , {name: 'dropPos', value: dropPos}
+                    //        ]);
+                    //    }
+                    //});
+
                 </script>
             </p:panel>
         </div>
