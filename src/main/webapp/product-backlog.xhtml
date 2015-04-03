@@ -10,6 +10,7 @@
         <h:outputStylesheet name="css/product-backlog.css" library="whisperio" />
         <h:outputScript name="js/jquery-2.1.3.js" library="jquery" target="head"/>
         <h:outputScript name="js/jquery-ui-1.11.14.js" library="jquery" target="head"/>
+        <h:outputScript name="js/product-backlog.js" library="whisperio" target="head"/>
 
         <!-- Product Backlog boxes -->
         <div class="EmptyBox20"></div>
@@ -104,7 +105,7 @@
                             <div class="Container10 Responsive">
                                 <h:outputText value="#{item.backlogItemType}"/>
                             </div>
-                            <div class="Container60 Responsive">
+                            <div class="Container50 Responsive">
                                 <h:outputText value="#{item.title}" />
                             </div>
                             <div class="Container10 Responsive TexAlCenter">
@@ -113,55 +114,32 @@
                             <div class="Container10 Responsive TexAlCenter">
                                 <h:outputText value="#{item.estimation.name}"/>
                             </div>
+                            <div class="Container10 Responsive TexAlCenter">
+                                <p:commandButton id="itemActionButton#{item.id}" icon="fa icon-cog-alt white"/>
+                                <p:menu overlay="true" trigger="itemActionButton#{item.id}" my="left top" at="left bottom">
+                                    <p:submenu label="Ajax">
+                                        <p:menuitem value="Save"  />
+                                        <p:menuitem value="Update"  />
+                                    </p:submenu>
+                                </p:menu>
+
+                            </div>
                         </li>
                     </c:forEach>
+
                 </ul>
 
-                <!-- Move between different boxes -->
-                <p:remoteCommand name="moveToBox" actionListener="#{productBacklogBean.moveProductBacklogItem()}" update="productBacklogItems"/>
+                <!-- Sort product backlog items inside a box -->
                 <p:remoteCommand name="sortProductBacklogItems" actionListener="#{productBacklogBean.sortProductBacklogItem()}" update="productBacklogItems"/>
 
                 <script type="text/javascript">
-
-                    //$('.productBacklogItem').draggable({
-                    //    revert: true,
-                    //    scope: 'movetobox',
-                    //    zIndex: ++PrimeFaces.zindex
-                    //});
-
                     $("#productBacklogItemList").sortable({
                         stop: function (event, ui) {
-                            var productBacklogItemsOrder = "";
-                            var prefix = "";
-                            var productBacklogItems = document.getElementById("productBacklogItemList");
-                            productBacklogItems = productBacklogItems.children;
-                            for (i = 0; i &lt; productBacklogItems.length; i++) {
-                                productBacklogItemsOrder = productBacklogItemsOrder + prefix + productBacklogItems[i].id;
-                                prefix = ";";
-                            }
-                            console.log(productBacklogItemsOrder);
-                            sortProductBacklogItems([{name: 'productBacklogItemsOrder', value: productBacklogItemsOrder}]);
+                            sortProductBacklogItems([{name: 'productBacklogItemsOrder', value: constructProductBacklogItemsOrder()}]);
                         }
                     });
 
                     $("#productBacklogItemList").disableSelection();
-                    //$('.productBacklogBoxBlockDroppable').droppable({
-                    //    hoverClass: 'productBacklogBoxBlockDroppableHover',
-                    //    tolerance: 'pointer',
-                    //    scope: 'movetobox',
-                    //    drop: function (event, ui) {
-                    //        var property = ui.draggable.find('.ui-treenode-label').text(),
-                    //        droppedColumnId = $(this).parents('th:first').attr('id'),
-                    //        dropPos = $(this).hasClass('dropleft') ? 0 : 1;
-                    //
-                    //        moveToBox([
-                    //            {name: 'property', value: property}
-                    //            , {name: 'droppedColumnId', value: droppedColumnId}
-                    //            , {name: 'dropPos', value: dropPos}
-                    //        ]);
-                    //    }
-                    //});
-
                 </script>
             </p:panel>
         </div>
