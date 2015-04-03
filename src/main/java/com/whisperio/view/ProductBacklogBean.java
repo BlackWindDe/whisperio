@@ -57,11 +57,7 @@ public class ProductBacklogBean implements Serializable {
      */
     public void moveProductBacklogItem() {
         FacesContext context = FacesContext.getCurrentInstance();
-        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        String property = params.get("property");
-        String droppedColumnId = params.get("droppedColumnId");
-        String dropPos = params.get("dropPos");
-        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Call", "Property :" + property + "; DroppedColumnId :" + droppedColumnId + "; DropPos :" + dropPos));
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Call", "Move Items method called"));
     }
 
     /**
@@ -69,7 +65,9 @@ public class ProductBacklogBean implements Serializable {
      */
     public void sortProductBacklogItem() {
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Call", "Sort Items method called"));
+        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        String productBacklogItemsOrder = params.get("productBacklogItemsOrder");
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Call", "Sort Items method called, Order : " + productBacklogItemsOrder));
     }
 
     /**

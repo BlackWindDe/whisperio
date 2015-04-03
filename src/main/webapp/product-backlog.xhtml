@@ -97,7 +97,7 @@
             <p:panel id="productBacklogItems">
                 <ul id="productBacklogItemList" style="padding-left: 0px;">
                     <c:forEach items="#{productBacklogBean.selectedBoxBacklogItems}" var="item">
-                        <li class="Container100 Responsive productBacklogItem">
+                        <li id="#{item.id}" class="Container100 Responsive productBacklogItem">
                             <div class="Container10 Responsive">
                                 <h:outputText value="##{item.id}"/>
                             </div>
@@ -131,12 +131,20 @@
 
                     $("#productBacklogItemList").sortable({
                         stop: function (event, ui) {
-                            sortProductBacklogItems();
+                            var productBacklogItemsOrder = "";
+                            var prefix = "";
+                            var productBacklogItems = document.getElementById("productBacklogItemList");
+                            productBacklogItems = productBacklogItems.children;
+                            for (i = 0; i &lt; productBacklogItems.length; i++) {
+                                productBacklogItemsOrder = productBacklogItemsOrder + prefix + productBacklogItems[i].id;
+                                prefix = ";";
+                            }
+                            console.log(productBacklogItemsOrder);
+                            sortProductBacklogItems([{name: 'productBacklogItemsOrder', value: productBacklogItemsOrder}]);
                         }
                     });
+
                     $("#productBacklogItemList").disableSelection();
-
-
                     //$('.productBacklogBoxBlockDroppable').droppable({
                     //    hoverClass: 'productBacklogBoxBlockDroppableHover',
                     //    tolerance: 'pointer',
