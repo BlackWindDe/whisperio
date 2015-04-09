@@ -53,11 +53,63 @@ public class ProductBacklogBean implements Serializable {
     }
 
     /**
-     * Move Product Backlog Item to an another box.
+     * Move Product Backlog Item to sandbox.
+     *
+     * @param item Product backlog item to move to sandbox.
      */
-    public void moveProductBacklogItem() {
+    public void moveToSandbox(BacklogItem item) {
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Call", "Move Items method called"));
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Call", "Move to sandbox : #" + item.getId() + " " + item.getTitle()));
+    }
+    
+    /**
+     * Move Product Backlog Item to icebox.
+     *
+     * @param item Product backlog item to move to icebox.
+     */
+    public void moveToIcebox(BacklogItem item) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Call", "Move to icebox : #" + item.getId() + " " + item.getTitle()));
+    }
+    
+    /**
+     * Move Product Backlog Item to an culturebox.
+     *
+     * @param item Product backlog item to move to culturebox.
+     */
+    public void moveToCulturebox(BacklogItem item) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Call", "Move to culture box : #" + item.getId() + " " + item.getTitle()));
+    }
+    
+    /**
+     * Move Product Backlog Item to an startbox.
+     *
+     * @param item Product backlog item to move to startbox.
+     */
+    public void moveToStartbox(BacklogItem item) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Call", "Move to startbox : #" + item.getId() + " " + item.getTitle()));
+    }
+    
+    /**
+     * Move Product Backlog Item to an sprintbox.
+     *
+     * @param item Product backlog item to move to sprintbox.
+     */
+    public void moveToSprintbox(BacklogItem item) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Call", "Move to sprint : #" + item.getId() + " " + item.getTitle()));
+    }
+    
+    /**
+     * Move Product Backlog Item to an harvestbox.
+     *
+     * @param item Product backlog item to move to harvestbox.
+     */
+    public void moveToHarvestbox(BacklogItem item) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Call", "Move to harvestbox : #" + item.getId() + " " + item.getTitle()));
     }
 
     /**

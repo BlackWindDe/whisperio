@@ -78,6 +78,15 @@
     margin-right: 0px;
 }
 
+#productBacklogItemList{
+    padding-left: 0px;
+}
+
+.itemActionButton{
+    text-decoration: none;
+    margin-right: 0px;
+}
+
 .productBacklogItem{
     background-color: #C1E1F4;
     margin-bottom: 1px;
@@ -85,4 +94,8 @@
 
 .productBacklogItem:hover{
     background-color: #00AEEF;
+}
+
+.productBacklogItemInfo{
+    margin-left: 5px;
 }

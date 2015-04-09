@@ -87,7 +87,7 @@
                 </div>
             </div>
         </div>
-
+        <!-- End of Product Backlog boxes -->
         <div class="EmptyBox20"></div>
 
         <!-- Product Backlog Items list -->
@@ -96,34 +96,37 @@
         </div>
         <div class="Container80 Responsive">
             <p:panel id="productBacklogItems">
-                <ul id="productBacklogItemList" style="padding-left: 0px;">
+                <ul id="productBacklogItemList">
                     <c:forEach items="#{productBacklogBean.selectedBoxBacklogItems}" var="item">
-                        <li id="#{item.id}" class="Container100 Responsive productBacklogItem">
-                            <div class="Container10 Responsive">
+                        <li id="#{item.id}" class="productBacklogItem">
+                            <span class="productBacklogItemInfo">
                                 <h:outputText value="##{item.id}"/>
-                            </div>
-                            <div class="Container10 Responsive">
+                            </span>
+                            <span class="productBacklogItemInfo">
                                 <h:outputText value="#{item.backlogItemType}"/>
-                            </div>
-                            <div class="Container50 Responsive">
+                            </span>
+                            <span class="productBacklogItemInfo">
                                 <h:outputText value="#{item.title}" />
-                            </div>
-                            <div class="Container10 Responsive TexAlCenter">
+                            </span>
+                            <span class="productBacklogItemInfo TexAlCenter">
                                 <h:outputText value="#{item.businessValue.name}"/>
-                            </div>
-                            <div class="Container10 Responsive TexAlCenter">
+                            </span>
+                            <span class="productBacklogItemInfo TexAlCenter">
                                 <h:outputText value="#{item.estimation.name}"/>
-                            </div>
-                            <div class="Container10 Responsive TexAlCenter">
-                                <p:commandButton id="itemActionButton#{item.id}" icon="fa icon-cog-alt white"/>
+                            </span>
+                            <span class="productBacklogItemInfo TexAlCenter">
+                                <p:commandLink id="itemActionButton#{item.id}" class="itemActionButton fa icon-cog-alt white"/>
                                 <p:menu overlay="true" trigger="itemActionButton#{item.id}" my="left top" at="left bottom">
-                                    <p:submenu label="Ajax">
-                                        <p:menuitem value="Save"  />
-                                        <p:menuitem value="Update"  />
+                                    <p:submenu label="Move To">
+                                        <p:menuitem value="SandBox" action="#{productBacklogBean.moveToSandbox(item)}"/>
+                                        <p:menuitem value="IceBox" action="#{productBacklogBean.moveToIcebox(item)}"/>
+                                        <p:menuitem value="CultureBox" action="#{productBacklogBean.moveToCulturebox(item)}"/>
+                                        <p:menuitem value="StartBox" action="#{productBacklogBean.moveToStartbox(item)}"/>
+                                        <p:menuitem value="SprintBox" action="#{productBacklogBean.moveToSprintbox(item)}"/>
+                                        <p:menuitem value="HarvestBox" action="#{productBacklogBean.moveToHarvestbox(item)}"/>
                                     </p:submenu>
                                 </p:menu>
-
-                            </div>
+                            </span>
                         </li>
                     </c:forEach>
 
@@ -133,10 +136,9 @@
                 <p:remoteCommand name="sortProductBacklogItems" actionListener="#{productBacklogBean.sortProductBacklogItem()}" update="productBacklogItems"/>
 
                 <script type="text/javascript">
-                    $("#productBacklogItemList").sortable({
-                        stop: function (event, ui) {
-                            sortProductBacklogItems([{name: 'productBacklogItemsOrder', value: constructProductBacklogItemsOrder()}]);
-                        }
+                            $("#productBacklogItemList").sortable({                         stop: function (event, ui) {
+                    sortProductBacklogItems([{name: 'productBacklogItemsOrder', value: constructProductBacklogItemsOrder()}]);
+                    }
                     });
 
                     $("#productBacklogItemList").disableSelection();
