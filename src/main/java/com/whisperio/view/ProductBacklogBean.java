@@ -61,7 +61,7 @@ public class ProductBacklogBean implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Call", "Move to sandbox : #" + item.getId() + " " + item.getTitle()));
     }
-    
+
     /**
      * Move Product Backlog Item to icebox.
      *
@@ -71,7 +71,7 @@ public class ProductBacklogBean implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Call", "Move to icebox : #" + item.getId() + " " + item.getTitle()));
     }
-    
+
     /**
      * Move Product Backlog Item to an culturebox.
      *
@@ -81,7 +81,7 @@ public class ProductBacklogBean implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Call", "Move to culture box : #" + item.getId() + " " + item.getTitle()));
     }
-    
+
     /**
      * Move Product Backlog Item to an startbox.
      *
@@ -91,7 +91,7 @@ public class ProductBacklogBean implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Call", "Move to startbox : #" + item.getId() + " " + item.getTitle()));
     }
-    
+
     /**
      * Move Product Backlog Item to an sprintbox.
      *
@@ -101,7 +101,7 @@ public class ProductBacklogBean implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Call", "Move to sprint : #" + item.getId() + " " + item.getTitle()));
     }
-    
+
     /**
      * Move Product Backlog Item to an harvestbox.
      *
@@ -180,6 +180,40 @@ public class ProductBacklogBean implements Serializable {
      */
     public void useHarvestbox() {
         this.selectedBox = ProductBacklogBox.HARVESTBOX;
+    }
+
+    /**
+     * Get product backlog item logo.
+     *
+     * @param item Item to display
+     * @return Logo of the product item depending on it type.
+     */
+    public String getProductBacklogItemTypeLogo(BacklogItem item) {
+        String logoIcon = "";
+        switch (item.getBacklogItemType()) {
+            case IDEA:
+                logoIcon = "icon-lightbulb";
+                break;
+            case EPIC:
+                logoIcon = "icon-flash";
+                break;
+            case USER_STORY:
+                logoIcon = "icon-user";
+                break;
+            case TECHNICAL_STORY:
+                logoIcon = "icon-terminal";
+                break;
+            case BUG_RESOLUTION:
+                logoIcon = "icon-bug";
+                break;
+            case TECHNICAL_DEBT:
+                logoIcon = "icon-money";
+                break;
+            case SPIKE:
+                logoIcon = "icon-book";
+                break;
+        }
+        return logoIcon;
     }
 
     /**
