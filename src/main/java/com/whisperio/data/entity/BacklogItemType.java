@@ -23,37 +23,32 @@ public enum BacklogItemType {
     IDEA, //0
 
     /**
-     * The highest level of Backlog Item.
-     */
-    FEATURE, //1
-
-    /**
      * Big Story.
      */
-    EPIC, //2
+    EPIC, //1
 
     /**
      * Functional Story. (Visibility + added value)
      */
-    USER_STORY, //3
+    USER_STORY, //2
 
     /**
      * Technical Story (Added Value)
      */
-    TECHNICAL_STORY, //4
+    TECHNICAL_STORY, //3
 
     /**
      * Story promoted from the issue tracker.
      */
-    BUG_RESOLUTION, //5
+    BUG_RESOLUTION, //4
 
     /**
      * Technical Debt (Test, Documentation missing etc...)
      */
-    TECHNICAL_DEBT, //6
+    TECHNICAL_DEBT, //5
 
     /**
      * Backlog Items used for studying some subjects.
      */
-    SPIKE //7
+    SPIKE //6
 }
